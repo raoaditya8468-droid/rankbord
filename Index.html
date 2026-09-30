@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RankBoard — Discover What's Rising</title>
+
+<style>
+:root {
+  --bg: #0b1020;
+  --panel: #131b2f;
+  --panel2: #19243b;
+  --text: #f4f7ff;
+  --muted: #9aa8c2;
+  --accent: #7c5cff;
+  --accent2: #21c8a5;
+  --border: rgba(255,255,255,.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1120px, 92%);
+  margin: auto;
+}
+
+/* Header */
+header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(11,16,32,.95);
+}
+
+.navbar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent), #4d9cff);
+  font-size: 19px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+.submit-btn {
+  background: var(--accent);
+  color: white;
+  border: 0;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  padding: 65px 0 42px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, rgba(124,92,255,.18), transparent 60%);
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #b9adff;
+  background: rgba(124,92,255,.13);
+  border: 1px solid rgba(124,92,255,.3);
+  border-radius: 30px;
+  padding: 8px 13px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: clamp(35px, 6vw, 62px);
+  line-height: 1.08;
+  margin: 20px auto 14px;
+  max-width: 780px;
+  letter-spacing: -2px;
+}
+
+.hero h1 span {
+  color: #a997ff;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.search-wrap {
+  max-width: 650px;
+  margin: 28px auto 0;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 14px;
+}
+
+.search-wrap input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.search-wrap button {
+  border: 0;
+  border-radius: 9px;
+  padding: 0 20px;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Main content */
+main {
+  padding: 25px 0 70px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 38px;
+}
+
+.stat-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.stat-card span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  margin: 0 0 7px;
+  font-size: 25px;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--muted);
+  border-radius: 30px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: rgba(124,92,255,.18);
+  color: white;
+  border-color: rgba(124,92,255,.6);
+}
+
+/* Listing cards */
+.listings {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.listing {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  transition: .2s ease;
+}
+
+.listing:hover {
+  transform: translateY(-3px);
+  border-color: rgba(124,92,255,.55);
+  background: var(--panel2);
+}
+
+.rank {
+  min-width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,.07);
+  color: #c6d0e5;
+  font-weight: 800;
+}
+
+.listing-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.listing-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+
+.listing h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.category {
+  display: inline-block;
+  background: rgba(33,200,165,.12);
+  color: #6ce3c8;
+  padding: 5px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.listing p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0 0 13px;
+}
+
+.listing-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.votes {
+  color: #b9c6df;
+  font-size: 12px;
+}
+
+.details-btn {
+  background: rgba(124,92,255,.16);
+  color: #c8bcff;
+  border: 1px solid rgba(124,92,255,.3);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  padding: 35px;
+  color: var(--muted);
+  background: var(--panel);
+  border-radius: 14px;
+}
+
+/* Info section */
+.info-box {
+  margin-top: 45px;
+  padding: 26px;
+  background: linear-gradient(120deg, rgba(124,92,255,.16), rgba(33,200,165,.07));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.info-box h2 {
+  margin: 0 0 10px;
+}
+
+.info-box p {
+  max-width: 650px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 25px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .nav-links {
+    display: none;
+  }
+
+  .navbar {
+    min-height: 64px;
+  }
+
+  .hero {
+    padding: 48px 0 30px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 14px 7px;
+  }
+
+  .stat-card strong {
+    font-size: 20px;
+  }
+
+  .stat-card span {
+    font-size: 11px;
+  }
+
+  .listings {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .search-wrap button {
+    padding: 0 13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container navbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">R</span>
+      <span>RankBoard</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#categories">Categories</a>
+      <a href="#how-it-works">How It Works</a>
+    </nav>
+
+    <button class="submit-btn" onclick="showSubmitMessage()">Submit Listing</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Discover • Explore • Compare</span>
+    <h1>Discover What's <span>Rising.</span></h1>
+    <p>
+      Explore interesting websites, digital products and projects.
+      Browse categories and discover what's getting noticed.
+    </p>
+
+    <div class="search-wrap">
+      <input id="searchInput" type="search" placeholder="Search websites, products or categories..." oninput="filterListings()">
+      <button onclick="filterListings()">Search</button>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <section class="stats">
+    <div class="stat-card">
+      <strong id="totalCount">10</strong>
+      <span>Demo Listings</span>
+    </div>
+    <div class="stat-card">
+      <strong>05</strong>
+      <span>Categories</span>
+    </div>
+    <div class="stat-card">
+      <strong>24/7</strong>
+      <span>Explore Anytime</span>
+    </div>
+  </section>
+
+  <section id="leaderboard">
+    <div class="section-heading">
+      <div>
+        <h2>Explore the Board</h2>
+        <p>Sample listings for the RankBoard prototype.</p>
+      </div>
+    </div>
+
+    <div class="filters" id="categories">
+      <button class="filter-btn active" data-category="All" onclick="setCategory('All', this)">All</button>
+      <button class="filter-btn" data-category="Technology" onclick="setCategory('Technology', this)">Technology</button>
+      <button class="filter-btn" data-category="Education" onclick="setCategory('Education', this)">Education</button>
+      <button class="filter-btn" data-category="Design" onclick="setCategory('Design', this)">Design</button>
+      <button class="filter-btn" data-category="Productivity" onclick="setCategory('Productivity', this)">Productivity</button>
+      <button class="filter-btn" data-category="Community" onclick="setCategory('Community', this)">Community</button>
+    </div>
+
+    <div class="listings" id="listingGrid"></div>
+    <div class="empty" id="emptyMessage">No matching listings found. Try another search or category.</div>
+  </section>
+
+  <section class="info-box" id="how-it-works">
+    <h2>How RankBoard Works</h2>
+    <p>
+      RankBoard is a discovery-board concept where people can browse
+      listings by category, search for projects and explore what is
+      available. This version uses sample data only. Rankings and
+      submissions are demonstrations, not live user activity.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 RankBoard. Demo project.</span>
+    <span>About · Contact · Rules</span>
+  </div>
+</footer>
+
+<script>
+const listings = [
+  {
+    name: "BuildNotes",
+    category: "Education",
+    description: "A sample learning hub for engineering notes, study resources and quick references.",
+    votes: 248
+  },
+  {
+    name: "PixelCraft Studio",
+    category: "Design",
+    description: "A concept portfolio for creative design resources and visual projects.",
+    votes: 219
+  },
+  {
+    name: "TaskFlow",
+    category: "Productivity",
+    description: "A sample workspace concept for organizing tasks and daily activities.",
+    votes: 187
+  },
+  {
+    name: "CodeNest",
+    category: "Technology",
+    description: "A demo collection of beginner-friendly coding projects and resources.",
+    votes: 166
+  },
+  {
+    name: "StudyCircle",
+    category: "Community",
+    description: "A concept community for learners to share ideas and study resources.",
+    votes: 153
+  },
+  {
+    name: "TechOrbit",
+    category: "Technology",
+    description: "A sample directory for discovering technology projects and tools.",
+    votes: 141
+  },
+  {
+    name: "DesignDeck",
+    category: "Design",
+    description: "A collection concept for design inspiration, layouts and creative work.",
+    votes: 128
+  },
+  {
+    name: "LearnSprint",
+    category: "Education",
+    description: "A sample platform concept for short lessons and learning checklists.",
+    votes: 116
+  },
+  {
+    name: "FocusBoard",
+    category: "Productivity",
+    description: "A simple concept for planning goals, projects and personal workflows.",
+    votes: 98
+  },
+  {
+    name: "MakerSpace",
+    category: "Community",
+    description: "A demo space for showcasing personal projects and creative experiments.",
+    votes: 82
+  }
+];
+
+let selectedCategory = "All";
+
+function renderListings() {
+  const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+  const grid = document.getElementById("listingGrid");
+  const emptyMessage = document.getElementById("emptyMessage");
+
+  const filtered = listings
+    .filter(item => selectedCategory === "All" || item.category === selectedCategory)
+    .filter(item =>
+      item.name.toLowerCase().includes(searchTerm) ||
+      item.category.toLowerCase().includes(searchTerm) ||
+      item.description.toLowerCase().includes(searchTerm)
+    )
+    .sort((a, b) => b.votes - a.votes);
+
+  grid.innerHTML = "";
+
+  filtered.forEach((item, index) => {
+    const card = document.createElement("article");
+    card.className = "listing";
+
+    card.innerHTML = `
+      <div class="rank">#${index + 1}</div>
+      <div class="listing-content">
+        <div class="listing-top">
+          <h3>${item.name}</h3>
+          <span class="category">${item.category}</span>
+        </div>
+        <p>${item.description}</p>
+        <div class="listing-bottom">
+          <span class="votes">★ ${item.votes} demo points</span>
+          <button class="details-btn" onclick="showDetails('${item.name}')">View Details</button>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  emptyMessage.style.display = filtered.length ? "none" : "block";
+}
+
+function setCategory(category, button) {
+  selectedCategory = category;
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  renderListings();
+}
+
+function filterListings() {
+  renderListings();
+}
+
+function showDetails(name) {
+  const item = listings.find(listing => listing.name === name);
+
+  if (item) {
+    alert(
+      item.name + "\n\nCategory: " + item.category +
+      "\n\n" + item.description +
+      "\n\nThis is sample demo content."
+    );
+  }
+}
+
+function showSubmitMessage() {
+  alert("Listing submission will be added in the next development step. This demo does not collect or send information.");
+}
+
+document.getElementById("totalCount").textContent = listings.length;
+renderListings();
+</script>
+
+</body>
+</html>  (
