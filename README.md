@@ -1,2 +1,2 @@
-# rankbord
-RankBord
+# rankboard
+RankBoard
