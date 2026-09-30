@@ -654,12 +654,62 @@ function showDetails(name) {
 }
 
 function showSubmitMessage() {
-  alert("Listing submission will be added in the next development step. This demo does not collect or send information.");
+  const name = prompt("Enter listing name:");
+
+  if (!name || !name.trim()) {
+    alert("Listing name is required.");
+    return;
+  }
+
+  const category = prompt(
+    "Choose category: Technology, Education, Design, Productivity, Community"
+  );
+
+  const allowedCategories = [
+    "Technology",
+    "Education",
+    "Design",
+    "Productivity",
+    "Community"
+  ];
+
+  const selectedCategory = allowedCategories.find(
+    item => item.toLowerCase() === (category || "").trim().toLowerCase()
+  );
+
+  if (!selectedCategory) {
+    alert("Please enter one of the available categories.");
+    return;
+  }
+
+  const description = prompt("Write a short description:");
+
+  if (!description || !description.trim()) {
+    alert("Description is required.");
+    return;
+  }
+
+  listings.push({
+    name: name.trim(),
+    category: selectedCategory,
+    description: description.trim(),
+    votes: 0
+  });
+
+  document.getElementById("totalCount").textContent = listings.length;
+
+  selectedCategory = "All";
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  document.querySelector('.filter-btn[data-category="All"]')
+    .classList.add("active");
+
+  document.getElementById("searchInput").value = "";
+
+  renderListings();
+
+  alert("Your demo listing has been added to the board!");
 }
-
-document.getElementById("totalCount").textContent = listings.length;
-renderListings();
-</script>
-
-</body>
-</html>  (
