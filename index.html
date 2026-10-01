@@ -1,611 +1,673 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
-<title>RankBoard — Discover. Compare. Rank.</title>
+/* Dark text for login and email fields */
+input,
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+  color: #111827 !important;
+  background-color: #ffffff !important;
+  caret-color: #111827;
+}
+
+input::placeholder {
+  color: #4b5563 !important;
+  opacity: 1;
+}
+
 <style>
 :root {
-  --bg:#0b1020;
-  --panel:#121a2e;
-  --panel2:#18233b;
-  --line:#293653;
-  --text:#f4f7ff;
-  --muted:#a8b3cc;
-  --blue:#6c8cff;
-  --cyan:#5eead4;
-  --danger:#ff7285;
-  --radius:18px;
+  --bg: #0b1020;
+  --panel: #131b2f;
+  --panel2: #19243b;
+  --text: #f4f7ff;
+  --muted: #9aa8c2;
+  --accent: #7c5cff;
+  --accent2: #21c8a5;
+  --border: rgba(255,255,255,.09);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:radial-gradient(circle at 80% 0%,#1b2b51 0,transparent 35%),var(--bg);
-  color:var(--text);
+
+* {
+  box-sizing: border-box;
 }
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-.container{width:min(1120px,92%);margin:auto}
-header{
-  position:sticky;top:0;z-index:20;
-  background:rgba(11,16,32,.92);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
-.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:11px;font-size:21px;font-weight:800;letter-spacing:-.5px}
-.logo{
-  width:39px;height:39px;border-radius:12px;
-  display:grid;place-items:center;
-  color:#07101e;font-weight:900;
-  background:linear-gradient(135deg,var(--cyan),var(--blue));
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
-.nav-actions{display:flex;gap:10px;align-items:center}
-.btn{
-  border:1px solid var(--line);border-radius:12px;
-  padding:11px 15px;background:var(--panel2);
-  color:var(--text);font-weight:700;
-  transition:.2s;
+
+.container {
+  width: min(1120px, 92%);
+  margin: auto;
 }
-.btn:hover{transform:translateY(-1px);border-color:var(--blue)}
-.btn-primary{background:linear-gradient(135deg,#6c8cff,#8c70ff);border:0;color:white}
-.btn-small{padding:8px 11px;font-size:13px}
-.hero{padding:66px 0 35px;text-align:center}
-.eyebrow{
-  display:inline-block;padding:7px 12px;border:1px solid #34446a;
-  border-radius:30px;color:var(--cyan);font-size:12px;font-weight:800;
-  letter-spacing:1px;text-transform:uppercase;background:#111d34;
+
+/* Header */
+header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(11,16,32,.95);
 }
-h1{font-size:clamp(36px,7vw,66px);line-height:1.04;letter-spacing:-2px;margin:20px 0 15px}
-.gradient{background:linear-gradient(90deg,#70f0dc,#8298ff,#c19aff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{max-width:650px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.7}
-.hero-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:25px}
-.search-wrap{max-width:690px;margin:32px auto 0;position:relative}
-.search-wrap input{
-  width:100%;padding:18px 20px 18px 48px;border-radius:15px;
-  border:1px solid var(--line);background:#121a2e;color:var(--text);
-  outline:none;font-size:15px;
+
+.navbar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
 }
-.search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #6c8cff22}
-.search-icon{position:absolute;left:17px;top:16px;color:var(--muted);font-size:19px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px auto 0;max-width:650px}
-.stat{padding:17px;border:1px solid var(--line);background:#111a2d;border-radius:15px}
-.stat strong{display:block;font-size:24px}
-.stat span{color:var(--muted);font-size:12px}
-.section{padding:35px 0 60px}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:20px}
-.section-head h2{margin:0;font-size:27px}
-.section-head p{margin:7px 0 0;color:var(--muted);font-size:14px}
-.controls{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
-select{
-  background:var(--panel);color:var(--text);border:1px solid var(--line);
-  padding:10px 12px;border-radius:11px;outline:none;
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -.5px;
 }
-.categories{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px}
-.chip{
-  border:1px solid var(--line);background:#121a2e;color:var(--muted);
-  border-radius:30px;padding:9px 14px;font-size:13px;font-weight:700;
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent), #4d9cff);
+  font-size: 19px;
 }
-.chip.active,.chip:hover{background:#293b67;border-color:#6c8cff;color:white}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.card{
-  background:linear-gradient(145deg,#151f35,#10182a);
-  border:1px solid var(--line);border-radius:var(--radius);
-  padding:19px;min-width:0;display:flex;flex-direction:column;
-  transition:.2s;position:relative;overflow:hidden;
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 14px;
 }
-.card:hover{transform:translateY(-3px);border-color:#526da9}
-.card-top{display:flex;align-items:center;gap:12px}
-.item-icon{
-  width:48px;height:48px;border-radius:14px;display:grid;place-items:center;
-  background:#263657;font-size:23px;flex-shrink:0;
+
+.nav-links a:hover {
+  color: white;
 }
-.card h3{font-size:17px;margin:0 0 5px;overflow-wrap:anywhere}
-.category-label{color:var(--cyan);font-size:12px;font-weight:700}
-.description{color:var(--muted);font-size:13px;line-height:1.6;margin:15px 0 18px;min-height:42px}
-.card-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto}
-.points{font-weight:800;font-size:14px}
-.points small{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:3px}
-.card-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
-.vote-btn{border:1px solid #3b4e78;background:#202e4c;color:#dce6ff;border-radius:10px;padding:8px 10px;font-weight:700}
-.vote-btn.voted{background:#174b48;border-color:#3b9e91;color:#b9fff2}
-.empty{
-  grid-column:1/-1;text-align:center;padding:45px 20px;
-  border:1px dashed var(--line);border-radius:16px;color:var(--muted)
+
+.submit-btn {
+  background: var(--accent);
+  color: white;
+  border: 0;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
 }
-footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:13px}
-.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.modal-backdrop{
-  position:fixed;inset:0;background:#020617c9;z-index:50;
-  display:none;align-items:center;justify-content:center;padding:16px;
+
+/* Hero */
+.hero {
+  padding: 65px 0 42px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, rgba(124,92,255,.18), transparent 60%);
 }
-.modal-backdrop.open{display:flex}
-.modal{
-  width:min(520px,100%);max-height:90vh;overflow:auto;
-  background:#151f35;border:1px solid #344464;border-radius:20px;
-  padding:23px;box-shadow:0 25px 80px #0008;
+
+.eyebrow {
+  display: inline-block;
+  color: #b9adff;
+  background: rgba(124,92,255,.13);
+  border: 1px solid rgba(124,92,255,.3);
+  border-radius: 30px;
+  padding: 8px 13px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
 }
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
-.modal-head h2{font-size:22px;margin:0}
-.close-btn{border:0;background:#293653;color:white;width:35px;height:35px;border-radius:10px;font-size:21px}
-.detail-icon{font-size:35px;margin-bottom:8px}
-.detail-category{color:var(--cyan);font-size:13px;font-weight:700}
-.detail-description{color:#d0d9ed;line-height:1.7}
-.detail-stats{display:flex;gap:10px;flex-wrap:wrap;margin:17px 0}
-.detail-stat{background:#202e49;padding:12px 14px;border-radius:12px;font-size:13px}
-.form-field{margin-bottom:14px}
-.form-field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
-.form-field input,.form-field textarea,.form-field select{
-  width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;
-  background:#0e1729;color:white;outline:none;
+
+.hero h1 {
+  font-size: clamp(35px, 6vw, 62px);
+  line-height: 1.08;
+  margin: 20px auto 14px;
+  max-width: 780px;
+  letter-spacing: -2px;
 }
-.form-field textarea{min-height:95px;resize:vertical}
-.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--blue)}
-.form-note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}
-.toast{
-  position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);
-  background:#e9fff9;color:#09251f;padding:12px 18px;border-radius:12px;
-  font-weight:700;font-size:14px;z-index:80;opacity:0;pointer-events:none;
-  transition:.25s;box-shadow:0 10px 30px #0005;max-width:90%;text-align:center;
+
+.hero h1 span {
+  color: #a997ff;
 }
-.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){
-  .nav{height:64px}.brand{font-size:18px}.nav-actions .btn{padding:9px 10px;font-size:12px}
-  .hero{padding:48px 0 25px}h1{letter-spacing:-1px}
-  .hero p{font-size:15px}.stats{gap:8px}.stat{padding:13px 7px}.stat strong{font-size:20px}
-  .stat span{font-size:10px}.grid{grid-template-columns:1fr}
-  .section-head{align-items:start;flex-direction:column}
-  .card{padding:16px}
+
+.hero p {
+  max-width: 600px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.search-wrap {
+  max-width: 650px;
+  margin: 28px auto 0;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 14px;
+}
+
+.search-wrap input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.search-wrap button {
+  border: 0;
+  border-radius: 9px;
+  padding: 0 20px;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Main content */
+main {
+  padding: 25px 0 70px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 38px;
+}
+
+.stat-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.stat-card span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  margin: 0 0 7px;
+  font-size: 25px;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--muted);
+  border-radius: 30px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: rgba(124,92,255,.18);
+  color: white;
+  border-color: rgba(124,92,255,.6);
+}
+
+/* Listing cards */
+.listings {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.listing {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  transition: .2s ease;
+}
+
+.listing:hover {
+  transform: translateY(-3px);
+  border-color: rgba(124,92,255,.55);
+  background: var(--panel2);
+}
+
+.rank {
+  min-width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,.07);
+  color: #c6d0e5;
+  font-weight: 800;
+}
+
+.listing-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.listing-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+
+.listing h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.category {
+  display: inline-block;
+  background: rgba(33,200,165,.12);
+  color: #6ce3c8;
+  padding: 5px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.listing p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0 0 13px;
+}
+
+.listing-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.votes {
+  color: #b9c6df;
+  font-size: 12px;
+}
+
+.details-btn {
+  background: rgba(124,92,255,.16);
+  color: #c8bcff;
+  border: 1px solid rgba(124,92,255,.3);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  padding: 35px;
+  color: var(--muted);
+  background: var(--panel);
+  border-radius: 14px;
+}
+
+/* Info section */
+.info-box {
+  margin-top: 45px;
+  padding: 26px;
+  background: linear-gradient(120deg, rgba(124,92,255,.16), rgba(33,200,165,.07));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.info-box h2 {
+  margin: 0 0 10px;
+}
+
+.info-box p {
+  max-width: 650px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 25px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .nav-links {
+    display: none;
+  }
+
+  .navbar {
+    min-height: 64px;
+  }
+
+  .hero {
+    padding: 48px 0 30px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 14px 7px;
+  }
+
+  .stat-card strong {
+    font-size: 20px;
+  }
+
+  .stat-card span {
+    font-size: 11px;
+  }
+
+  .listings {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .search-wrap button {
+    padding: 0 13px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="container nav">
-    <a class="brand" href="#" aria-label="RankBoard home">
-      <span class="logo">R</span><span>RankBoard</span>
+  <div class="container navbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">R</span>
+      <span>RankBoard</span>
     </a>
-    <div class="nav-actions">
-      <button class="btn" id="browseBtn" type="button">Browse</button>
-      <button class="btn btn-primary" id="openSubmitBtn" type="button">+ Submit Listing</button>
-    </div>
+
+    <nav class="nav-links">
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#categories">Categories</a>
+      <a href="#how-it-works">How It Works</a>
+    </nav>
+
+    <button class="submit-btn" onclick="showSubmitMessage()">Submit Listing</button>
   </div>
 </header>
 
-<main>
-  <section class="hero container">
-    <span class="eyebrow">Discover what matters</span>
-    <h1>Discover. Compare.<br><span class="gradient">Find your next favorite.</span></h1>
-    <p>Explore useful websites, tools, and digital products. Search, compare community demo rankings, and discover something new.</p>
-    <div class="hero-buttons">
-      <button class="btn btn-primary" id="exploreBtn" type="button">Explore Rankings ↓</button>
-      <button class="btn" id="heroSubmitBtn" type="button">Submit a Listing +</button>
-    </div>
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Discover • Explore • Compare</span>
+    <h1>Discover What's <span>Rising.</span></h1>
+    <p>
+      Explore interesting websites, digital products and projects.
+      Browse categories and discover what's getting noticed.
+    </p>
+
     <div class="search-wrap">
-      <span class="search-icon">⌕</span>
-      <input id="searchInput" type="search" placeholder="Search websites, tools, categories..." aria-label="Search listings">
+      <input id="searchInput" type="search" placeholder="Search websites, products or categories..." oninput="filterListings()">
+      <button onclick="filterListings()">Search</button>
     </div>
-    <div class="stats">
-      <div class="stat"><strong id="totalCount">0</strong><span>Listings</span></div>
-      <div class="stat"><strong id="categoryCount">0</strong><span>Categories</span></div>
-      <div class="stat"><strong>24/7</strong><span>Discover anytime</span></div>
+  </div>
+</section>
+
+<main class="container">
+
+  <section class="stats">
+    <div class="stat-card">
+      <strong id="totalCount">10</strong>
+      <span>Demo Listings</span>
+    </div>
+    <div class="stat-card">
+      <strong>05</strong>
+      <span>Categories</span>
+    </div>
+    <div class="stat-card">
+      <strong>24/7</strong>
+      <span>Explore Anytime</span>
     </div>
   </section>
 
-  <section class="section container" id="rankings">
-    <div class="section-head">
-      <div><h2>Explore Rankings</h2><p>Browse the directory and open any listing for full details.</p></div>
-      <div class="controls">
-        <select id="sortSelect" aria-label="Sort listings">
-          <option value="rank">Sort: Top ranked</option>
-          <option value="newest">Sort: Newest</option>
-          <option value="name">Sort: Name A–Z</option>
-        </select>
+  <section id="leaderboard">
+    <div class="section-heading">
+      <div>
+        <h2>Explore the Board</h2>
+        <p>Sample listings for the RankBoard prototype.</p>
       </div>
     </div>
 
-    <div class="categories" id="categoryFilters">
-      <button class="chip active" data-category="All" type="button">All</button>
-      <button class="chip" data-category="AI Tools" type="button">AI Tools</button>
-      <button class="chip" data-category="Productivity" type="button">Productivity</button>
-      <button class="chip" data-category="Design" type="button">Design</button>
-      <button class="chip" data-category="Learning" type="button">Learning</button>
-      <button class="chip" data-category="Development" type="button">Development</button>
+    <div class="filters" id="categories">
+      <button class="filter-btn active" data-category="All" onclick="setCategory('All', this)">All</button>
+      <button class="filter-btn" data-category="Technology" onclick="setCategory('Technology', this)">Technology</button>
+      <button class="filter-btn" data-category="Education" onclick="setCategory('Education', this)">Education</button>
+      <button class="filter-btn" data-category="Design" onclick="setCategory('Design', this)">Design</button>
+      <button class="filter-btn" data-category="Productivity" onclick="setCategory('Productivity', this)">Productivity</button>
+      <button class="filter-btn" data-category="Community" onclick="setCategory('Community', this)">Community</button>
     </div>
 
-    <div class="grid" id="listingGrid"></div>
+    <div class="listings" id="listingGrid"></div>
+    <div class="empty" id="emptyMessage">No matching listings found. Try another search or category.</div>
   </section>
+
+  <section class="info-box" id="how-it-works">
+    <h2>How RankBoard Works</h2>
+    <p>
+      RankBoard is a discovery-board concept where people can browse
+      listings by category, search for projects and explore what is
+      available. This version uses sample data only. Rankings and
+      submissions are demonstrations, not live user activity.
+    </p>
+  </section>
+
 </main>
 
 <footer>
   <div class="container footer-inner">
-    <span><strong>RankBoard</strong> — Discover useful digital products.</span>
-    <span>Demo directory • Rankings are sample community points</span>
+    <span>© 2026 RankBoard. Demo project.</span>
+    <span>About · Contact · Rules</span>
   </div>
 </footer>
 
-<!-- Details popup -->
-<div class="modal-backdrop" id="detailsBackdrop" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
-  <div class="modal">
-    <div class="modal-head">
-      <h2 id="detailsTitle">Listing Details</h2>
-      <button class="close-btn" type="button" data-close="detailsBackdrop" aria-label="Close">×</button>
-    </div>
-    <div id="detailsContent"></div>
-    <button class="btn btn-primary" type="button" data-close="detailsBackdrop" style="width:100%;margin-top:12px">Done</button>
-  </div>
-</div>
-
-<!-- Submit form popup -->
-<div class="modal-backdrop" id="submitBackdrop" role="dialog" aria-modal="true" aria-labelledby="submitTitle">
-  <div class="modal">
-    <div class="modal-head">
-      <h2 id="submitTitle">Submit a Listing</h2>
-      <button class="close-btn" type="button" data-close="submitBackdrop" aria-label="Close">×</button>
-    </div>
-    <form id="submitForm">
-      <div class="form-field">
-        <label for="listingName">Website / Product name *</label>
-        <input id="listingName" maxlength="60" required placeholder="Example: My Useful Tool">
-      </div>
-      <div class="form-field">
-        <label for="listingCategory">Category *</label>
-        <select id="listingCategory" required>
-          <option value="">Choose category</option>
-          <option>AI Tools</option><option>Productivity</option><option>Design</option>
-          <option>Learning</option><option>Development</option><option>Other</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label for="listingUrl">Website URL (optional)</label>
-        <input id="listingUrl" type="url" placeholder="https://example.com">
-      </div>
-      <div class="form-field">
-        <label for="listingDescription">Short description *</label>
-        <textarea id="listingDescription" maxlength="400" required placeholder="What does this website or tool do?"></textarea>
-      </div>
-      <button class="btn btn-primary" type="submit" style="width:100%">Add Listing</button>
-      <p class="form-note">Demo mode: your listing is saved only in this browser on this device. It is not sent to a server or shown to other visitors.</p>
-    </form>
-  </div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
 <script>
-(function(){
-  "use strict";
+const listings = [
+  {
+    name: "BuildNotes",
+    category: "Education",
+    description: "A sample learning hub for engineering notes, study resources and quick references.",
+    votes: 248
+  },
+  {
+    name: "PixelCraft Studio",
+    category: "Design",
+    description: "A concept portfolio for creative design resources and visual projects.",
+    votes: 219
+  },
+  {
+    name: "TaskFlow",
+    category: "Productivity",
+    description: "A sample workspace concept for organizing tasks and daily activities.",
+    votes: 187
+  },
+  {
+    name: "CodeNest",
+    category: "Technology",
+    description: "A demo collection of beginner-friendly coding projects and resources.",
+    votes: 166
+  },
+  {
+    name: "StudyCircle",
+    category: "Community",
+    description: "A concept community for learners to share ideas and study resources.",
+    votes: 153
+  },
+  {
+    name: "TechOrbit",
+    category: "Technology",
+    description: "A sample directory for discovering technology projects and tools.",
+    votes: 141
+  },
+  {
+    name: "DesignDeck",
+    category: "Design",
+    description: "A collection concept for design inspiration, layouts and creative work.",
+    votes: 128
+  },
+  {
+    name: "LearnSprint",
+    category: "Education",
+    description: "A sample platform concept for short lessons and learning checklists.",
+    votes: 116
+  },
+  {
+    name: "FocusBoard",
+    category: "Productivity",
+    description: "A simple concept for planning goals, projects and personal workflows.",
+    votes: 98
+  },
+  {
+    name: "MakerSpace",
+    category: "Community",
+    description: "A demo space for showcasing personal projects and creative experiments.",
+    votes: 82
+  }
+];
 
-  const STORAGE_KEY = "rankboard_listings_v2";
-  const VOTE_KEY = "rankboard_votes_v2";
+let selectedCategory = "All";
 
-  const starterListings = [
-    {id:"demo-1",name:"ChatGPT",category:"AI Tools",icon:"✦",description:"An AI assistant for brainstorming, writing, learning, and exploring ideas.",url:"https://chatgpt.com",votes:128,createdAt:1},
-    {id:"demo-2",name:"Canva",category:"Design",icon:"🎨",description:"A visual design platform for creating presentations, graphics, and social content.",url:"https://www.canva.com",votes:112,createdAt:2},
-    {id:"demo-3",name:"Notion",category:"Productivity",icon:"▤",description:"A flexible workspace for notes, planning, documents, and team knowledge.",url:"https://www.notion.so",votes:97,createdAt:3},
-    {id:"demo-4",name:"Khan Academy",category:"Learning",icon:"📚",description:"Free educational lessons and practice across many subjects.",url:"https://www.khanacademy.org",votes:86,createdAt:4},
-    {id:"demo-5",name:"GitHub",category:"Development",icon:"⌘",description:"A platform for hosting code, collaborating on projects, and managing development work.",url:"https://github.com",votes:78,createdAt:5},
-    {id:"demo-6",name:"Figma",category:"Design",icon:"◈",description:"Collaborative interface design and prototyping for digital products.",url:"https://www.figma.com",votes:72,createdAt:6}
-  ];
-
+function renderListings() {
+  const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
   const grid = document.getElementById("listingGrid");
-  const searchInput = document.getElementById("searchInput");
-  const sortSelect = document.getElementById("sortSelect");
-  const totalCount = document.getElementById("totalCount");
-  const categoryCount = document.getElementById("categoryCount");
-  const detailsBackdrop = document.getElementById("detailsBackdrop");
-  const submitBackdrop = document.getElementById("submitBackdrop");
-  const detailsContent = document.getElementById("detailsContent");
-  const toast = document.getElementById("toast");
+  const emptyMessage = document.getElementById("emptyMessage");
 
-  let activeCategory = "All";
-  let listings = loadListings();
-  let votedIds = loadVotes();
+  const filtered = listings
+    .filter(item => selectedCategory === "All" || item.category === selectedCategory)
+    .filter(item =>
+      item.name.toLowerCase().includes(searchTerm) ||
+      item.category.toLowerCase().includes(searchTerm) ||
+      item.description.toLowerCase().includes(searchTerm)
+    )
+    .sort((a, b) => b.votes - a.votes);
 
-  function loadListings(){
-    try{
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if(saved){
-        const parsed = JSON.parse(saved);
-        if(Array.isArray(parsed)) return [...starterListings, ...parsed.filter(x => x && x.id && !String(x.id).startsWith("demo-"))];
-      }
-    }catch(e){}
-    return starterListings.map(item => ({...item}));
-  }
+  grid.innerHTML = "";
 
-  function saveListings(){
-    try{
-      const custom = listings.filter(item => !String(item.id).startsWith("demo-"));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(custom));
-    }catch(e){
-      showToast("Could not save in this browser. Storage may be disabled.");
-    }
-  }
-
-  function loadVotes(){
-    try{
-      const value = JSON.parse(localStorage.getItem(VOTE_KEY) || "[]");
-      return Array.isArray(value) ? value : [];
-    }catch(e){return []}
-  }
-
-  function saveVotes(){
-    try{localStorage.setItem(VOTE_KEY,JSON.stringify(votedIds))}catch(e){}
-  }
-
-  function showToast(message){
-    toast.textContent = message;
-    toast.classList.add("show");
-    clearTimeout(showToast.timer);
-    showToast.timer = setTimeout(()=>toast.classList.remove("show"),2600);
-  }
-
-  function safeText(value){
-    return String(value == null ? "" : value);
-  }
-
-  function closeModal(id){
-    document.getElementById(id).classList.remove("open");
-  }
-
-  function openModal(id){
-    document.getElementById(id).classList.add("open");
-  }
-
-  function createCard(item,index){
+  filtered.forEach((item, index) => {
     const card = document.createElement("article");
-    card.className = "card";
+    card.className = "listing";
 
-    const top = document.createElement("div");
-    top.className = "card-top";
+    card.innerHTML = `
+      <div class="rank">#${index + 1}</div>
+      <div class="listing-content">
+        <div class="listing-top">
+          <h3>${item.name}</h3>
+          <span class="category">${item.category}</span>
+        </div>
+        <p>${item.description}</p>
+        <div class="listing-bottom">
+          <span class="votes">★ ${item.votes} demo points</span>
+          <button class="details-btn" onclick="showDetails('${item.name}')">View Details</button>
+        </div>
+      </div>
+    `;
 
-    const icon = document.createElement("div");
-    icon.className = "item-icon";
-    icon.textContent = item.icon || "🌐";
-
-    const headingWrap = document.createElement("div");
-    const title = document.createElement("h3");
-    title.textContent = item.name;
-    const category = document.createElement("div");
-    category.className = "category-label";
-    category.textContent = item.category;
-    headingWrap.append(title,category);
-    top.append(icon,headingWrap);
-
-    const description = document.createElement("p");
-    description.className = "description";
-    description.textContent = item.description;
-
-    const bottom = document.createElement("div");
-    bottom.className = "card-bottom";
-
-    const points = document.createElement("div");
-    points.className = "points";
-    points.textContent = "▲ " + Number(item.votes || 0) + " points";
-    const rank = document.createElement("small");
-    rank.textContent = "Rank #" + (index+1);
-    points.appendChild(rank);
-
-    const actions = document.createElement("div");
-    actions.className = "card-actions";
-
-    const detailsButton = document.createElement("button");
-    detailsButton.type = "button";
-    detailsButton.className = "btn btn-small";
-    detailsButton.textContent = "View Details";
-    detailsButton.addEventListener("click",function(){
-      showDetails(item.id);
-    });
-
-    const voteButton = document.createElement("button");
-    voteButton.type = "button";
-    voteButton.className = "vote-btn";
-    voteButton.textContent = votedIds.includes(item.id) ? "✓ Voted" : "▲ Vote";
-    if(votedIds.includes(item.id)) voteButton.classList.add("voted");
-    voteButton.addEventListener("click",function(){
-      voteFor(item.id);
-    });
-
-    actions.append(detailsButton,voteButton);
-    bottom.append(points,actions);
-    card.append(top,description,bottom);
-    return card;
-  }
-
-  function render(){
-    const query = searchInput.value.trim().toLowerCase();
-    let filtered = listings.filter(item=>{
-      const categoryMatch = activeCategory === "All" || item.category === activeCategory;
-      const searchMatch = !query ||
-        item.name.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query);
-      return categoryMatch && searchMatch;
-    });
-
-    if(sortSelect.value === "rank"){
-      filtered.sort((a,b)=>Number(b.votes||0)-Number(a.votes||0));
-    }else if(sortSelect.value === "newest"){
-      filtered.sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0));
-    }else{
-      filtered.sort((a,b)=>a.name.localeCompare(b.name));
-    }
-
-    grid.replaceChildren();
-    if(filtered.length === 0){
-      const empty = document.createElement("div");
-      empty.className = "empty";
-      empty.textContent = "No listings found. Try another search or category.";
-      grid.appendChild(empty);
-    }else{
-      filtered.forEach((item,index)=>grid.appendChild(createCard(item,index)));
-    }
-
-    totalCount.textContent = listings.length;
-    categoryCount.textContent = new Set(listings.map(x=>x.category)).size;
-  }
-
-  function showDetails(id){
-    const item = listings.find(x=>x.id === id);
-    if(!item) return showToast("Listing not found.");
-
-    detailsContent.replaceChildren();
-
-    const icon = document.createElement("div");
-    icon.className = "detail-icon";
-    icon.textContent = item.icon || "🌐";
-
-    const category = document.createElement("div");
-    category.className = "detail-category";
-    category.textContent = item.category;
-
-    const description = document.createElement("p");
-    description.className = "detail-description";
-    description.textContent = item.description;
-
-    const stats = document.createElement("div");
-    stats.className = "detail-stats";
-    const points = document.createElement("div");
-    points.className = "detail-stat";
-    points.textContent = "▲ " + Number(item.votes||0) + " demo points";
-    const submitted = document.createElement("div");
-    submitted.className = "detail-stat";
-    submitted.textContent = String(item.id).startsWith("demo-") ? "Featured demo listing" : "Community submission";
-    stats.append(points,submitted);
-
-    detailsContent.append(icon,category,description,stats);
-
-    if(item.url){
-      const link = document.createElement("a");
-      link.className = "btn btn-primary";
-      link.href = item.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Visit Website ↗";
-      link.style.display = "block";
-      link.style.textAlign = "center";
-      link.style.marginTop = "12px";
-      detailsContent.appendChild(link);
-    }
-    openModal("detailsBackdrop");
-  }
-
-  function voteFor(id){
-    if(votedIds.includes(id)){
-      showToast("You have already voted for this listing on this browser.");
-      return;
-    }
-    const item = listings.find(x=>x.id===id);
-    if(!item) return;
-    item.votes = Number(item.votes||0)+1;
-    votedIds.push(id);
-    saveVotes();
-    saveListings();
-    render();
-    showToast("Vote added. Demo ranking updated!");
-  }
-
-  function openSubmit(){
-    document.getElementById("submitForm").reset();
-    openModal("submitBackdrop");
-  }
-
-  document.getElementById("openSubmitBtn").addEventListener("click",openSubmit);
-  document.getElementById("heroSubmitBtn").addEventListener("click",openSubmit);
-
-  function scrollToRankings(){
-    document.getElementById("rankings").scrollIntoView({behavior:"smooth"});
-  }
-  document.getElementById("browseBtn").addEventListener("click",scrollToRankings);
-  document.getElementById("exploreBtn").addEventListener("click",scrollToRankings);
-
-  searchInput.addEventListener("input",render);
-  sortSelect.addEventListener("change",render);
-
-  document.getElementById("categoryFilters").addEventListener("click",function(event){
-    const button = event.target.closest("button[data-category]");
-    if(!button) return;
-    activeCategory = button.dataset.category;
-    document.querySelectorAll(".chip").forEach(chip=>chip.classList.toggle("active",chip===button));
-    render();
+    grid.appendChild(card);
   });
 
-  document.getElementById("submitForm").addEventListener("submit",function(event){
-    event.preventDefault();
+  emptyMessage.style.display = filtered.length ? "none" : "block";
+}
 
-    const name = document.getElementById("listingName").value.trim();
-    const category = document.getElementById("listingCategory").value;
-    const rawUrl = document.getElementById("listingUrl").value.trim();
-    const description = document.getElementById("listingDescription").value.trim();
+function setCategory(category, button) {
+  selectedCategory = category;
 
-    if(!name || !category || !description){
-      showToast("Please complete all required fields.");
-      return;
-    }
-
-    let url = "";
-    if(rawUrl){
-      try{
-        const parsed = new URL(rawUrl);
-        if(parsed.protocol !== "https:" && parsed.protocol !== "http:"){
-          showToast("Please enter a valid website URL.");
-          return;
-        }
-        url = parsed.href;
-      }catch(e){
-        showToast("Please enter a valid URL starting with https://");
-        return;
-      }
-    }
-
-    const newItem = {
-      id:"user-"+Date.now()+"-"+Math.random().toString(16).slice(2),
-      name:name,
-      category:category,
-      icon:"🌐",
-      description:description,
-      url:url,
-      votes:0,
-      createdAt:Date.now()
-    };
-
-    listings.push(newItem);
-    saveListings();
-    closeModal("submitBackdrop");
-    activeCategory = "All";
-    document.querySelectorAll(".chip").forEach(chip=>chip.classList.toggle("active",chip.dataset.category==="All"));
-    searchInput.value = "";
-    sortSelect.value = "newest";
-    render();
-    showToast("Listing added on this device!");
-    scrollToRankings();
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
   });
 
-  document.querySelectorAll("[data-close]").forEach(button=>{
-    button.addEventListener("click",()=>closeModal(button.dataset.close));
-  });
+  button.classList.add("active");
+  renderListings();
+}
 
-  [detailsBackdrop,submitBackdrop].forEach(backdrop=>{
-    backdrop.addEventListener("click",function(event){
-      if(event.target === backdrop) backdrop.classList.remove("open");
-    });
-  });
+function filterListings() {
+  renderListings();
+}
 
-  document.addEventListener("keydown",function(event){
-    if(event.key === "Escape"){
-      closeModal("detailsBackdrop");
-      closeModal("submitBackdrop");
-    }
-  });
+function showDetails(name) {
+  const item = listings.find(listing => listing.name === name);
 
-  render();
-})();
+  if (item) {
+    alert(
+      item.name + "\n\nCategory: " + item.category +
+      "\n\n" + item.description +
+      "\n\nThis is sample demo content."
+    );
+  }
+}
+
+function showSubmitMessage() {
+  alert("Listing submission will be added in the next development step. This demo does not collect or send information.");
+}
+
+document.getElementById("totalCount").textContent = listings.length;
+renderListings();
 </script>
+
 </body>
-</html>
+</html>  (
