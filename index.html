@@ -1,523 +1,538 @@
-/* Dark text for login and email fields */
-input,
-input[type="email"],
-input[type="text"],
-input[type="password"] {
-  color: #111827 !important;
-  background-color: #ffffff !important;
-  caret-color: #111827;
-}
-
-input::placeholder {
-  color: #4b5563 !important;
-  opacity: 1;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f3f7fc">
+<title>RankBoard — Discover & Compare</title>
 
 <style>
-:root {
-  --bg: #0b1020;
-  --panel: #131b2f;
-  --panel2: #19243b;
-  --text: #f4f7ff;
-  --muted: #9aa8c2;
-  --accent: #7c5cff;
-  --accent2: #21c8a5;
-  --border: rgba(255,255,255,.09);
+:root{
+  --bg:#f3f7fc;
+  --white:#ffffff;
+  --panel:#f8fbff;
+  --text:#172033;
+  --muted:#637187;
+  --line:#dce5ef;
+  --blue:#2454e8;
+  --purple:#6b43e8;
+  --orange:#ff6b16;
+  --shadow:0 8px 28px rgba(31,55,91,.07);
+  --radius:22px;
 }
-
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.container {
-  width: min(1120px, 92%);
-  margin: auto;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92%);margin:auto}
 
 /* Header */
-header {
-  border-bottom: 1px solid var(--border);
-  background: rgba(11,16,32,.95);
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
 }
+.nav{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:21px;
+  font-weight:800;
+  color:#172033;
+}
+.logo{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  color:white;
+  font-weight:900;
+  background:linear-gradient(135deg,#2454e8,#7b4ce8,#ff6b16);
+  box-shadow:0 5px 13px #405ce333;
+}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{
+  color:#536176;
+  font-size:13px;
+  font-weight:600;
+}
+.nav-links a:hover{color:var(--blue)}
+.nav-actions{display:flex;align-items:center;gap:9px}
 
-.navbar {
-  min-height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+/* Buttons */
+.btn{
+  border:1px solid var(--line);
+  background:white;
+  color:#263247;
+  border-radius:13px;
+  padding:11px 15px;
+  font-weight:700;
+  font-size:13px;
+  transition:.2s;
 }
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 21px;
-  font-weight: 800;
-  letter-spacing: -.5px;
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-primary{
+  color:white;
+  border:0;
+  background:linear-gradient(105deg,#2454e8,#6b43e8 60%,#ff6b16);
 }
-
-.brand-icon {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  background: linear-gradient(135deg, var(--accent), #4d9cff);
-  font-size: 19px;
+.btn-dark{
+  color:white;
+  border:0;
+  background:#172033;
 }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.nav-links a:hover {
-  color: white;
-}
-
-.submit-btn {
-  background: var(--accent);
-  color: white;
-  border: 0;
-  padding: 11px 16px;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-}
+.btn-small{padding:9px 12px;font-size:12px}
 
 /* Hero */
-.hero {
-  padding: 65px 0 42px;
-  text-align: center;
-  background:
-    radial-gradient(ellipse at top, rgba(124,92,255,.18), transparent 60%);
+.hero{
+  padding:58px 0 30px;
+  text-align:center;
+}
+.eyebrow{
+  display:inline-block;
+  border:1px solid #d7dff5;
+  border-radius:30px;
+  padding:8px 13px;
+  color:#4257a9;
+  background:#f0f3ff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.8px;
+}
+h1{
+  margin:20px 0 13px;
+  font-size:clamp(36px,6vw,62px);
+  line-height:1.08;
+  letter-spacing:-2px;
+}
+.gradient{
+  background:linear-gradient(100deg,#2454e8,#7650e9,#ff6b16);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero p{
+  color:var(--muted);
+  max-width:650px;
+  margin:0 auto;
+  font-size:16px;
+  line-height:1.7;
+}
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:11px;
+  margin-top:23px;
+}
+.search-wrap{
+  max-width:680px;
+  margin:29px auto 0;
+  display:flex;
+  gap:9px;
+  padding:7px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:17px;
+  box-shadow:var(--shadow);
+}
+.search-wrap input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  padding:12px 14px;
+  background:transparent;
+  color:#172033;
+  font-size:14px;
+}
+.search-wrap input::placeholder{color:#65738a;opacity:1}
+.stats{
+  max-width:700px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+  margin:30px auto 0;
+}
+.stat{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:17px;
+  box-shadow:var(--shadow);
+}
+.stat strong{display:block;font-size:24px}
+.stat span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+
+/* Listings */
+.section{padding:34px 0 65px}
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:20px;
+}
+.section-head h2{font-size:27px;margin:0}
+.section-head p{font-size:13px;color:var(--muted);margin:7px 0 0}
+.controls{display:flex;gap:9px;flex-wrap:wrap}
+select{
+  border:1px solid var(--line);
+  background:white;
+  color:#263247;
+  border-radius:12px;
+  padding:11px 12px;
+  outline:none;
+}
+.categories{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+.chip{
+  border:1px solid var(--line);
+  background:white;
+  color:#536176;
+  padding:9px 14px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:700;
+}
+.chip.active,.chip:hover{
+  color:white;
+  border-color:transparent;
+  background:linear-gradient(105deg,#2454e8,#754ce8);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+.card{
+  min-width:0;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  transition:.2s;
+}
+.card:hover{
+  transform:translateY(-2px);
+  border-color:#b9c9e4;
+}
+.card-top{display:flex;align-items:center;gap:12px}
+.item-icon{
+  width:46px;
+  height:46px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:#edf2ff;
+  font-size:22px;
+}
+.card h3{font-size:16px;margin:0 0 5px;overflow-wrap:anywhere}
+.category-label{
+  color:#247c73;
+  background:#e7f8f4;
+  border-radius:6px;
+  display:inline-block;
+  padding:4px 7px;
+  font-size:10px;
+  font-weight:700;
+}
+.description{
+  color:#657187;
+  font-size:13px;
+  line-height:1.6;
+  margin:14px 0 17px;
+  min-height:42px;
+}
+.card-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border-top:1px solid #edf1f6;
+  padding-top:13px;
+}
+.points{font-size:12px;font-weight:800;color:#35435a}
+.points small{
+  display:block;
+  color:#8290a4;
+  font-size:10px;
+  font-weight:400;
+  margin-top:4px;
+}
+.card-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.vote-btn{
+  border:1px solid #d8e2f0;
+  background:#f2f6ff;
+  color:#3156aa;
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:700;
+}
+.vote-btn.voted{background:#e4f8f0;color:#16765e;border-color:#b9e9d8}
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:40px 20px;
+  border:1px dashed #bdcada;
+  border-radius:17px;
+  background:white;
+  color:#657187;
 }
 
-.eyebrow {
-  display: inline-block;
-  color: #b9adff;
-  background: rgba(124,92,255,.13);
-  border: 1px solid rgba(124,92,255,.3);
-  border-radius: 30px;
-  padding: 8px 13px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .6px;
-  text-transform: uppercase;
+/* How it works */
+.info-panel{
+  margin:0 0 55px;
+  padding:27px;
+  text-align:center;
+  border:1px solid #d9e2f0;
+  border-radius:20px;
+  background:linear-gradient(110deg,#f0efff,#eef8ff);
 }
-
-.hero h1 {
-  font-size: clamp(35px, 6vw, 62px);
-  line-height: 1.08;
-  margin: 20px auto 14px;
-  max-width: 780px;
-  letter-spacing: -2px;
+.info-panel h2{margin:0 0 10px;font-size:23px}
+.info-panel p{
+  max-width:700px;
+  margin:auto;
+  color:#657187;
+  font-size:13px;
+  line-height:1.7;
 }
-
-.hero h1 span {
-  color: #a997ff;
+footer{
+  background:white;
+  border-top:1px solid var(--line);
+  padding:22px 0;
+  color:#6d7b90;
+  font-size:12px;
 }
+.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 
-.hero p {
-  max-width: 600px;
-  margin: auto;
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 16px;
+/* Modals */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  background:rgba(21,32,51,.48);
 }
-
-.search-wrap {
-  max-width: 650px;
-  margin: 28px auto 0;
-  display: flex;
-  gap: 10px;
-  padding: 8px;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  border-radius: 14px;
+.modal-backdrop.open{display:flex}
+.modal{
+  width:min(520px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:23px;
+  border:1px solid #dce5ef;
+  border-radius:21px;
+  background:white;
+  color:#172033;
+  box-shadow:0 24px 80px #10213b33;
 }
-
-.search-wrap input {
-  min-width: 0;
-  flex: 1;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: white;
-  padding: 10px;
-  font-size: 15px;
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:18px;
 }
-
-.search-wrap button {
-  border: 0;
-  border-radius: 9px;
-  padding: 0 20px;
-  background: var(--accent);
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
+.modal-head h2{margin:0;font-size:22px}
+.close-btn{
+  width:35px;
+  height:35px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#f4f7fb;
+  color:#263247;
+  font-size:21px;
 }
-
-/* Main content */
-main {
-  padding: 25px 0 70px;
+.detail-icon{font-size:35px;margin-bottom:9px}
+.detail-category{color:#247c73;font-size:13px;font-weight:700}
+.detail-description{color:#536176;line-height:1.7;font-size:14px}
+.detail-stats{display:flex;gap:10px;flex-wrap:wrap;margin:17px 0}
+.detail-stat{
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#f6f9fd;
+  padding:12px 14px;
+  font-size:12px;
+  color:#35435a;
 }
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 38px;
+.form-field{margin-bottom:14px}
+.form-field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px;
+  color:#263247;
 }
-
-.stat-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-  text-align: center;
+.form-field input,.form-field textarea,.form-field select{
+  display:block;
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #cbd7e5;
+  border-radius:12px;
+  background:#fff;
+  color:#172033;
+  outline:none;
+  font-size:14px;
 }
-
-.stat-card strong {
-  display: block;
-  font-size: 25px;
-  margin-bottom: 5px;
+.form-field input::placeholder,.form-field textarea::placeholder{
+  color:#68778c;
+  opacity:1;
 }
-
-.stat-card span {
-  color: var(--muted);
-  font-size: 13px;
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{
+  border-color:#6b75df;
+  box-shadow:0 0 0 3px #6b75df1c;
 }
-
-.section-heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 20px;
+.form-field textarea{min-height:95px;resize:vertical}
+.form-note{font-size:12px;color:#718096;line-height:1.5;margin-top:11px}
+.toast{
+  position:fixed;
+  z-index:80;
+  bottom:20px;
+  left:50%;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  background:#172033;
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  text-align:center;
+  max-width:90%;
+  transition:.25s;
+  box-shadow:0 10px 30px #0002;
 }
+.toast.show{opacity:1;transform:translate(-50%,0)}
 
-.section-heading h2 {
-  margin: 0 0 7px;
-  font-size: 25px;
+@media(max-width:760px){
+  .nav-links{display:none}
+  .grid{grid-template-columns:1fr}
 }
-
-.section-heading p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.filters {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.filter-btn {
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--muted);
-  border-radius: 30px;
-  padding: 9px 14px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-  background: rgba(124,92,255,.18);
-  color: white;
-  border-color: rgba(124,92,255,.6);
-}
-
-/* Listing cards */
-.listings {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-.listing {
-  display: flex;
-  gap: 15px;
-  align-items: flex-start;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px;
-  transition: .2s ease;
-}
-
-.listing:hover {
-  transform: translateY(-3px);
-  border-color: rgba(124,92,255,.55);
-  background: var(--panel2);
-}
-
-.rank {
-  min-width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  background: rgba(255,255,255,.07);
-  color: #c6d0e5;
-  font-weight: 800;
-}
-
-.listing-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.listing-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 7px;
-}
-
-.listing h3 {
-  margin: 0;
-  font-size: 17px;
-}
-
-.category {
-  display: inline-block;
-  background: rgba(33,200,165,.12);
-  color: #6ce3c8;
-  padding: 5px 8px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.listing p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
-  margin: 0 0 13px;
-}
-
-.listing-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.votes {
-  color: #b9c6df;
-  font-size: 12px;
-}
-
-.details-btn {
-  background: rgba(124,92,255,.16);
-  color: #c8bcff;
-  border: 1px solid rgba(124,92,255,.3);
-  border-radius: 8px;
-  padding: 7px 10px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.empty {
-  display: none;
-  text-align: center;
-  padding: 35px;
-  color: var(--muted);
-  background: var(--panel);
-  border-radius: 14px;
-}
-
-/* Info section */
-.info-box {
-  margin-top: 45px;
-  padding: 26px;
-  background: linear-gradient(120deg, rgba(124,92,255,.16), rgba(33,200,165,.07));
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  text-align: center;
-}
-
-.info-box h2 {
-  margin: 0 0 10px;
-}
-
-.info-box p {
-  max-width: 650px;
-  margin: auto;
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 14px;
-}
-
-/* Footer */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 25px 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* Mobile */
-@media (max-width: 700px) {
-  .nav-links {
-    display: none;
-  }
-
-  .navbar {
-    min-height: 64px;
-  }
-
-  .hero {
-    padding: 48px 0 30px;
-  }
-
-  .hero h1 {
-    letter-spacing: -1px;
-  }
-
-  .stats {
-    gap: 8px;
-  }
-
-  .stat-card {
-    padding: 14px 7px;
-  }
-
-  .stat-card strong {
-    font-size: 20px;
-  }
-
-  .stat-card span {
-    font-size: 11px;
-  }
-
-  .listings {
-    grid-template-columns: 1fr;
-  }
-
-  .section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .search-wrap button {
-    padding: 0 13px;
-  }
+@media(max-width:520px){
+  .nav{min-height:64px}
+  .brand{font-size:18px}
+  .nav-actions .btn{padding:9px 10px;font-size:11px}
+  .hero{padding:42px 0 24px}
+  h1{letter-spacing:-1.2px}
+  .hero p{font-size:14px}
+  .stats{gap:8px}
+  .stat{padding:13px 6px}
+  .stat strong{font-size:20px}
+  .stat span{font-size:10px}
+  .section-head{align-items:start;flex-direction:column}
+  .search-wrap{gap:3px}
+  .search-wrap .btn{padding:10px}
+  .card{padding:15px}
+  .card-bottom{align-items:flex-start}
+  .info-panel{padding:22px 17px}
 }
 </style>
 </head>
 
 <body>
-
 <header>
-  <div class="container navbar">
-    <a class="brand" href="#">
-      <span class="brand-icon">R</span>
+  <div class="container nav">
+    <a href="#" class="brand">
+      <span class="logo">R</span>
       <span>RankBoard</span>
     </a>
 
     <nav class="nav-links">
-      <a href="#leaderboard">Leaderboard</a>
+      <a href="#rankings">Leaderboard</a>
       <a href="#categories">Categories</a>
       <a href="#how-it-works">How It Works</a>
     </nav>
 
-    <button class="submit-btn" onclick="showSubmitMessage()">Submit Listing</button>
+    <div class="nav-actions">
+      <button class="btn" id="loginBtn" type="button">Login</button>
+      <button class="btn btn-primary" id="submitOpenBtn" type="button">+ Submit Listing</button>
+    </div>
   </div>
 </header>
 
-<section class="hero">
-  <div class="container">
-    <span class="eyebrow">Discover • Explore • Compare</span>
-    <h1>Discover What's <span>Rising.</span></h1>
-    <p>
-      Explore interesting websites, digital products and projects.
-      Browse categories and discover what's getting noticed.
-    </p>
+<main>
+<section class="hero container">
+  <span class="eyebrow">DISCOVER • EXPLORE • COMPARE</span>
+  <h1>Discover What's <span class="gradient">Rising.</span></h1>
+  <p>Explore interesting websites, digital products, and projects. Browse categories and discover what's getting noticed.</p>
 
-    <div class="search-wrap">
-      <input id="searchInput" type="search" placeholder="Search websites, products or categories..." oninput="filterListings()">
-      <button onclick="filterListings()">Search</button>
-    </div>
+  <div class="hero-buttons">
+    <button class="btn btn-primary" id="exploreBtn" type="button">Explore Rankings ↓</button>
+    <button class="btn" id="heroSubmitBtn" type="button">Submit a Listing +</button>
+  </div>
+
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="Search websites, products or categories..." aria-label="Search listings">
+    <button class="btn btn-primary" id="searchBtn" type="button">Search</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong id="totalCount">0</strong><span>Demo Listings</span></div>
+    <div class="stat"><strong id="categoryCount">0</strong><span>Categories</span></div>
+    <div class="stat"><strong>24/7</strong><span>Explore Anytime</span></div>
   </div>
 </section>
 
-<main class="container">
-
-  <section class="stats">
-    <div class="stat-card">
-      <strong id="totalCount">10</strong>
-      <span>Demo Listings</span>
+<section class="section container" id="rankings">
+  <div class="section-head">
+    <div>
+      <h2>Explore the Board</h2>
+      <p>Sample listings for the RankBoard prototype.</p>
     </div>
-    <div class="stat-card">
-      <strong>05</strong>
-      <span>Categories</span>
+    <div class="controls">
+      <select id="sortSelect" aria-label="Sort listings">
+        <option value="rank">Sort: Top ranked</option>
+        <option value="newest">Sort: Newest</option>
+        <option value="name">Sort: Name A–Z</option>
+      </select>
     </div>
-    <div class="stat-card">
-      <strong>24/7</strong>
-      <span>Explore Anytime</span>
-    </div>
-  </section>
+  </div>
 
-  <section id="leaderboard">
-    <div class="section-heading">
-      <div>
-        <h2>Explore the Board</h2>
-        <p>Sample listings for the RankBoard prototype.</p>
-      </div>
-    </div>
+  <div class="categories" id="categories">
+    <button class="chip active" data-category="All" type="button">All</button>
+    <button class="chip" data-category="Technology" type="button">Technology</button>
+    <button class="chip" data-category="Education" type="button">Education</button>
+    <button class="chip" data-category="Design" type="button">Design</button>
+    <button class="chip" data-category="Productivity" type="button">Productivity</button>
+    <button class="chip" data-category="Community" type="button">Community</button>
+  </div>
 
-    <div class="filters" id="categories">
-      <button class="filter-btn active" data-category="All" onclick="setCategory('All', this)">All</button>
-      <button class="filter-btn" data-category="Technology" onclick="setCategory('Technology', this)">Technology</button>
-      <button class="filter-btn" data-category="Education" onclick="setCategory('Education', this)">Education</button>
-      <button class="filter-btn" data-category="Design" onclick="setCategory('Design', this)">Design</button>
-      <button class="filter-btn" data-category="Productivity" onclick="setCategory('Productivity', this)">Productivity</button>
-      <button class="filter-btn" data-category="Community" onclick="setCategory('Community', this)">Community</button>
-    </div>
+  <div class="grid" id="listingGrid"></div>
+</section>
 
-    <div class="listings" id="listingGrid"></div>
-    <div class="empty" id="emptyMessage">No matching listings found. Try another search or category.</div>
-  </section>
-
-  <section class="info-box" id="how-it-works">
-    <h2>How RankBoard Works</h2>
-    <p>
-      RankBoard is a discovery-board concept where people can browse
-      listings by category, search for projects and explore what is
-      available. This version uses sample data only. Rankings and
-      submissions are demonstrations, not live user activity.
-    </p>
-  </section>
-
+<section class="container info-panel" id="how-it-works">
+  <h2>How RankBoard Works</h2>
+  <p>RankBoard is a discovery-board concept where people can browse listings by category, search for projects, and explore what is available. This version uses sample data only. Rankings and submissions are demonstrations, not live user activity.</p>
+</section>
 </main>
 
 <footer>
@@ -527,147 +542,381 @@ footer {
   </div>
 </footer>
 
+<!-- Details modal -->
+<div class="modal-backdrop" id="detailsBackdrop" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="detailsTitle">Listing Details</h2>
+      <button class="close-btn" type="button" data-close="detailsBackdrop">×</button>
+    </div>
+    <div id="detailsContent"></div>
+    <button class="btn btn-primary" type="button" data-close="detailsBackdrop" style="width:100%;margin-top:12px">Close Details</button>
+  </div>
+</div>
+
+<!-- Submit listing modal -->
+<div class="modal-backdrop" id="submitBackdrop" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Submit a Listing</h2>
+      <button class="close-btn" type="button" data-close="submitBackdrop">×</button>
+    </div>
+
+    <form id="submitForm">
+      <div class="form-field">
+        <label for="listingName">Website / Product Name *</label>
+        <input id="listingName" maxlength="60" required placeholder="Enter listing name">
+      </div>
+
+      <div class="form-field">
+        <label for="listingCategory">Category *</label>
+        <select id="listingCategory" required>
+          <option value="">Select category</option>
+          <option>Technology</option>
+          <option>Education</option>
+          <option>Design</option>
+          <option>Productivity</option>
+          <option>Community</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="listingUrl">Website URL (optional)</label>
+        <input id="listingUrl" type="url" placeholder="https://example.com">
+      </div>
+
+      <div class="form-field">
+        <label for="listingDescription">Description *</label>
+        <textarea id="listingDescription" maxlength="400" required placeholder="Describe this website or project"></textarea>
+      </div>
+
+      <button class="btn btn-primary" type="submit" style="width:100%">Add Listing</button>
+      <p class="form-note">Demo only: this listing is saved in this browser on this device. It is not published to other visitors.</p>
+    </form>
+  </div>
+</div>
+
+<!-- Demo login modal -->
+<div class="modal-backdrop" id="loginBackdrop" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Login to RankBoard</h2>
+      <button class="close-btn" type="button" data-close="loginBackdrop">×</button>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-field">
+        <label for="loginEmail">Email Address</label>
+        <input id="loginEmail" type="email" autocomplete="email" required placeholder="Enter your email address">
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%">Continue</button>
+      <p class="form-note">Demo login screen only. Authentication is not connected. Your email is not sent or saved.</p>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
-const listings = [
-  {
-    name: "BuildNotes",
-    category: "Education",
-    description: "A sample learning hub for engineering notes, study resources and quick references.",
-    votes: 248
-  },
-  {
-    name: "PixelCraft Studio",
-    category: "Design",
-    description: "A concept portfolio for creative design resources and visual projects.",
-    votes: 219
-  },
-  {
-    name: "TaskFlow",
-    category: "Productivity",
-    description: "A sample workspace concept for organizing tasks and daily activities.",
-    votes: 187
-  },
-  {
-    name: "CodeNest",
-    category: "Technology",
-    description: "A demo collection of beginner-friendly coding projects and resources.",
-    votes: 166
-  },
-  {
-    name: "StudyCircle",
-    category: "Community",
-    description: "A concept community for learners to share ideas and study resources.",
-    votes: 153
-  },
-  {
-    name: "TechOrbit",
-    category: "Technology",
-    description: "A sample directory for discovering technology projects and tools.",
-    votes: 141
-  },
-  {
-    name: "DesignDeck",
-    category: "Design",
-    description: "A collection concept for design inspiration, layouts and creative work.",
-    votes: 128
-  },
-  {
-    name: "LearnSprint",
-    category: "Education",
-    description: "A sample platform concept for short lessons and learning checklists.",
-    votes: 116
-  },
-  {
-    name: "FocusBoard",
-    category: "Productivity",
-    description: "A simple concept for planning goals, projects and personal workflows.",
-    votes: 98
-  },
-  {
-    name: "MakerSpace",
-    category: "Community",
-    description: "A demo space for showcasing personal projects and creative experiments.",
-    votes: 82
-  }
+(function(){
+"use strict";
+
+const STORAGE_KEY="rankboard_light_listings_v1";
+const VOTE_KEY="rankboard_light_votes_v1";
+
+const starterListings=[
+ {id:"demo-1",name:"BuildNotes",category:"Education",icon:"📘",description:"A sample learning hub for engineering notes, study resources and quick references.",url:"",votes:248,createdAt:1},
+ {id:"demo-2",name:"PixelCraft Studio",category:"Design",icon:"🎨",description:"A concept portfolio for creative design resources and visual projects.",url:"",votes:219,createdAt:2},
+ {id:"demo-3",name:"TaskFlow",category:"Productivity",icon:"✓",description:"A sample workspace concept for organizing tasks and daily activities.",url:"",votes:187,createdAt:3},
+ {id:"demo-4",name:"CodeNest",category:"Technology",icon:"⌘",description:"A demo collection of beginner-friendly coding projects and resources.",url:"",votes:166,createdAt:4},
+ {id:"demo-5",name:"StudyCircle",category:"Community",icon:"👥",description:"A concept community for learners to share ideas and study resources.",url:"",votes:153,createdAt:5},
+ {id:"demo-6",name:"TechOrbit",category:"Technology",icon:"🌐",description:"A sample directory for discovering technology projects and tools.",url:"",votes:141,createdAt:6},
+ {id:"demo-7",name:"DesignDeck",category:"Design",icon:"✎",description:"A collection concept for design inspiration, layouts and creative work.",url:"",votes:128,createdAt:7},
+ {id:"demo-8",name:"LearnSprint",category:"Education",icon:"🎓",description:"A sample platform concept for short lessons and learning checklists.",url:"",votes:116,createdAt:8},
+ {id:"demo-9",name:"FocusBoard",category:"Productivity",icon:"◉",description:"A simple concept for planning goals, projects and personal workflows.",url:"",votes:98,createdAt:9},
+ {id:"demo-10",name:"MakerSpace",category:"Community",icon:"⚙",description:"A demo space for showcasing personal projects and creative experiments.",url:"",votes:82,createdAt:10}
 ];
 
-let selectedCategory = "All";
+const grid=document.getElementById("listingGrid");
+const searchInput=document.getElementById("searchInput");
+const sortSelect=document.getElementById("sortSelect");
+const toast=document.getElementById("toast");
+let activeCategory="All";
+let listings=loadListings();
+let votedIds=loadVotes();
 
-function renderListings() {
-  const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
-  const grid = document.getElementById("listingGrid");
-  const emptyMessage = document.getElementById("emptyMessage");
-
-  const filtered = listings
-    .filter(item => selectedCategory === "All" || item.category === selectedCategory)
-    .filter(item =>
-      item.name.toLowerCase().includes(searchTerm) ||
-      item.category.toLowerCase().includes(searchTerm) ||
-      item.description.toLowerCase().includes(searchTerm)
-    )
-    .sort((a, b) => b.votes - a.votes);
-
-  grid.innerHTML = "";
-
-  filtered.forEach((item, index) => {
-    const card = document.createElement("article");
-    card.className = "listing";
-
-    card.innerHTML = `
-      <div class="rank">#${index + 1}</div>
-      <div class="listing-content">
-        <div class="listing-top">
-          <h3>${item.name}</h3>
-          <span class="category">${item.category}</span>
-        </div>
-        <p>${item.description}</p>
-        <div class="listing-bottom">
-          <span class="votes">★ ${item.votes} demo points</span>
-          <button class="details-btn" onclick="showDetails('${item.name}')">View Details</button>
-        </div>
-      </div>
-    `;
-
-    grid.appendChild(card);
-  });
-
-  emptyMessage.style.display = filtered.length ? "none" : "block";
-}
-
-function setCategory(category, button) {
-  selectedCategory = category;
-
-  document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.classList.remove("active");
-  });
-
-  button.classList.add("active");
-  renderListings();
-}
-
-function filterListings() {
-  renderListings();
-}
-
-function showDetails(name) {
-  const item = listings.find(listing => listing.name === name);
-
-  if (item) {
-    alert(
-      item.name + "\n\nCategory: " + item.category +
-      "\n\n" + item.description +
-      "\n\nThis is sample demo content."
-    );
+function loadListings(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+  if(Array.isArray(saved)){
+   return [...starterListings,...saved.filter(x=>x&&x.id&&!String(x.id).startsWith("demo-"))];
   }
+ }catch(e){}
+ return starterListings.map(x=>({...x}));
+}
+function saveListings(){
+ try{
+  const custom=listings.filter(x=>!String(x.id).startsWith("demo-"));
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(custom));
+ }catch(e){showToast("Browser storage is unavailable.");}
+}
+function loadVotes(){
+ try{
+  const v=JSON.parse(localStorage.getItem(VOTE_KEY)||"[]");
+  return Array.isArray(v)?v:[];
+ }catch(e){return [];}
+}
+function saveVotes(){
+ try{localStorage.setItem(VOTE_KEY,JSON.stringify(votedIds));}catch(e){}
+}
+function showToast(message){
+ toast.textContent=message;
+ toast.classList.add("show");
+ clearTimeout(showToast.timer);
+ showToast.timer=setTimeout(()=>toast.classList.remove("show"),2600);
+}
+function openModal(id){document.getElementById(id).classList.add("open");}
+function closeModal(id){document.getElementById(id).classList.remove("open");}
+
+function createCard(item,index){
+ const card=document.createElement("article");
+ card.className="card";
+
+ const top=document.createElement("div");
+ top.className="card-top";
+
+ const icon=document.createElement("div");
+ icon.className="item-icon";
+ icon.textContent=item.icon||"🌐";
+
+ const titleWrap=document.createElement("div");
+ const title=document.createElement("h3");
+ title.textContent=item.name;
+ const category=document.createElement("span");
+ category.className="category-label";
+ category.textContent=item.category;
+ titleWrap.append(title,category);
+ top.append(icon,titleWrap);
+
+ const description=document.createElement("p");
+ description.className="description";
+ description.textContent=item.description;
+
+ const bottom=document.createElement("div");
+ bottom.className="card-bottom";
+
+ const points=document.createElement("div");
+ points.className="points";
+ points.textContent="★ "+Number(item.votes||0)+" demo points";
+ const rank=document.createElement("small");
+ rank.textContent="Rank #"+(index+1);
+ points.appendChild(rank);
+
+ const actions=document.createElement("div");
+ actions.className="card-actions";
+
+ const details=document.createElement("button");
+ details.type="button";
+ details.className="btn btn-small";
+ details.textContent="View Details";
+ details.addEventListener("click",()=>showDetails(item.id));
+
+ const vote=document.createElement("button");
+ vote.type="button";
+ vote.className="vote-btn";
+ vote.textContent=votedIds.includes(item.id)?"✓ Voted":"▲ Vote";
+ if(votedIds.includes(item.id))vote.classList.add("voted");
+ vote.addEventListener("click",()=>voteFor(item.id));
+
+ actions.append(details,vote);
+ bottom.append(points,actions);
+ card.append(top,description,bottom);
+ return card;
 }
 
-function showSubmitMessage() {
-  alert("Listing submission will be added in the next development step. This demo does not collect or send information.");
+function render(){
+ const query=searchInput.value.trim().toLowerCase();
+ let result=listings.filter(item=>{
+  const categoryMatch=activeCategory==="All"||item.category===activeCategory;
+  const text=(item.name+" "+item.category+" "+item.description).toLowerCase();
+  return categoryMatch&&(!query||text.includes(query));
+ });
+
+ if(sortSelect.value==="rank"){
+  result.sort((a,b)=>Number(b.votes||0)-Number(a.votes||0));
+ }else if(sortSelect.value==="newest"){
+  result.sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0));
+ }else{
+  result.sort((a,b)=>a.name.localeCompare(b.name));
+ }
+
+ grid.replaceChildren();
+ if(!result.length){
+  const empty=document.createElement("div");
+  empty.className="empty";
+  empty.textContent="No listings found. Try another search or category.";
+  grid.appendChild(empty);
+ }else{
+  result.forEach((item,index)=>grid.appendChild(createCard(item,index)));
+ }
+ document.getElementById("totalCount").textContent=listings.length;
+ document.getElementById("categoryCount").textContent=new Set(listings.map(x=>x.category)).size;
 }
 
-document.getElementById("totalCount").textContent = listings.length;
-renderListings();
+function showDetails(id){
+ const item=listings.find(x=>x.id===id);
+ if(!item){showToast("Listing not found.");return;}
+ const content=document.getElementById("detailsContent");
+ content.replaceChildren();
+
+ const icon=document.createElement("div");
+ icon.className="detail-icon";
+ icon.textContent=item.icon||"🌐";
+
+ const category=document.createElement("div");
+ category.className="detail-category";
+ category.textContent=item.category;
+
+ const description=document.createElement("p");
+ description.className="detail-description";
+ description.textContent=item.description;
+
+ const stats=document.createElement("div");
+ stats.className="detail-stats";
+ const points=document.createElement("div");
+ points.className="detail-stat";
+ points.textContent="★ "+Number(item.votes||0)+" demo points";
+ const status=document.createElement("div");
+ status.className="detail-stat";
+ status.textContent=String(item.id).startsWith("demo-")?"Featured demo listing":"Community demo submission";
+ stats.append(points,status);
+
+ content.append(icon,category,description,stats);
+
+ if(item.url){
+  const link=document.createElement("a");
+  link.className="btn btn-primary";
+  link.href=item.url;
+  link.target="_blank";
+  link.rel="noopener noreferrer";
+  link.textContent="Visit Website ↗";
+  link.style.display="block";
+  link.style.textAlign="center";
+  content.appendChild(link);
+ }
+ openModal("detailsBackdrop");
+}
+
+function voteFor(id){
+ if(votedIds.includes(id)){
+  showToast("You have already voted for this listing on this browser.");
+  return;
+ }
+ const item=listings.find(x=>x.id===id);
+ if(!item)return;
+ item.votes=Number(item.votes||0)+1;
+ votedIds.push(id);
+ saveVotes();
+ saveListings();
+ render();
+ showToast("Demo vote added!");
+}
+
+function openSubmit(){
+ document.getElementById("submitForm").reset();
+ openModal("submitBackdrop");
+}
+document.getElementById("submitOpenBtn").addEventListener("click",openSubmit);
+document.getElementById("heroSubmitBtn").addEventListener("click",openSubmit);
+
+document.getElementById("loginBtn").addEventListener("click",()=>{
+ document.getElementById("loginForm").reset();
+ openModal("loginBackdrop");
+});
+document.getElementById("loginForm").addEventListener("submit",event=>{
+ event.preventDefault();
+ showToast("Demo only: login is not connected. No email was sent or saved.");
+ closeModal("loginBackdrop");
+});
+
+function goToBoard(){
+ document.getElementById("rankings").scrollIntoView({behavior:"smooth"});
+}
+document.getElementById("exploreBtn").addEventListener("click",goToBoard);
+document.getElementById("searchBtn").addEventListener("click",()=>{
+ render();
+ goToBoard();
+});
+searchInput.addEventListener("input",render);
+sortSelect.addEventListener("change",render);
+
+document.getElementById("categories").addEventListener("click",event=>{
+ const button=event.target.closest("button[data-category]");
+ if(!button)return;
+ activeCategory=button.dataset.category;
+ document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===button));
+ render();
+});
+
+document.getElementById("submitForm").addEventListener("submit",event=>{
+ event.preventDefault();
+ const name=document.getElementById("listingName").value.trim();
+ const category=document.getElementById("listingCategory").value;
+ const rawUrl=document.getElementById("listingUrl").value.trim();
+ const description=document.getElementById("listingDescription").value.trim();
+
+ if(!name||!category||!description){
+  showToast("Please fill all required fields.");
+  return;
+ }
+
+ let url="";
+ if(rawUrl){
+  try{
+   const parsed=new URL(rawUrl);
+   if(!["https:","http:"].includes(parsed.protocol)){
+    showToast("Enter a valid website URL.");
+    return;
+   }
+   url=parsed.href;
+  }catch(e){
+   showToast("Enter a valid URL starting with https://");
+   return;
+  }
+ }
+
+ listings.push({
+  id:"custom-"+Date.now()+"-"+Math.random().toString(16).slice(2),
+  name,category,icon:"🌐",description,url,votes:0,createdAt:Date.now()
+ });
+ saveListings();
+ closeModal("submitBackdrop");
+ activeCategory="All";
+ document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x.dataset.category==="All"));
+ searchInput.value="";
+ sortSelect.value="newest";
+ render();
+ showToast("Listing added on this device!");
+ goToBoard();
+});
+
+document.querySelectorAll("[data-close]").forEach(button=>{
+ button.addEventListener("click",()=>closeModal(button.dataset.close));
+});
+document.querySelectorAll(".modal-backdrop").forEach(backdrop=>{
+ backdrop.addEventListener("click",event=>{
+  if(event.target===backdrop)backdrop.classList.remove("open");
+ });
+});
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape"){
+  ["detailsBackdrop","submitBackdrop","loginBackdrop"].forEach(closeModal);
+ }
+});
+
+render();
+})();
 </script>
-
 </body>
-</html>  (
+</html>
