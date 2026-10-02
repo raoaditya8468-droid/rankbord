@@ -553,7 +553,37 @@ document.getElementById("adminLoginForm").addEventListener("submit",async event=
   closeModal("loginModal");openModal("adminModal");await loadPendingListings();
   showToast("Admin logged in.");
 });
+document.getElementById("forgotPasswordBtn").addEventListener("click", async () => {
+  const email = document.getElementById("adminEmail").value.trim();
+  const button = document.getElementById("forgotPasswordBtn");
+  const message = document.getElementById("adminLoginMessage");
 
+  if (!email) {
+    message.textContent = "Please enter your admin email first.";
+    document.getElementById("adminEmail").focus();
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Sending...";
+
+  try {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin
+    });
+
+    if (error) {
+      message.textContent = "Password reset error: " + error.message;
+    } else {
+      message.textContent = "If this email is registered, a password reset link will be sent. Check your inbox and Spam folder.";
+    }
+  } catch (error) {
+    message.textContent = "Request failed. Please try again later.";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Forgot password?";
+  }
+});
 /* Do not request .select() after insert: Pending rows are not publicly readable. */
 document.getElementById("listingForm").addEventListener("submit",async event=>{
   event.preventDefault();
