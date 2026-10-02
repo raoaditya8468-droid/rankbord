@@ -88,6 +88,16 @@ textarea.field{min-height:105px;resize:vertical}
   .grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr}
   .controls input{grid-column:auto}.section-head{align-items:flex-start;flex-direction:column}
 }
+  .text-button {
+  display: block;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 0 0;
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -165,9 +175,12 @@ textarea.field{min-height:105px;resize:vertical}
 <div class="modal-backdrop" id="loginModal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
     <div class="modal-head"><h2 id="loginTitle">Admin Login</h2><button class="close-btn" type="button" data-close="loginModal" aria-label="Close">×</button></div>
-    <form id="adminLoginForm">
+    <form id="adminLoginForm"> 
       <div class="form-group"><label for="adminEmail">Admin email</label><input class="field" id="adminEmail" type="email" autocomplete="username" required></div>
       <div class="form-group"><label for="adminPassword">Password</label><input class="field" id="adminPassword" type="password" autocomplete="current-password" required></div>
+      <button class="text-button" id="forgotPasswordBtn" type="button">
+  Forgot password?
+</button>
       <p class="form-note" id="adminLoginMessage" aria-live="polite">Sign in using the admin account created in Supabase Authentication.</p>
       <button class="btn btn-primary form-submit" id="adminLoginSubmit" type="submit">Login</button>
     </form>
