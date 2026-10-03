@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,653 +8,1746 @@
 
 <style>
 :root{
-  --bg:#f3f7fc;--white:#fff;--panel:#f8fbff;--text:#172033;
-  --muted:#65718a;--line:#e4eaf3;--primary:#315efb;
-  --primary-dark:#2449d8;--green:#16845b;--shadow:0 10px 30px rgba(26,43,77,.07)
+  --bg:#f3f7fc;
+  --white:#fff;
+  --text:#172033;
+  --muted:#667085;
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --border:#e5eaf2;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --shadow:0 12px 35px rgba(20,35,60,.08);
+  --radius:18px;
 }
+
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.container{width:min(1120px,calc(100% - 32px));margin:auto}
-header{background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
-.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:11px;font-size:21px;font-weight:800;letter-spacing:-.5px}
-.brand-mark{width:38px;height:38px;display:grid;place-items:center;color:white;background:linear-gradient(135deg,#315efb,#7b61ff);border-radius:12px;font-size:20px}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.btn{border:1px solid var(--line);background:white;color:var(--text);padding:11px 15px;border-radius:11px;font-weight:700}
-.btn:hover{background:#f6f8fc}
-.btn-primary{background:var(--primary);border-color:var(--primary);color:white}
-.btn-primary:hover{background:var(--primary-dark);color:white}
-.btn:disabled{opacity:.6;cursor:not-allowed}
-.hero{padding:56px 0 28px;text-align:center}
-.eyebrow{display:inline-block;padding:7px 12px;background:#e9efff;color:#3154c9;border-radius:30px;font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase}
-h1{font-size:clamp(34px,6vw,56px);letter-spacing:-2px;line-height:1.06;margin:17px auto 14px;max-width:760px}
-.hero p{max-width:620px;margin:auto;color:var(--muted);line-height:1.65;font-size:16px}
-.controls{display:grid;grid-template-columns:minmax(0,1fr) 190px 170px;gap:12px;margin:28px 0 18px}
-.field{width:100%;border:1px solid var(--line);background:white;padding:13px 14px;border-radius:12px;color:var(--text);outline:none}
-.field:focus{border-color:#8ba5ff;box-shadow:0 0 0 3px rgba(49,94,251,.10)}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:26px 0 15px}
-.section-head h2{margin:0;font-size:22px;letter-spacing:-.5px}
-.section-head p{color:var(--muted);font-size:13px;margin:6px 0 0}
-.status{color:var(--muted);font-size:12px;min-height:18px;margin:0 0 14px}
-.status.error{color:#b42318}.status.success{color:var(--green)}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-bottom:50px}
-.card{background:white;border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:225px;transition:transform .18s ease,box-shadow .18s ease}
-.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,43,77,.11)}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.icon-box{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:13px;background:#f0f4ff;font-size:22px}
-.tag{display:inline-block;color:#52617a;background:#f3f6fb;border-radius:30px;padding:6px 9px;font-size:11px;font-weight:700}
-.card h3{margin:15px 0 8px;font-size:18px;letter-spacing:-.3px}
-.card-desc{color:var(--muted);font-size:13px;line-height:1.55;margin:0 0 18px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
-.vote-btn{border:1px solid var(--line);background:white;color:#45536c;border-radius:10px;padding:9px 11px;font-weight:700;font-size:12px}
-.vote-btn.voted{color:#2449d8;background:#edf2ff;border-color:#cbd7ff}
-.details-btn{border:0;background:transparent;color:var(--primary);font-weight:800;font-size:13px;padding:8px}
-.empty{background:white;border:1px dashed #cbd5e5;border-radius:16px;padding:35px 20px;text-align:center;color:var(--muted);grid-column:1/-1}
-footer{border-top:1px solid var(--line);background:white;color:var(--muted);padding:24px 0;font-size:12px;text-align:center;line-height:1.6}
-.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:30;display:none;align-items:center;justify-content:center;padding:18px}
-.modal-backdrop.open{display:flex}
-.modal{background:white;width:min(520px,100%);border-radius:18px;padding:23px;box-shadow:0 25px 70px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto}
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}
-.modal-head h2{margin:0;font-size:21px}
-.close-btn{border:0;background:#f1f4f9;width:34px;height:34px;border-radius:10px;font-size:20px}
-.form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
-textarea.field{min-height:105px;resize:vertical}
-.form-note{color:var(--muted);font-size:12px;line-height:1.5;margin:10px 0 0}
-.form-submit{width:100%;margin-top:5px}
-.detail-category{color:#3154c9;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
-.detail-description{color:var(--muted);line-height:1.65;overflow-wrap:anywhere}
-.detail-link{display:inline-block;margin-top:8px;color:var(--primary);font-weight:700;overflow-wrap:anywhere}
-.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:#172033;color:white;padding:12px 16px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.2s ease;z-index:50;max-width:calc(100% - 30px);text-align:center}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.admin-list{display:grid;gap:12px}
-.admin-item{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--panel)}
-.admin-item h3{margin:0 0 7px;font-size:16px;overflow-wrap:anywhere}
-.admin-item p{margin:5px 0;color:var(--muted);font-size:13px;line-height:1.5;overflow-wrap:anywhere}
-.admin-actions{display:flex;gap:8px;margin-top:12px}
-.btn-approve{background:#16845b;color:white;border-color:#16845b}
-.btn-reject{background:#fff1f0;color:#b42318;border-color:#ffd2ce}
-.admin-empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed #cbd5e5;border-radius:12px}
-.admin-status{font-size:13px;color:var(--muted);margin:8px 0 14px}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.controls{grid-template-columns:1fr 1fr}.controls input{grid-column:1/-1}}
-@media(max-width:560px){
-  .container{width:min(100% - 24px,1120px)}.nav{min-height:64px}
-  .brand{font-size:18px}.brand-mark{width:34px;height:34px}
-  .nav-actions{gap:6px}.nav-actions .btn{padding:9px 10px;font-size:12px}
-  .hero{padding-top:40px}h1{letter-spacing:-1.3px}
-  .grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr}
-  .controls input{grid-column:auto}.section-head{align-items:flex-start;flex-direction:column}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
-  .text-button {
-  display: block;
-  border: 0;
-  background: transparent;
-  color: var(--primary);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 0 0;
-  cursor: pointer;
+
+button,input,select,textarea{font:inherit}
+
+button{cursor:pointer}
+
+.container{
+  width:min(1150px,92%);
+  margin:auto;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+  font-size:21px;
+}
+
+.logo-mark{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  color:white;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  font-weight:900;
+}
+
+.nav-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:11px 16px;
+  font-weight:700;
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:white;
+}
+
+.btn-primary:hover{background:var(--primary-dark)}
+
+.btn-light{
+  background:#eef3f9;
+  color:var(--text);
+}
+
+.hero{
+  padding:70px 0 45px;
+  text-align:center;
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 12px;
+  background:#e8f0ff;
+  color:#2458c8;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.hero h1{
+  margin:0 auto;
+  max-width:760px;
+  font-size:clamp(36px,7vw,62px);
+  line-height:1.05;
+  letter-spacing:-2px;
+}
+
+.hero p{
+  max-width:650px;
+  margin:20px auto 0;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6;
+}
+
+.search-box{
+  max-width:750px;
+  margin:30px auto 0;
+  display:flex;
+  gap:10px;
+  background:white;
+  padding:9px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+}
+
+.search-box input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  padding:13px;
+  background:transparent;
+}
+
+.controls{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+
+.field{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  outline:none;
+  background:white;
+  color:var(--text);
+}
+
+.controls .field{
+  width:auto;
+  min-width:170px;
+}
+
+.section-title{
+  margin:45px 0 18px;
+}
+
+.section-title h2{
+  margin:0;
+  font-size:27px;
+}
+
+.section-title p{
+  color:var(--muted);
+  margin:7px 0 0;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:0 7px 25px rgba(20,35,60,.04);
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.card h3{
+  margin:0;
+  font-size:20px;
+}
+
+.category{
+  display:inline-block;
+  margin-top:8px;
+  color:#4169c9;
+  font-size:13px;
+  font-weight:700;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.55;
+  min-height:48px;
+}
+
+.card-actions{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.card-actions a{
+  flex:1;
+  text-align:center;
+  text-decoration:none;
+}
+
+.vote{
+  width:44px;
+  border:1px solid var(--border);
+  background:#f8fafc;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.status{
+  font-size:12px;
+  font-weight:700;
+  padding:5px 8px;
+  border-radius:20px;
+  background:#e9f8ef;
+  color:var(--success);
+  white-space:nowrap;
+}
+
+.empty{
+  text-align:center;
+  padding:45px 20px;
+  color:var(--muted);
+  background:white;
+  border:1px dashed var(--border);
+  border-radius:18px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(10,20,35,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.open{display:flex}
+
+.modal-card{
+  width:min(500px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 25px 70px rgba(0,0,0,.2);
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.modal-head h2{margin:0}
+
+.close{
+  border:0;
+  background:#eef2f7;
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  font-size:20px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group label{
+  display:block;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+textarea.field{
+  min-height:110px;
+  resize:vertical;
+}
+
+.form-submit{
+  width:100%;
+  margin-top:5px;
+}
+
+.form-note{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.text-button{
+  border:0;
+  background:none;
+  color:var(--primary);
+  font-weight:700;
+  padding:8px 0;
+}
+
+.admin-list{
+  display:grid;
+  gap:12px;
+}
+
+.pending{
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:14px;
+}
+
+.pending h3{
+  margin:0 0 5px;
+}
+
+.pending p{
+  margin:5px 0;
+  color:var(--muted);
+}
+
+.pending-actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.btn-success{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+footer{
+  margin-top:70px;
+  padding:35px 0;
+  border-top:1px solid var(--border);
+  background:white;
+  text-align:center;
+  color:var(--muted);
+}
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:200;
+  background:#172033;
+  color:white;
+  padding:13px 17px;
+  border-radius:12px;
+  display:none;
+  max-width:320px;
+}
+
+.toast.show{display:block}
+
+.reset-screen{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:#f3f7fc;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.reset-screen.open{display:flex}
+
+.reset-card{
+  width:min(460px,100%);
+  background:white;
+  padding:32px;
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+
+.reset-logo{
+  width:50px;
+  height:50px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  color:white;
+  border-radius:15px;
+  font-size:23px;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.reset-card h1{
+  margin:0;
+}
+
+.reset-subtitle{
+  color:var(--muted);
+  line-height:1.5;
+  margin:9px 0 25px;
+}
+
+@media(max-width:800px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:600px){
+  .nav{min-height:64px}
+  .nav-actions .btn-light{display:none}
+  .hero{padding:50px 0 30px}
+  .hero h1{letter-spacing:-1px}
+  .search-box{flex-direction:column}
+  .search-box .btn{width:100%}
+  .grid{grid-template-columns:1fr}
+  .controls .field{width:100%}
+  .reset-card{padding:24px}
 }
 </style>
 </head>
 
 <body>
+
 <header>
   <div class="container nav">
-    <div class="brand"><div class="brand-mark">R</div><span>RankBoard</span></div>
+    <div class="logo">
+      <div class="logo-mark">R</div>
+      <span>RankBoard</span>
+    </div>
+
     <div class="nav-actions">
-      <button class="btn" id="loginBtn" type="button">Admin Login</button>
-      <button class="btn" id="adminPanelBtn" type="button" hidden>Admin Panel</button>
-      <button class="btn btn-primary" id="openSubmitBtn" type="button">+ Submit Listing</button>
+      <button class="btn btn-light" id="submitOpenBtn">Submit Website</button>
+      <button class="btn btn-primary" id="adminOpenBtn">Admin Login</button>
     </div>
   </div>
 </header>
 
-<main class="container">
-  <section class="hero">
-    <span class="eyebrow">Discover · Compare · Share</span>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="badge">Discover useful websites</div>
+
     <h1>Find useful websites, all in one place.</h1>
-    <p>Explore community-submitted websites, compare useful resources, and share a website with the RankBoard community.</p>
-  </section>
 
-  <section aria-label="Search and filters">
-    <div class="controls">
-      <input class="field" id="searchInput" type="search" placeholder="Search websites..." aria-label="Search websites">
-      <select class="field" id="categoryFilter" aria-label="Filter by category"><option value="all">All categories</option></select>
-      <select class="field" id="sortSelect" aria-label="Sort listings">
-        <option value="popular">Most votes</option>
-        <option value="newest">Newest first</option>
-        <option value="az">Name A–Z</option>
-      </select>
+    <p>
+      Discover, compare and explore useful websites across different categories.
+      RankBoard helps you find tools and resources quickly.
+    </p>
+
+    <div class="search-box">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search websites, tools or categories..."
+      >
+      <button class="btn btn-primary" id="searchBtn">Search</button>
     </div>
-  </section>
-
-  <div class="section-head">
-    <div><h2>Explore Listings</h2><p id="listingCount">Loading listings…</p></div>
   </div>
-  <p class="status" id="connectionStatus" aria-live="polite">Connecting to community listings…</p>
-  <section class="grid" id="listingGrid" aria-live="polite"></section>
+</section>
+
+<section class="container">
+
+  <div class="section-title">
+    <h2>Explore Websites</h2>
+    <p>Browse useful websites and discover new tools.</p>
+  </div>
+
+  <div class="controls">
+    <select class="field" id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="AI Tools">AI Tools</option>
+      <option value="Education">Education</option>
+      <option value="Productivity">Productivity</option>
+      <option value="Development">Development</option>
+      <option value="Design">Design</option>
+      <option value="Business">Business</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <select class="field" id="sortSelect">
+      <option value="newest">Newest</option>
+      <option value="az">A–Z</option>
+      <option value="category">Category</option>
+    </select>
+  </div>
+
+  <div id="listingsGrid" class="grid"></div>
+
+  <div id="emptyState" class="empty" style="display:none">
+    No websites found.
+  </div>
+
+</section>
+
 </main>
 
 <footer>
   <div class="container">
-    RankBoard — Discover and compare useful websites.<br>
-    Demo votes are stored only in this browser. Community submissions appear after admin approval.
+    <strong>RankBoard</strong>
+    <p>Discover useful websites, all in one place.</p>
   </div>
 </footer>
 
-<div class="modal-backdrop" id="submitModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="submitTitle">
-    <div class="modal-head"><h2 id="submitTitle">Submit a Listing</h2><button class="close-btn" type="button" data-close="submitModal" aria-label="Close">×</button></div>
-    <form id="listingForm">
-      <div class="form-group"><label for="listingName">Website name *</label><input class="field" id="listingName" maxlength="100" required placeholder="e.g. Example Tools"></div>
-      <div class="form-group">
-        <label for="listingCategory">Category *</label>
-        <select class="field" id="listingCategory" required>
-          <option value="">Choose a category</option><option>AI Tools</option><option>Education</option><option>Productivity</option><option>Design</option><option>Development</option><option>Business</option><option>Entertainment</option><option>Other</option>
-        </select>
-      </div>
-      <div class="form-group"><label for="listingUrl">Website URL</label><input class="field" id="listingUrl" type="url" maxlength="500" placeholder="https://example.com"></div>
-      <div class="form-group"><label for="listingDescription">Short description</label><textarea class="field" id="listingDescription" maxlength="1500" placeholder="What is this website useful for?"></textarea></div>
-      <button class="btn btn-primary form-submit" id="submitListingBtn" type="submit">Submit Listing</button>
-      <p class="form-note">Your listing will be reviewed by the admin and displayed after approval. Submit only appropriate and useful websites.</p>
-    </form>
-  </div>
-</div>
+<!-- SUBMIT MODAL -->
+<div class="modal" id="submitModal">
+  <div class="modal-card">
 
-<div class="modal-backdrop" id="detailsModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
-    <div class="modal-head"><h2 id="detailsTitle">Listing Details</h2><button class="close-btn" type="button" data-close="detailsModal" aria-label="Close">×</button></div>
-    <div id="detailsContent"></div>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="loginModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-    <div class="modal-head"><h2 id="loginTitle">Admin Login</h2><button class="close-btn" type="button" data-close="loginModal" aria-label="Close">×</button></div>
-    <form id="adminLoginForm"> 
-      <div class="form-group"><label for="adminEmail">Admin email</label><input class="field" id="adminEmail" type="email" autocomplete="username" required></div>
-      <div class="form-group"><label for="adminPassword">Password</label><input class="field" id="adminPassword" type="password" autocomplete="current-password" required></div>
-      <button class="text-button" id="forgotPasswordBtn" type="button">
-  Forgot password?
-</button>
-      <p class="form-note" id="adminLoginMessage" aria-live="polite">Sign in using the admin account created in Supabase Authentication.</p>
-      <button class="btn btn-primary form-submit" id="adminLoginSubmit" type="submit">Login</button>
-    </form>
-  </div>
-</div>
-<div class="modal-backdrop" id="resetPasswordModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="resetPasswordTitle">
     <div class="modal-head">
-      <h2 id="resetPasswordTitle">Set New Password</h2>
+      <h2>Submit a Website</h2>
+      <button class="close" data-close="submitModal">×</button>
     </div>
 
-    <form id="resetPasswordForm">
+    <form id="submitForm">
+
       <div class="form-group">
-        <label for="newAdminPassword">New password</label>
-        <input class="field" id="newAdminPassword" type="password"
-               minlength="8" autocomplete="new-password" required>
+        <label>Website Title</label>
+        <input class="field" id="submitTitle" required placeholder="Example: Canva">
       </div>
 
       <div class="form-group">
-        <label for="confirmAdminPassword">Confirm new password</label>
-        <input class="field" id="confirmAdminPassword" type="password"
-               minlength="8" autocomplete="new-password" required>
+        <label>Description</label>
+        <textarea class="field" id="submitDescription" required placeholder="Describe the website..."></textarea>
       </div>
 
-      <p class="form-note" id="resetPasswordMessage" aria-live="polite">
-        Enter a new password for your RankBoard admin account.
+      <div class="form-group">
+        <label>Category</label>
+        <select class="field" id="submitCategory" required>
+          <option value="">Select category</option>
+          <option>AI Tools</option>
+          <option>Education</option>
+          <option>Productivity</option>
+          <option>Development</option>
+          <option>Design</option>
+          <option>Business</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Website URL</label>
+        <input class="field" id="submitUrl" type="url" required placeholder="https://example.com">
+      </div>
+
+      <p class="form-note" id="submitMessage">
+        Submitted websites may require admin approval.
       </p>
 
-      <button class="btn btn-primary form-submit" id="resetPasswordSubmit" type="submit">
+      <button class="btn btn-primary form-submit" id="submitBtn">
+        Submit Website
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="modal-card">
+
+    <div class="modal-head">
+      <h2>Admin Login</h2>
+      <button class="close" data-close="loginModal">×</button>
+    </div>
+
+    <form id="adminLoginForm">
+
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          class="field"
+          id="adminEmail"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="Admin email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          class="field"
+          id="adminPassword"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="Password"
+        >
+      </div>
+
+      <button class="btn btn-primary form-submit" id="adminLoginBtn">
+        Login
+      </button>
+
+      <button
+        type="button"
+        class="text-button"
+        id="forgotPasswordBtn"
+      >
+        Forgot password?
+      </button>
+
+      <p class="form-note" id="adminLoginMessage"></p>
+
+    </form>
+
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="modal" id="adminModal">
+  <div class="modal-card">
+
+    <div class="modal-head">
+      <h2>Admin Panel</h2>
+      <button class="close" data-close="adminModal">×</button>
+    </div>
+
+    <div id="adminPanelContent">
+      <p class="form-note">Loading pending submissions...</p>
+    </div>
+
+    <button class="btn btn-light" id="adminSignOutBtn">
+      Sign Out
+    </button>
+
+  </div>
+</div>
+
+<!-- PASSWORD RESET SCREEN -->
+<div class="reset-screen" id="resetPasswordScreen">
+
+  <div class="reset-card">
+
+    <div class="reset-logo">R</div>
+
+    <h1>Change Password</h1>
+
+    <p class="reset-subtitle">
+      Create a new password for your RankBoard admin account.
+    </p>
+
+    <form id="resetPasswordForm">
+
+      <div class="form-group">
+        <label>New Password</label>
+
+        <input
+          class="field"
+          id="newAdminPassword"
+          type="password"
+          minlength="8"
+          autocomplete="new-password"
+          placeholder="Enter new password"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+
+        <input
+          class="field"
+          id="confirmAdminPassword"
+          type="password"
+          minlength="8"
+          autocomplete="new-password"
+          placeholder="Confirm new password"
+          required
+        >
+      </div>
+
+      <p class="form-note" id="resetPasswordMessage">
+        Enter your new password below.
+      </p>
+
+      <button
+        class="btn btn-primary form-submit"
+        id="resetPasswordSubmit"
+      >
         Save New Password
       </button>
+
     </form>
-  </div>
-</div>
-<div class="modal-backdrop" id="adminModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
-    <div class="modal-head"><h2 id="adminTitle">Listing Approval</h2><button class="close-btn" type="button" data-close="adminModal" aria-label="Close">×</button></div>
-    <p class="admin-status" id="adminStatus" aria-live="polite">Pending submissions appear here.</p>
-    <div class="admin-list" id="adminPendingList"></div>
-    <button class="btn form-submit" id="adminLogoutBtn" type="button">Logout</button>
+
   </div>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-const SUPABASE_URL = "https://kfdbzzwpzcdsfcnvdgrj.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_ZTIqzkZAq1KzMU9TW3DPgg_EpJWf0iO";
+/* ==============================
+   SUPABASE CONFIG
+============================== */
 
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-const LOCAL_VOTES_KEY = "rankboard_light_votes_v1";
-let recoveryMode = false;
+const SUPABASE_URL =
+  "https://kfdbzzwpzcdsfcnvdgrj.supabase.co";
 
-supabaseClient.auth.onAuthStateChange((event, session) => {
-  if (event === "PASSWORD_RECOVERY") {
-    recoveryMode = true;
+const SUPABASE_KEY =
+  "sb_publishable_ZTIqzkZAq1KzMU9TW3DPgg_EpJWf0iO";
 
-    const resetMessage =
-      document.getElementById("resetPasswordMessage");
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-    if (resetMessage) {
-      resetMessage.textContent =
-        "Recovery verified. Enter and save your new password.";
-    }
 
-    openModal("resetPasswordModal");
-  }
-});
+/* ==============================
+   HELPERS
+============================== */
 
-async function checkPasswordRecovery() {
-  const url = window.location.href;
+const $ = id => document.getElementById(id);
 
-  const isRecoveryUrl =
-    url.includes("type=recovery") ||
-    url.includes("code=");
-
-  if (!isRecoveryUrl) return;
-
-  const { data } = await supabaseClient.auth.getSession();
-
-  if (data && data.session) {
-    recoveryMode = true;
-
-    const resetMessage =
-      document.getElementById("resetPasswordMessage");
-
-    if (resetMessage) {
-      resetMessage.textContent =
-        "Recovery verified. Enter and save your new password.";
-    }
-
-    openModal("resetPasswordModal");
-  }
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
-checkPasswordRecovery();
+function safeUrl(url){
+  try{
+    const u = new URL(url);
+    if(u.protocol === "http:" || u.protocol === "https:"){
+      return u.href;
+    }
+  }catch(e){}
+  return "#";
+}
 
-document.getElementById("resetPasswordForm").addEventListener("submit", async event => {
-  event.preventDefault();
+function showToast(message){
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
 
-  const password = document.getElementById("newAdminPassword").value;
-  const confirmPassword = document.getElementById("confirmAdminPassword").value;
-  const message = document.getElementById("resetPasswordMessage");
-  const button = document.getElementById("resetPasswordSubmit");
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },3000);
+}
 
-  if (password.length < 8) {
-    message.textContent = "Password must contain at least 8 characters.";
-    return;
+function openModal(id){
+  $(id).classList.add("open");
+}
+
+function closeModal(id){
+  $(id).classList.remove("open");
+}
+
+
+/* ==============================
+   DEMO DATA
+============================== */
+
+const demoListings = [
+
+  {
+    id:"demo-1",
+    Title:"Canva",
+    Discription:"Create designs, presentations, social media graphics and more.",
+    Category:"Design",
+    Website_url:"https://www.canva.com",
+    Status:"approved",
+    created_at:"2026-09-01"
+  },
+
+  {
+    id:"demo-2",
+    Title:"GitHub",
+    Discription:"Platform for developers to host, collaborate and manage code.",
+    Category:"Development",
+    Website_url:"https://github.com",
+    Status:"approved",
+    created_at:"2026-09-02"
+  },
+
+  {
+    id:"demo-3",
+    Title:"Khan Academy",
+    Discription:"Free educational resources for students and learners.",
+    Category:"Education",
+    Website_url:"https://www.khanacademy.org",
+    Status:"approved",
+    created_at:"2026-09-03"
+  },
+
+  {
+    id:"demo-4",
+    Title:"ChatGPT",
+    Discription:"AI assistant for learning, writing, brainstorming and productivity.",
+    Category:"AI Tools",
+    Website_url:"https://chatgpt.com",
+    Status:"approved",
+    created_at:"2026-09-04"
+  },
+
+  {
+    id:"demo-5",
+    Title:"Notion",
+    Discription:"Workspace for notes, projects, documents and productivity.",
+    Category:"Productivity",
+    Website_url:"https://www.notion.so",
+    Status:"approved",
+    created_at:"2026-09-05"
+  },
+
+  {
+    id:"demo-6",
+    Title:"Figma",
+    Discription:"Collaborative interface design and prototyping platform.",
+    Category:"Design",
+    Website_url:"https://www.figma.com",
+    Status:"approved",
+    created_at:"2026-09-06"
   }
 
-  if (password !== confirmPassword) {
-    message.textContent = "The passwords do not match.";
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Saving…";
-  message.textContent = "Updating your password…";
-
-  const { error } = await supabaseClient.auth.updateUser({ password });
-
-  button.disabled = false;
-  button.textContent = "Save New Password";
-
-  if (error) {
-    message.textContent = "Could not update password: " + error.message;
-    return;
-  }
-
-  recoveryMode = false;
-  document.getElementById("resetPasswordForm").reset();
-  closeModal("resetPasswordModal");
-
-  await supabaseClient.auth.signOut();
-  showToast("Password updated. Please log in with your new password.");
-  openModal("loginModal");
-});
-const starterListings = [
-  {id:"demo-1",name:"ChatGPT",category:"AI Tools",icon:"✦",description:"An AI assistant for learning, writing, brainstorming, and everyday tasks.",url:"https://chatgpt.com",votes:24,createdAt:100},
-  {id:"demo-2",name:"Canva",category:"Design",icon:"🎨",description:"A design platform for presentations, graphics, posters, and social content.",url:"https://www.canva.com",votes:19,createdAt:200},
-  {id:"demo-3",name:"GitHub",category:"Development",icon:"⌘",description:"A platform for hosting code, collaborating on projects, and tracking changes.",url:"https://github.com",votes:18,createdAt:300},
-  {id:"demo-4",name:"Notion",category:"Productivity",icon:"▤",description:"A workspace for notes, documents, planning, and organizing projects.",url:"https://www.notion.so",votes:16,createdAt:400},
-  {id:"demo-5",name:"Khan Academy",category:"Education",icon:"📘",description:"Free learning resources and practice across a range of school subjects.",url:"https://www.khanacademy.org",votes:15,createdAt:500},
-  {id:"demo-6",name:"Figma",category:"Design",icon:"◈",description:"Collaborative interface design and prototyping tools.",url:"https://www.figma.com",votes:13,createdAt:600},
-  {id:"demo-7",name:"freeCodeCamp",category:"Development",icon:"💻",description:"Free coding lessons and practice projects for learning web development.",url:"https://www.freecodecamp.org",votes:12,createdAt:700},
-  {id:"demo-8",name:"Google Scholar",category:"Education",icon:"🎓",description:"Search for scholarly literature, research papers, and academic publications.",url:"https://scholar.google.com",votes:11,createdAt:800},
-  {id:"demo-9",name:"Trello",category:"Productivity",icon:"▦",description:"Visual boards for organizing tasks, projects, and team workflows.",url:"https://trello.com",votes:9,createdAt:900},
-  {id:"demo-10",name:"Unsplash",category:"Design",icon:"▧",description:"A library of photos for creative and visual projects.",url:"https://unsplash.com",votes:8,createdAt:1000}
 ];
 
-let remoteListings=[];
-let listings=[];
-let votes=readStorage(LOCAL_VOTES_KEY,{});
-let isSubmitting=false;
-let currentAdminUser=null;
-let isAdmin=false;
 
-const grid=document.getElementById("listingGrid");
-const searchInput=document.getElementById("searchInput");
-const categoryFilter=document.getElementById("categoryFilter");
-const sortSelect=document.getElementById("sortSelect");
-const listingCount=document.getElementById("listingCount");
-const connectionStatus=document.getElementById("connectionStatus");
-const toastElement=document.getElementById("toast");
+/* ==============================
+   STATE
+============================== */
 
-function readStorage(key,fallback){
-  try{const value=localStorage.getItem(key);return value?JSON.parse(value):fallback}
-  catch(error){return fallback}
-}
-function saveStorage(key,value){
-  try{localStorage.setItem(key,JSON.stringify(value))}
-  catch(error){console.warn("Could not save local browser data:",error)}
-}
-function showToast(message){
-  toastElement.textContent=message;
-  toastElement.classList.add("show");
-  window.setTimeout(()=>toastElement.classList.remove("show"),2800);
-}
-function setStatus(message,type=""){
-  connectionStatus.textContent=message;
-  connectionStatus.className="status"+(type?" "+type:"");
-}
-function openModal(id){document.getElementById(id).classList.add("open")}
-function closeModal(id){document.getElementById(id).classList.remove("open")}
-function safeWebsiteUrl(value){
-  if(!value)return "";
-  try{const parsed=new URL(value);if(parsed.protocol==="https:"||parsed.protocol==="http:")return parsed.href}
-  catch(error){}
-  return "";
-}
-function normalizeRemoteListing(row){
-  return {
-    id:"db-"+row.id,
-    dbId:row.id,
-    name:String(row.Title||"Untitled listing"),
-    category:String(row.Category||"Other"),
-    icon:"🌐",
-    description:String(row.Discription||""),
-    url:safeWebsiteUrl(row.Website_url||""),
-    votes:0,
-    createdAt:row.created_at?(Date.parse(row.created_at)||Date.now()):Date.now(),
-    source:"community"
-  };
-}
-function refreshListings(){
-  const combined=[...starterListings,...remoteListings];
-  const seen=new Set();
-  listings=combined.filter(item=>{
-    const key=String(item.id);
-    if(seen.has(key))return false;
-    seen.add(key);return true;
-  });
-  populateCategories();
+let listings = [];
+let recoveryMode = false;
+
+
+/* ==============================
+   LOAD LISTINGS
+============================== */
+
+async function loadListings(){
+
+  const {data,error} = await supabaseClient
+    .from("Listings")
+    .select("*")
+    .eq("Status","approved")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    console.log("Supabase listings error:",error);
+    listings = [...demoListings];
+  }else{
+    listings = [...demoListings,...(data || [])];
+  }
+
   renderListings();
 }
-function populateCategories(){
-  const current=categoryFilter.value||"all";
-  const categories=[...new Set(listings.map(item=>item.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-  categoryFilter.innerHTML="";
-  const allOption=document.createElement("option");
-  allOption.value="all";allOption.textContent="All categories";categoryFilter.appendChild(allOption);
-  categories.forEach(category=>{
-    const option=document.createElement("option");option.value=category;option.textContent=category;categoryFilter.appendChild(option);
-  });
-  categoryFilter.value=categories.includes(current)?current:"all";
-}
-function getVoteCount(item){return (Number(item.votes)||0)+(votes[item.id]?1:0)}
-function createCard(item){
-  const card=document.createElement("article");card.className="card";
-  const top=document.createElement("div");top.className="card-top";
-  const icon=document.createElement("div");icon.className="icon-box";icon.textContent=item.icon||"🌐";
-  const tag=document.createElement("span");tag.className="tag";tag.textContent=item.category||"Other";
-  top.append(icon,tag);
-  const title=document.createElement("h3");title.textContent=item.name;
-  const description=document.createElement("p");description.className="card-desc";description.textContent=item.description||"No description provided.";
-  const bottom=document.createElement("div");bottom.className="card-bottom";
-  const voteButton=document.createElement("button");voteButton.type="button";voteButton.className="vote-btn"+(votes[item.id]?" voted":"");voteButton.textContent="▲ "+getVoteCount(item);
-  voteButton.setAttribute("aria-label","Vote for "+item.name);voteButton.addEventListener("click",()=>voteFor(item.id));
-  const detailsButton=document.createElement("button");detailsButton.type="button";detailsButton.className="details-btn";detailsButton.textContent="View details →";detailsButton.addEventListener("click",()=>showDetails(item.id));
-  bottom.append(voteButton,detailsButton);card.append(top,title,description,bottom);return card;
-}
+
+
+/* ==============================
+   RENDER
+============================== */
+
 function renderListings(){
-  const term=searchInput.value.trim().toLowerCase();
-  const selected=categoryFilter.value;
-  const sort=sortSelect.value;
-  let filtered=listings.filter(item=>{
-    const matches=[item.name,item.category,item.description].some(value=>String(value).toLowerCase().includes(term));
-    return matches&&(selected==="all"||item.category===selected);
+
+  const grid = $("listingsGrid");
+  const empty = $("emptyState");
+
+  const search =
+    $("searchInput").value.trim().toLowerCase();
+
+  const category =
+    $("categoryFilter").value;
+
+  const sort =
+    $("sortSelect").value;
+
+  let data = listings.filter(item=>{
+
+    const title =
+      String(item.Title || "").toLowerCase();
+
+    const description =
+      String(item.Discription || "").toLowerCase();
+
+    const cat =
+      String(item.Category || "").toLowerCase();
+
+    const matchesSearch =
+      !search ||
+      title.includes(search) ||
+      description.includes(search) ||
+      cat.includes(search);
+
+    const matchesCategory =
+      category === "all" ||
+      item.Category === category;
+
+    return matchesSearch && matchesCategory;
+
   });
-  if(sort==="popular")filtered.sort((a,b)=>getVoteCount(b)-getVoteCount(a));
-  else if(sort==="newest")filtered.sort((a,b)=>b.createdAt-a.createdAt);
-  else if(sort==="az")filtered.sort((a,b)=>a.name.localeCompare(b.name));
-  listingCount.textContent=filtered.length+" listing"+(filtered.length===1?"":"s")+" shown";
-  grid.innerHTML="";
-  if(!filtered.length){
-    const empty=document.createElement("div");empty.className="empty";empty.textContent="No listings match your search. Try another keyword or category.";grid.appendChild(empty);return;
-  }
-  filtered.forEach(item=>grid.appendChild(createCard(item)));
-}
-function showDetails(id){
-  const item=listings.find(listing=>listing.id===id);if(!item)return;
-  const content=document.getElementById("detailsContent");content.innerHTML="";
-  const category=document.createElement("div");category.className="detail-category";category.textContent=item.category||"Other";
-  const description=document.createElement("p");description.className="detail-description";description.textContent=item.description||"No description provided.";
-  const votesLine=document.createElement("p");votesLine.className="detail-description";votesLine.textContent="Votes: "+getVoteCount(item)+" (demo votes are stored in this browser only)";
-  content.append(category,description,votesLine);
-  if(item.url){
-    const link=document.createElement("a");link.className="detail-link";link.href=item.url;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Visit website ↗";content.appendChild(link);
-  }else{
-    const noLink=document.createElement("p");noLink.className="detail-description";noLink.textContent="No website URL was provided.";content.appendChild(noLink);
-  }
-  openModal("detailsModal");
-}
-function voteFor(id){
-  if(votes[id]){showToast("You have already voted for this listing on this browser.");return}
-  votes[id]=true;saveStorage(LOCAL_VOTES_KEY,votes);renderListings();showToast("Demo vote saved on this device.");
-}
 
-/* Public visitors can retrieve only Approved rows because of Supabase RLS. */
-async function loadCommunityListings(){
-  setStatus("Loading community listings…");
-  const {data,error}=await supabaseClient.from("Listings").select("*").eq("Status","Approved").order("created_at",{ascending:false});
-  if(error){
-    console.error("Supabase listing load error:",error);
-    remoteListings=[];refreshListings();
-    setStatus("Could not load shared listings. Demo listings are shown. Check Supabase permissions.", "error");return;
-  }
-  remoteListings=(data||[]).filter(row=>row.Status==="Approved").map(normalizeRemoteListing);
-  refreshListings();
-  setStatus("Connected. Approved community listings are shared across visitors.","success");
-}
 
-/* Admin access is checked against the rankboard_admins table. */
-async function verifyAdmin(user){
-  currentAdminUser=user||null;isAdmin=false;
-  if(!user){updateAdminButtons();return false}
-  const {data,error}=await supabaseClient.from("rankboard_admins").select("user_id").eq("user_id",user.id).maybeSingle();
-  if(error){console.error("Admin verification error:",error)}
-  isAdmin=!!data;
-  updateAdminButtons();
-  return isAdmin;
-}
-function updateAdminButtons(){
-  document.getElementById("adminPanelBtn").hidden=!isAdmin;
-  document.getElementById("loginBtn").textContent=isAdmin?"Account":"Admin Login";
-}
-async function initializeAdminSession(){
-  const {data,error}=await supabaseClient.auth.getSession();
-  if(error){console.error("Session error:",error);return}
-  if(data.session)await verifyAdmin(data.session.user);
-}
-async function loadPendingListings(){
-  const status=document.getElementById("adminStatus");
-  const list=document.getElementById("adminPendingList");
-  list.innerHTML="";
-  if(!isAdmin){status.textContent="Admin access required.";return}
-  status.textContent="Loading pending submissions…";
-  const {data,error}=await supabaseClient.from("Listings").select("*").eq("Status","Pending").order("created_at",{ascending:false});
-  if(error){
-    console.error("Pending listing load error:",error);
-    status.textContent="Could not load pending listings: "+error.message;return;
+  if(sort === "az"){
+    data.sort((a,b)=>
+      String(a.Title || "").localeCompare(
+        String(b.Title || "")
+      )
+    );
   }
-  const pending=data||[];
-  status.textContent=pending.length+" pending listing"+(pending.length===1?"":"s");
-  if(!pending.length){
-    const empty=document.createElement("div");empty.className="admin-empty";empty.textContent="No pending submissions right now.";list.appendChild(empty);return;
-  }
-  pending.forEach(row=>{
-    const item=document.createElement("article");item.className="admin-item";
-    const title=document.createElement("h3");title.textContent=row.Title||"Untitled listing";
-    const category=document.createElement("p");category.textContent="Category: "+(row.Category||"Other");
-    const description=document.createElement("p");description.textContent=row.Discription||"No description provided.";
-    item.append(title,category,description);
-    const safeUrl=safeWebsiteUrl(row.Website_url||"");
-    if(safeUrl){
-      const url=document.createElement("p");url.textContent="Website: "+safeUrl;item.appendChild(url);
-    }
-    const actions=document.createElement("div");actions.className="admin-actions";
-    const approve=document.createElement("button");approve.type="button";approve.className="btn btn-approve";approve.textContent="Approve";
-    approve.addEventListener("click",()=>updateListingStatus(row.id,"Approved",approve));
-    const reject=document.createElement("button");reject.type="button";reject.className="btn btn-reject";reject.textContent="Reject";
-    reject.addEventListener("click",()=>updateListingStatus(row.id,"Rejected",reject));
-    actions.append(approve,reject);item.appendChild(actions);list.appendChild(item);
-  });
-}
-async function updateListingStatus(id,newStatus,button){
-  if(!isAdmin){showToast("Admin access required.");return}
-  button.disabled=true;
-  const {error}=await supabaseClient.from("Listings").update({Status:newStatus}).eq("id",id);
-  button.disabled=false;
-  if(error){
-    console.error("Status update error:",error);
-    showToast("Could not update listing: "+error.message);return;
-  }
-  showToast(newStatus==="Approved"?"Listing approved and published.":"Listing rejected.");
-  await loadPendingListings();
-  await loadCommunityListings();
-}
 
-document.getElementById("openSubmitBtn").addEventListener("click",()=>openModal("submitModal"));
-document.getElementById("loginBtn").addEventListener("click",()=>{
-  if(isAdmin){openModal("adminModal");loadPendingListings()}
-  else openModal("loginModal");
-});
-document.getElementById("adminPanelBtn").addEventListener("click",()=>{
-  if(!isAdmin){showToast("Please log in as admin.");return}
-  openModal("adminModal");loadPendingListings();
-});
-document.getElementById("adminLogoutBtn").addEventListener("click",async()=>{
-  const {error}=await supabaseClient.auth.signOut();
-  if(error){showToast("Logout error: "+error.message);return}
-  currentAdminUser=null;isAdmin=false;updateAdminButtons();closeModal("adminModal");showToast("Logged out.");
-});
-document.querySelectorAll("[data-close]").forEach(button=>button.addEventListener("click",()=>closeModal(button.dataset.close)));
-document.querySelectorAll(".modal-backdrop").forEach(backdrop=>backdrop.addEventListener("click",event=>{
-  if(event.target===backdrop)closeModal(backdrop.id);
-}));
-document.addEventListener("keydown",event=>{
-  if(event.key==="Escape")document.querySelectorAll(".modal-backdrop.open").forEach(modal=>closeModal(modal.id));
-});
-searchInput.addEventListener("input",renderListings);
-categoryFilter.addEventListener("change",renderListings);
-sortSelect.addEventListener("change",renderListings);
-
-document.getElementById("adminLoginForm").addEventListener("submit",async event=>{
-  event.preventDefault();
-  const email=document.getElementById("adminEmail").value.trim();
-  const password=document.getElementById("adminPassword").value;
-  const message=document.getElementById("adminLoginMessage");
-  const button=document.getElementById("adminLoginSubmit");
-  button.disabled=true;button.textContent="Signing in…";message.textContent="Checking admin account…";
-  const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
-  button.disabled=false;button.textContent="Login";
-  if(error){message.textContent=error.message;return}
-  const allowed=await verifyAdmin(data.user);
-  if(!allowed){
-    await supabaseClient.auth.signOut();
-    currentAdminUser=null;isAdmin=false;updateAdminButtons();
-    message.textContent="This account is not registered as a RankBoard admin.";
-    return;
+  if(sort === "category"){
+    data.sort((a,b)=>
+      String(a.Category || "").localeCompare(
+        String(b.Category || "")
+      )
+    );
   }
-  message.textContent="Admin login successful.";
-  document.getElementById("adminLoginForm").reset();
-  closeModal("loginModal");openModal("adminModal");await loadPendingListings();
-  showToast("Admin logged in.");
-});
-document.getElementById("forgotPasswordBtn").addEventListener("click", async () => {
-  const email = document.getElementById("adminEmail").value.trim();
-  const button = document.getElementById("forgotPasswordBtn");
-  const message = document.getElementById("adminLoginMessage");
 
-  if (!email) {
-    message.textContent = "Please enter your admin email first.";
-    document.getElementById("adminEmail").focus();
+  grid.innerHTML = "";
+
+  if(!data.length){
+    empty.style.display = "block";
     return;
   }
 
-  button.disabled = true;
-  button.textContent = "Sending...";
+  empty.style.display = "none";
 
-  try {
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin
+  data.forEach(item=>{
+
+    const url = safeUrl(item.Website_url);
+
+    const card = document.createElement("article");
+
+    card.className = "card";
+
+    card.innerHTML = `
+
+      <div class="card-top">
+
+        <div>
+          <h3>${escapeHTML(item.Title)}</h3>
+
+          <span class="category">
+            ${escapeHTML(item.Category || "Other")}
+          </span>
+        </div>
+
+        <span class="status">
+          Approved
+        </span>
+
+      </div>
+
+      <p>
+        ${escapeHTML(item.Discription || "Useful website")}
+      </p>
+
+      <div class="card-actions">
+
+        <a
+          class="btn btn-primary"
+          href="${url}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit Website
+        </a>
+
+        <button
+          class="vote"
+          data-vote="${escapeHTML(item.id)}"
+          title="Vote"
+        >
+          ▲
+        </button>
+
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+
+  document.querySelectorAll("[data-vote]")
+    .forEach(button=>{
+
+      button.addEventListener("click",()=>{
+
+        const id = button.dataset.vote;
+
+        const key = "rankboard_vote_" + id;
+
+        if(localStorage.getItem(key)){
+          showToast("You already voted for this website.");
+          return;
+        }
+
+        localStorage.setItem(key,"1");
+
+        button.textContent = "✓";
+
+        showToast("Vote recorded.");
+
+      });
+
     });
 
-    if (error) {
-      message.textContent = "Password reset error: " + error.message;
-    } else {
-      message.textContent = "If this email is registered, a password reset link will be sent. Check your inbox and Spam folder.";
-    }
-  } catch (error) {
-    message.textContent = "Request failed. Please try again later.";
-  } finally {
-    button.disabled = false;
-    button.textContent = "Forgot password?";
-  }
-});
-/* Do not request .select() after insert: Pending rows are not publicly readable. */
-document.getElementById("listingForm").addEventListener("submit",async event=>{
-  event.preventDefault();
-  if(isSubmitting)return;
-  const name=document.getElementById("listingName").value.trim();
-  const category=document.getElementById("listingCategory").value.trim();
-  const rawUrl=document.getElementById("listingUrl").value.trim();
-  const description=document.getElementById("listingDescription").value.trim();
-  if(name.length<3){showToast("Website name must contain at least 3 characters.");return}
-  if(!category){showToast("Please choose a category.");return}
-  let websiteUrl=null;
-  if(rawUrl){
-    websiteUrl=safeWebsiteUrl(rawUrl);
-    if(!websiteUrl){showToast("Enter a valid website URL beginning with http:// or https://");return}
-  }
-  isSubmitting=true;
-  const submitButton=document.getElementById("submitListingBtn");
-  submitButton.disabled=true;submitButton.textContent="Submitting…";
-  const {error}=await supabaseClient.from("Listings").insert({
-    Title:name,
-    Discription:description||null,
-    Category:category,
-    Website_url:websiteUrl
-  });
-  isSubmitting=false;submitButton.disabled=false;submitButton.textContent="Submit Listing";
-  if(error){
-    console.error("Supabase listing submit error:",error);
-    showToast("Submit error: "+error.message);return;
-  }
-  event.target.reset();closeModal("submitModal");
-  showToast("Submitted! Your listing will appear after admin approval.");
-  if(isAdmin)await loadPendingListings();
-});
+}
 
-refreshListings();
-loadCommunityListings();
-initializeAdminSession();
+
+/* ==============================
+   SEARCH / FILTER
+============================== */
+
+$("searchInput").addEventListener(
+  "input",
+  renderListings
+);
+
+$("searchBtn").addEventListener(
+  "click",
+  renderListings
+);
+
+$("categoryFilter").addEventListener(
+  "change",
+  renderListings
+);
+
+$("sortSelect").addEventListener(
+  "change",
+  renderListings
+);
+
+
+/* ==============================
+   MODALS
+============================== */
+
+$("submitOpenBtn").addEventListener(
+  "click",
+  ()=>openModal("submitModal")
+);
+
+$("adminOpenBtn").addEventListener(
+  "click",
+  ()=>openModal("loginModal")
+);
+
+document.querySelectorAll("[data-close]")
+  .forEach(button=>{
+
+    button.addEventListener("click",()=>{
+      closeModal(button.dataset.close);
+    });
+
+  });
+
+
+document.querySelectorAll(".modal")
+  .forEach(modal=>{
+
+    modal.addEventListener("click",(e)=>{
+
+      if(e.target === modal){
+        modal.classList.remove("open");
+      }
+
+    });
+
+  });
+
+
+/* ==============================
+   SUBMIT WEBSITE
+============================== */
+
+$("submitForm").addEventListener(
+  "submit",
+  async e=>{
+
+    e.preventDefault();
+
+    const title =
+      $("submitTitle").value.trim();
+
+    const description =
+      $("submitDescription").value.trim();
+
+    const category =
+      $("submitCategory").value;
+
+    const url =
+      $("submitUrl").value.trim();
+
+    const btn = $("submitBtn");
+
+    const msg = $("submitMessage");
+
+    btn.disabled = true;
+    btn.textContent = "Submitting…";
+
+    msg.textContent =
+      "Submitting your website...";
+
+
+    const {error} =
+      await supabaseClient
+        .from("Listings")
+        .insert([{
+          Title:title,
+          Discription:description,
+          Category:category,
+          Website_url:url,
+          Status:"pending"
+        }]);
+
+
+    if(error){
+
+      console.log(error);
+
+      msg.textContent =
+        "Could not submit: " + error.message;
+
+      btn.disabled = false;
+      btn.textContent = "Submit Website";
+
+      return;
+    }
+
+
+    $("submitForm").reset();
+
+    msg.textContent =
+      "Website submitted successfully. It will appear after admin approval.";
+
+    btn.disabled = false;
+    btn.textContent = "Submit Website";
+
+    showToast("Website submitted.");
+
+    setTimeout(()=>{
+      closeModal("submitModal");
+    },1200);
+
+  }
+);
+
+
+/* ==============================
+   ADMIN LOGIN
+============================== */
+
+$("adminLoginForm").addEventListener(
+  "submit",
+  async e=>{
+
+    e.preventDefault();
+
+    const email =
+      $("adminEmail").value.trim();
+
+    const password =
+      $("adminPassword").value;
+
+    const btn =
+      $("adminLoginBtn");
+
+    const msg =
+      $("adminLoginMessage");
+
+    btn.disabled = true;
+    btn.textContent = "Logging in…";
+    msg.textContent = "Checking login...";
+
+
+    const {data,error} =
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+
+    if(error){
+
+      msg.textContent =
+        "Invalid login credentials.";
+
+      btn.disabled = false;
+      btn.textContent = "Login";
+
+      return;
+    }
+
+
+    const user = data.user;
+
+    if(!user){
+
+      msg.textContent =
+        "Login failed.";
+
+      btn.disabled = false;
+      btn.textContent = "Login";
+
+      return;
+    }
+
+
+    const {data:admin,error:adminError} =
+      await supabaseClient
+        .from("rankboard_admins")
+        .select("*")
+        .eq("user_id",user.id)
+        .maybeSingle();
+
+
+    if(adminError || !admin){
+
+      await supabaseClient.auth.signOut();
+
+      msg.textContent =
+        "This account is not authorized as an admin.";
+
+      btn.disabled = false;
+      btn.textContent = "Login";
+
+      return;
+    }
+
+
+    $("adminLoginForm").reset();
+
+    closeModal("loginModal");
+
+    openModal("adminModal");
+
+    btn.disabled = false;
+    btn.textContent = "Login";
+
+    loadPendingListings();
+
+  }
+);
+
+
+/* ==============================
+   FORGOT PASSWORD
+============================== */
+
+$("forgotPasswordBtn").addEventListener(
+  "click",
+  async ()=>{
+
+    const email =
+      $("adminEmail").value.trim();
+
+    const btn =
+      $("forgotPasswordBtn");
+
+    const msg =
+      $("adminLoginMessage");
+
+
+    if(!email){
+
+      msg.textContent =
+        "Please enter your admin email first.";
+
+      $("adminEmail").focus();
+
+      return;
+    }
+
+
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+
+    msg.textContent =
+      "Sending password reset link...";
+
+
+    const {error} =
+      await supabaseClient.auth
+        .resetPasswordForEmail(
+          email,
+          {
+            redirectTo:
+              window.location.origin
+          }
+        );
+
+
+    if(error){
+
+      msg.textContent =
+        "Password reset error: " +
+        error.message;
+
+    }else{
+
+      msg.textContent =
+        "Password reset link sent. Check your email and Spam folder.";
+
+    }
+
+
+    btn.disabled = false;
+    btn.textContent = "Forgot password?";
+
+  }
+);
+
+
+/* ==============================
+   PASSWORD RECOVERY
+============================== */
+
+function showResetScreen(){
+
+  recoveryMode = true;
+
+  $("resetPasswordScreen")
+    .classList.add("open");
+
+  document.body.style.overflow =
+    "hidden";
+
+  $("resetPasswordMessage").textContent =
+    "Recovery verified. Enter your new password.";
+
+  setTimeout(()=>{
+    $("newAdminPassword").focus();
+  },150);
+
+}
+
+
+function hideResetScreen(){
+
+  recoveryMode = false;
+
+  $("resetPasswordScreen")
+    .classList.remove("open");
+
+  document.body.style.overflow = "";
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+  (event,session)=>{
+
+    console.log("Auth event:",event);
+
+    if(event === "PASSWORD_RECOVERY"){
+      showResetScreen();
+    }
+
+  }
+);
+
+
+async function detectRecovery(){
+
+  const text =
+    window.location.href +
+    " " +
+    window.location.hash +
+    " " +
+    window.location.search;
+
+
+  if(
+    !/type=recovery|code=/.test(text)
+  ){
+    return;
+  }
+
+
+  setTimeout(async()=>{
+
+    const {data} =
+      await supabaseClient.auth
+        .getSession();
+
+    if(data?.session){
+      showResetScreen();
+    }
+
+  },1000);
+
+}
+
+
+detectRecovery();
+
+
+/* ==============================
+   UPDATE PASSWORD
+============================== */
+
+$("resetPasswordForm").addEventListener(
+  "submit",
+  async e=>{
+
+    e.preventDefault();
+
+    const p =
+      $("newAdminPassword").value;
+
+    const c =
+      $("confirmAdminPassword").value;
+
+    const msg =
+      $("resetPasswordMessage");
+
+    const btn =
+      $("resetPasswordSubmit");
+
+
+    if(p.length < 8){
+
+      msg.textContent =
+        "Password must contain at least 8 characters.";
+
+      return;
+    }
+
+
+    if(p !== c){
+
+      msg.textContent =
+        "The passwords do not match.";
+
+      return;
+    }
+
+
+    btn.disabled = true;
+    btn.textContent = "Saving…";
+
+    msg.textContent =
+      "Updating your password...";
+
+
+    const {error} =
+      await supabaseClient.auth
+        .updateUser({
+          password:p
+        });
+
+
+    if(error){
+
+      msg.textContent =
+        "Could not update password: " +
+        error.message;
+
+      btn.disabled = false;
+      btn.textContent = "Save New Password";
+
+      return;
+    }
+
+
+    $("resetPasswordForm").reset();
+
+    await supabaseClient.auth.signOut();
+
+    hideResetScreen();
+
+    openModal("loginModal");
+
+    $("adminLoginMessage").textContent =
+      "Password updated. Login using your new password.";
+
+    showToast(
+      "Password updated successfully."
+    );
+
+    btn.disabled = false;
+    btn.textContent = "Save New Password";
+
+  }
+);
+
+
+/* ==============================
+   LOAD PENDING ADMIN LISTINGS
+============================== */
+
+async function loadPendingListings(){
+
+  const box =
+    $("adminPanelContent");
+
+  box.innerHTML =
+    "<p class='form-note'>Loading pending submissions...</p>";
+
+
+  const {data,error} =
+    await supabaseClient
+      .from("Listings")
+      .select("*")
+      .eq("Status","pending")
+      .order("created_at",{ascending:false});
+
+
+  if(error){
+
+    box.innerHTML =
+      "<p class='form-note'>Could not load submissions: " +
+      escapeHTML(error.message) +
+      "</p>";
+
+    return;
+  }
+
+
+  if(!data || !data.length){
+
+    box.innerHTML =
+      "<div class='empty'>No pending submissions.</div>";
+
+    return;
+  }
+
+
+  const wrapper =
+    document.createElement("div");
+
+  wrapper.className =
+    "admin-list";
+
+
+  data.forEach(item=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "pending";
+
+
+    div.innerHTML = `
+
+      <h3>
+        ${escapeHTML(item.Title)}
+      </h3>
+
+      <p>
+        ${escapeHTML(item.Discription)}
+      </p>
+
+      <p>
+        <strong>Category:</strong>
+        ${escapeHTML(item.Category)}
+      </p>
+
+      <p>
+        <a
+          href="${safeUrl(item.Website_url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ${escapeHTML(item.Website_url)}
+        </a>
+      </p>
+
+      <div class="pending-actions">
+
+        <button
+          class="btn btn-success"
+          data-approve="${escapeHTML(item.id)}"
+        >
+          Approve
+        </button>
+
+        <button
+          class="btn btn-danger"
+          data-reject="${escapeHTML(item.id)}"
+        >
+          Reject
+        </button>
+
+      </div>
+    `;
+
+
+    wrapper.appendChild(div);
+
+  });
+
+
+  box.innerHTML = "";
+
+  box.appendChild(wrapper);
+
+
+  box.querySelectorAll("[data-approve]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        ()=>updateListingStatus(
+          button.dataset.approve,
+          "approved"
+        )
+      );
+
+    });
+
+
+  box.querySelectorAll("[data-reject]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        ()=>updateListingStatus(
+          button.dataset.reject,
+          "rejected"
+        )
+      );
+
+    });
+
+}
+
+
+/* ==============================
+   APPROVE / REJECT
+============================== */
+
+async function updateListingStatus(
+  id,
+  status
+){
+
+  const {error} =
+    await supabaseClient
+      .from("Listings")
+      .update({
+        Status:status
+      })
+      .eq("id",id);
+
+
+  if(error){
+
+    showToast(
+      "Update failed: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  showToast(
+    status === "approved"
+      ? "Website approved."
+      : "Website rejected."
+  );
+
+
+  loadPendingListings();
+  loadListings();
+
+}
+
+
+/* ==============================
+   ADMIN SIGN OUT
+============================== */
+
+$("adminSignOutBtn").addEventListener(
+  "click",
+  async ()=>{
+
+    await supabaseClient.auth.signOut();
+
+    closeModal("adminModal");
+
+    showToast("Signed out.");
+
+  }
+);
+
+
+/* ==============================
+   START APP
+============================== */
+
+loadListings();
+
 </script>
+
 </body>
 </html>
