@@ -239,7 +239,8 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   if (event === "PASSWORD_RECOVERY") {
     recoveryMode = true;
 
-    const resetMessage = document.getElementById("resetPasswordMessage");
+    const resetMessage =
+      document.getElementById("resetPasswordMessage");
 
     if (resetMessage) {
       resetMessage.textContent =
@@ -249,6 +250,34 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
     openModal("resetPasswordModal");
   }
 });
+
+async function checkPasswordRecovery() {
+  const url = window.location.href;
+
+  const isRecoveryUrl =
+    url.includes("type=recovery") ||
+    url.includes("code=");
+
+  if (!isRecoveryUrl) return;
+
+  const { data } = await supabaseClient.auth.getSession();
+
+  if (data && data.session) {
+    recoveryMode = true;
+
+    const resetMessage =
+      document.getElementById("resetPasswordMessage");
+
+    if (resetMessage) {
+      resetMessage.textContent =
+        "Recovery verified. Enter and save your new password.";
+    }
+
+    openModal("resetPasswordModal");
+  }
+}
+
+checkPasswordRecovery();
 
 document.getElementById("resetPasswordForm").addEventListener("submit", async event => {
   event.preventDefault();
