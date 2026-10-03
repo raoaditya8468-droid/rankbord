@@ -236,7 +236,7 @@ const LOCAL_VOTES_KEY = "rankboard_light_votes_v1";
 let recoveryMode = false;
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
-  if (event === "PASSWORD_RECOVERY" && session) {
+  if (event === "PASSWORD_RECOVERY") {
     recoveryMode = true;
 
     const resetMessage = document.getElementById("resetPasswordMessage");
