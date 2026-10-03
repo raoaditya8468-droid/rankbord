@@ -236,11 +236,17 @@ const LOCAL_VOTES_KEY = "rankboard_light_votes_v1";
 let recoveryMode = false;
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
-  if (event === "PASSWORD_RECOVERY") {
+  if (event === "PASSWORD_RECOVERY" && session) {
     recoveryMode = true;
+
+    const resetMessage = document.getElementById("resetPasswordMessage");
+
+    if (resetMessage) {
+      resetMessage.textContent =
+        "Recovery verified. Enter and save your new password.";
+    }
+
     openModal("resetPasswordModal");
-    document.getElementById("resetPasswordMessage").textContent =
-      "Recovery verified. Enter and save your new password.";
   }
 });
 
