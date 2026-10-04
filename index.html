@@ -458,7 +458,242 @@ footer{
 @media(max-width:800px){
   .grid{grid-template-columns:repeat(2,1fr)}
 }
+/* ==============================
+   PROFESSIONAL HOMEPAGE
+============================== */
 
+.hero{
+  padding:82px 0 55px;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(37,99,235,.12),transparent 30%),
+    radial-gradient(circle at 80% 10%,rgba(124,58,237,.10),transparent 28%);
+}
+
+.hero .badge{
+  border:1px solid #d9e5ff;
+  box-shadow:0 5px 20px rgba(37,99,235,.08);
+}
+
+.hero h1{
+  max-width:850px;
+  font-weight:850;
+  letter-spacing:-3px;
+}
+
+.hero h1 span{
+  color:var(--primary);
+}
+
+.hero p{
+  max-width:700px;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:24px;
+  flex-wrap:wrap;
+}
+
+.hero-btn{
+  padding:13px 20px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:750;
+}
+
+.hero-btn-outline{
+  background:white;
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin:35px auto 10px;
+  max-width:780px;
+}
+
+.stat{
+  background:rgba(255,255,255,.8);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:25px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.category-section{
+  margin-top:25px;
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+}
+
+.category-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:18px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.category-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+  border-color:#c9d8f8;
+}
+
+.category-icon{
+  width:42px;
+  height:42px;
+  margin:0 auto 10px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:#eef4ff;
+  color:var(--primary);
+  font-weight:800;
+  font-size:18px;
+}
+
+.category-card strong{
+  display:block;
+  font-size:14px;
+}
+
+.category-card span{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.section-head-row{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.section-label{
+  color:var(--primary);
+  font-size:12px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.discovery-card{
+  margin-top:55px;
+  padding:38px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#172033,#263a68);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+  overflow:hidden;
+}
+
+.discovery-card h2{
+  margin:0 0 8px;
+  font-size:30px;
+}
+
+.discovery-card p{
+  margin:0;
+  color:#d4dbea;
+  line-height:1.6;
+}
+
+.discovery-card .btn{
+  background:white;
+  color:#172033;
+  white-space:nowrap;
+}
+
+footer{
+  margin-top:75px;
+}
+
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.footer-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+}
+
+.footer-links a:hover{
+  color:var(--primary);
+}
+
+@media(max-width:900px){
+  .category-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .hero{
+    padding:55px 0 35px;
+  }
+
+  .hero h1{
+    letter-spacing:-1.5px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .section-head-row{
+    display:block;
+  }
+
+  .discovery-card{
+    padding:27px 22px;
+    display:block;
+  }
+
+  .discovery-card h2{
+    font-size:25px;
+  }
+
+  .discovery-card .btn{
+    margin-top:20px;
+    width:100%;
+  }
+}
 @media(max-width:600px){
   .nav{min-height:64px}
   .nav-actions .btn-light{
@@ -493,37 +728,159 @@ footer{
 
 <main>
 
+<!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="badge">Discover useful websites</div>
 
-    <h1>Find useful websites, all in one place.</h1>
+    <div class="badge">
+      ✦ Discover useful websites
+    </div>
+
+    <h1>
+      Discover websites
+      <span>worth your time.</span>
+    </h1>
 
     <p>
-      Discover, compare and explore useful websites across different categories.
-      RankBoard helps you find tools and resources quickly.
+      Explore useful tools, platforms and resources across the web.
+      Discover new websites, compare options and find what you need faster.
     </p>
 
+    <div class="hero-buttons">
+
+      <a
+        href="#explore"
+        class="hero-btn btn-primary"
+      >
+        Explore Websites
+      </a>
+
+      <button
+        class="hero-btn hero-btn-outline"
+        id="heroSubmitBtn"
+      >
+        Submit Your Website
+      </button>
+
+    </div>
+
     <div class="search-box">
+
       <input
         id="searchInput"
         type="search"
         placeholder="Search websites, tools or categories..."
       >
-      <button class="btn btn-primary" id="searchBtn">Search</button>
+
+      <button
+        class="btn btn-primary"
+        id="searchBtn"
+      >
+        Search
+      </button>
+
     </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong>6+</strong>
+        <span>Featured Websites</span>
+      </div>
+
+      <div class="stat">
+        <strong>7</strong>
+        <span>Categories</span>
+      </div>
+
+      <div class="stat">
+        <strong>24/7</strong>
+        <span>Discover & Explore</span>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
-<section class="container">
+
+<!-- CATEGORIES -->
+<section class="container category-section">
 
   <div class="section-title">
-    <h2>Explore Websites</h2>
-    <p>Browse useful websites and discover new tools.</p>
+    <div class="section-label">Explore by category</div>
+    <h2>Find what you're looking for</h2>
+    <p>Browse websites based on your interests and needs.</p>
   </div>
 
+  <div class="category-grid">
+
+    <div class="category-card" data-category="AI Tools">
+      <div class="category-icon">AI</div>
+      <strong>AI Tools</strong>
+      <span>Explore AI</span>
+    </div>
+
+    <div class="category-card" data-category="Education">
+      <div class="category-icon">E</div>
+      <strong>Education</strong>
+      <span>Learn & grow</span>
+    </div>
+
+    <div class="category-card" data-category="Productivity">
+      <div class="category-icon">P</div>
+      <strong>Productivity</strong>
+      <span>Work smarter</span>
+    </div>
+
+    <div class="category-card" data-category="Development">
+      <div class="category-icon">D</div>
+      <strong>Development</strong>
+      <span>Build & code</span>
+    </div>
+
+    <div class="category-card" data-category="Design">
+      <div class="category-icon">✦</div>
+      <strong>Design</strong>
+      <span>Create better</span>
+    </div>
+
+    <div class="category-card" data-category="Business">
+      <div class="category-icon">B</div>
+      <strong>Business</strong>
+      <span>Build & grow</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- EXPLORE -->
+<section
+  class="container"
+  id="explore"
+>
+
+  <div class="section-title section-head-row">
+
+    <div>
+      <div class="section-label">Discover</div>
+      <h2>Explore Websites</h2>
+      <p>
+        Useful websites selected for discovery and exploration.
+      </p>
+    </div>
+
+  </div>
+
+
   <div class="controls">
-    <select class="field" id="categoryFilter">
+
+    <select
+      class="field"
+      id="categoryFilter"
+    >
       <option value="all">All Categories</option>
       <option value="AI Tools">AI Tools</option>
       <option value="Education">Education</option>
@@ -534,17 +891,64 @@ footer{
       <option value="Other">Other</option>
     </select>
 
-    <select class="field" id="sortSelect">
+    <select
+      class="field"
+      id="sortSelect"
+    >
       <option value="newest">Newest</option>
       <option value="az">A–Z</option>
       <option value="category">Category</option>
     </select>
+
   </div>
 
-  <div id="listingsGrid" class="grid"></div>
 
-  <div id="emptyState" class="empty" style="display:none">
+  <div
+    id="listingsGrid"
+    class="grid"
+  ></div>
+
+
+  <div
+    id="emptyState"
+    class="empty"
+    style="display:none"
+  >
     No websites found.
+  </div>
+
+</section>
+
+
+<!-- SUBMIT CTA -->
+<section class="container">
+
+  <div class="discovery-card">
+
+    <div>
+
+      <div class="section-label">
+        For website owners
+      </div>
+
+      <h2>
+        Have a website worth discovering?
+      </h2>
+
+      <p>
+        Submit your website to RankBoard and let people
+        discover what you have built.
+      </p>
+
+    </div>
+
+    <button
+      class="btn"
+      id="ctaSubmitBtn"
+    >
+      Submit Website
+    </button>
+
   </div>
 
 </section>
@@ -1746,7 +2150,54 @@ $("adminSignOutBtn").addEventListener(
 /* ==============================
    START APP
 ============================== */
+/* ==============================
+   PROFESSIONAL HOMEPAGE ACTIONS
+============================== */
 
+function openSubmitModal(){
+  openModal("submitModal");
+}
+
+$("heroSubmitBtn").addEventListener(
+  "click",
+  openSubmitModal
+);
+
+$("ctaSubmitBtn").addEventListener(
+  "click",
+  openSubmitModal
+);
+
+$("footerSubmitBtn").addEventListener(
+  "click",
+  openSubmitModal
+);
+
+
+/* CATEGORY CARDS */
+
+document.querySelectorAll("[data-category]")
+  .forEach(card=>{
+
+    card.addEventListener("click",()=>{
+
+      const category =
+        card.dataset.category;
+
+      $("categoryFilter").value =
+        category;
+
+      document
+        .getElementById("explore")
+        .scrollIntoView({
+          behavior:"smooth"
+        });
+
+      renderListings();
+
+    });
+
+  });
 loadListings();
 
 </script>
