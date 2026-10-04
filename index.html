@@ -2,1175 +2,957 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>RankBoard — Discover Useful Websites & Tools</title>
 
-<meta name="description" content="RankBoard helps you discover useful websites, AI tools, education resources, productivity apps, development platforms, design tools and business websites.">
-
-<meta name="keywords" content="useful websites, AI tools, education websites, productivity tools, developer tools, design tools, business websites, RankBoard">
-
+<meta name="description" content="Discover, compare and rank useful websites, AI tools, education resources, productivity apps, development platforms, design tools and more.">
 <meta name="robots" content="index,follow">
-
 <link rel="canonical" href="https://rankboard.vercel.app/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="RankBoard — Discover Useful Websites & Tools">
-<meta property="og:description" content="Discover useful websites and tools all in one place.">
+<meta property="og:description" content="Discover, compare and rank useful websites and tools.">
 <meta property="og:url" content="https://rankboard.vercel.app/">
 <meta property="og:site_name" content="RankBoard">
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RankBoard — Discover Useful Websites & Tools">
-<meta name="twitter:description" content="Discover useful websites and tools all in one place.">
 
 <meta name="theme-color" content="#f3f7fc">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232563eb'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Arial' font-size='34' font-weight='900' fill='white'%3ER%3C/text%3E%3C/svg%3E">
 
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "name":"RankBoard",
-  "url":"https://rankboard.vercel.app/",
-  "description":"Discover useful websites and tools all in one place."
-}
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 :root{
-  --bg:#f3f7fc;
-  --white:#ffffff;
-  --panel:#f8fbff;
-  --text:#172033;
-  --muted:#667085;
-  --primary:#2563eb;
-  --primary-dark:#1d4ed8;
-  --border:#dfe7f2;
-  --success:#16a34a;
-  --danger:#dc2626;
-  --shadow:0 12px 35px rgba(31,45,61,.08);
-  --radius:16px;
+--bg:#f3f7fc;
+--white:#fff;
+--text:#172033;
+--muted:#667085;
+--primary:#2563eb;
+--primary-dark:#1d4ed8;
+--border:#dfe7f2;
+--success:#16a34a;
+--danger:#dc2626;
+--shadow:0 12px 35px rgba(31,45,61,.08);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
-  margin:0;
-  font-family:Inter,Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.5;
+margin:0;
+font-family:Inter,Arial,Helvetica,sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.5
 }
 
-button,
-input,
-select,
-textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 
 .container{
-  width:min(1180px,92%);
-  margin:auto;
+width:min(1180px,92%);
+margin:auto
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid var(--border);
+position:sticky;
+top:0;
+z-index:50;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(15px);
+border-bottom:1px solid var(--border)
 }
 
 .nav{
-  min-height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+min-height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  text-decoration:none;
-  color:var(--text);
-  font-weight:900;
-  font-size:21px;
-  letter-spacing:-.5px;
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+color:var(--text);
+font-weight:900;
+font-size:21px
 }
 
 .logo{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  background:linear-gradient(135deg,#2563eb,#4f46e5);
-  color:white;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  box-shadow:0 8px 20px rgba(37,99,235,.25);
+width:38px;
+height:38px;
+border-radius:12px;
+background:linear-gradient(135deg,#2563eb,#4f46e5);
+color:#fff;
+display:grid;
+place-items:center;
+font-weight:900
 }
 
 .nav-actions{
-  display:flex;
-  align-items:center;
-  gap:9px;
+display:flex;
+gap:8px
 }
 
 .btn{
-  border:0;
-  border-radius:11px;
-  padding:11px 17px;
-  font-weight:750;
-  transition:.2s;
+border:0;
+border-radius:11px;
+padding:11px 17px;
+font-weight:750;
+transition:.2s
 }
 
-.btn:hover{
-  transform:translateY(-1px);
-}
+.btn:hover{transform:translateY(-1px)}
 
 .btn-primary{
-  background:var(--primary);
-  color:white;
+background:var(--primary);
+color:#fff
 }
 
-.btn-primary:hover{
-  background:var(--primary-dark);
-}
+.btn-primary:hover{background:var(--primary-dark)}
 
 .btn-light{
-  background:white;
-  color:var(--text);
-  border:1px solid var(--border);
-}
-
-.btn-light:hover{
-  border-color:#bfd0ec;
-  box-shadow:0 7px 20px rgba(31,45,61,.06);
-}
-
-.btn-danger{
-  background:#fee2e2;
-  color:#991b1b;
+background:#fff;
+color:var(--text);
+border:1px solid var(--border)
 }
 
 .btn-success{
-  background:#dcfce7;
-  color:#166534;
+background:#dcfce7;
+color:#166534
 }
 
-/* =========================
-   HERO
-========================= */
+.btn-danger{
+background:#fee2e2;
+color:#991b1b
+}
+
+/* HERO */
 
 .hero{
-  padding:85px 0 55px;
-  text-align:center;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(37,99,235,.13),transparent 30%),
-    radial-gradient(circle at 80% 10%,rgba(124,58,237,.11),transparent 28%);
+padding:80px 0 55px;
+text-align:center;
+background:
+radial-gradient(circle at 20% 20%,rgba(37,99,235,.13),transparent 30%),
+radial-gradient(circle at 80% 10%,rgba(124,58,237,.11),transparent 28%)
 }
 
 .badge{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:7px 12px;
-  border:1px solid #d8e5ff;
-  background:rgba(255,255,255,.85);
-  border-radius:999px;
-  color:var(--primary);
-  font-size:12px;
-  font-weight:800;
-  box-shadow:0 5px 20px rgba(37,99,235,.08);
+display:inline-flex;
+padding:7px 13px;
+border:1px solid #d8e5ff;
+background:#fff;
+border-radius:999px;
+color:var(--primary);
+font-size:12px;
+font-weight:800
 }
 
 .hero h1{
-  max-width:850px;
-  margin:20px auto 15px;
-  font-size:clamp(38px,6vw,65px);
-  line-height:1.04;
-  font-weight:900;
-  letter-spacing:-3px;
+max-width:850px;
+margin:20px auto 15px;
+font-size:clamp(38px,6vw,65px);
+line-height:1.05;
+font-weight:900;
+letter-spacing:-3px
 }
 
-.hero h1 span{
-  color:var(--primary);
-}
+.hero h1 span{color:var(--primary)}
 
 .hero p{
-  max-width:700px;
-  margin:0 auto;
-  color:var(--muted);
-  font-size:17px;
+max-width:700px;
+margin:auto;
+color:var(--muted);
+font-size:17px
 }
 
 .hero-buttons{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  margin-top:25px;
-  flex-wrap:wrap;
+display:flex;
+justify-content:center;
+gap:12px;
+margin-top:25px;
+flex-wrap:wrap
 }
 
 .hero-btn{
-  padding:13px 20px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:800;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+padding:13px 20px;
+border-radius:12px;
+text-decoration:none;
+font-weight:800
 }
 
 .hero-btn-outline{
-  background:white;
-  color:var(--text);
-  border:1px solid var(--border);
+background:#fff;
+color:var(--text);
+border:1px solid var(--border)
 }
 
+/* SEARCH */
+
 .search-box{
-  max-width:760px;
-  margin:30px auto 0;
-  display:flex;
-  gap:9px;
-  padding:7px;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:15px;
-  box-shadow:var(--shadow);
+max-width:760px;
+margin:30px auto 0;
+display:flex;
+gap:8px;
+padding:7px;
+background:#fff;
+border:1px solid var(--border);
+border-radius:15px;
+box-shadow:var(--shadow)
 }
 
 .search-box input{
-  flex:1;
-  min-width:0;
-  border:0;
-  outline:0;
-  padding:12px 14px;
-  color:var(--text);
-  background:transparent;
+flex:1;
+min-width:0;
+border:0;
+outline:0;
+padding:12px;
+background:transparent
 }
 
-.search-box .btn{
-  min-width:110px;
-}
+.search-box .btn{min-width:110px}
 
-/* =========================
-   STATS
-========================= */
+/* STATS */
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin:35px auto 10px;
-  max-width:780px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+margin:35px auto 10px;
+max-width:780px
 }
 
 .stat{
-  background:rgba(255,255,255,.85);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:18px;
-  text-align:center;
+background:#fff;
+border:1px solid var(--border);
+border-radius:16px;
+padding:18px;
+text-align:center
 }
 
 .stat strong{
-  display:block;
-  font-size:25px;
-  line-height:1.1;
+display:block;
+font-size:25px
 }
 
 .stat span{
-  display:block;
-  margin-top:5px;
-  color:var(--muted);
-  font-size:13px;
+color:var(--muted);
+font-size:13px
 }
 
-/* =========================
-   SECTION HEAD
-========================= */
+/* SECTIONS */
 
-.section{
-  padding-top:50px;
-}
-
-.section-head{
-  margin-bottom:22px;
-}
+.section-head{margin-bottom:22px}
 
 .section-label{
-  color:var(--primary);
-  font-size:12px;
-  font-weight:850;
-  text-transform:uppercase;
-  letter-spacing:1px;
+color:var(--primary);
+font-size:12px;
+font-weight:850;
+text-transform:uppercase;
+letter-spacing:1px
 }
 
 .section-title{
-  margin:5px 0 0;
-  font-size:30px;
-  letter-spacing:-1px;
+margin:5px 0;
+font-size:30px
 }
 
 .section-subtitle{
-  color:var(--muted);
-  margin:6px 0 0;
+color:var(--muted);
+margin:0
 }
 
-/* =========================
-   CATEGORY GRID
-========================= */
+/* CATEGORIES */
 
-.category-section{
-  margin-top:25px;
-}
+.category-section{margin-top:30px}
 
 .category-grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:12px;
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:12px
 }
 
 .category-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:18px 10px;
-  text-align:center;
-  cursor:pointer;
-  transition:.2s;
+background:#fff;
+border:1px solid var(--border);
+border-radius:15px;
+padding:18px 8px;
+text-align:center;
+cursor:pointer;
+transition:.2s
 }
 
 .category-card:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow);
-  border-color:#c9d8f8;
+transform:translateY(-3px);
+box-shadow:var(--shadow)
 }
 
 .category-icon{
-  width:42px;
-  height:42px;
-  margin:0 auto 10px;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  background:#eef4ff;
-  color:var(--primary);
-  font-weight:900;
-  font-size:17px;
+width:42px;
+height:42px;
+margin:auto auto 10px;
+border-radius:12px;
+display:grid;
+place-items:center;
+background:#eef4ff;
+color:var(--primary);
+font-weight:900;
+font-size:13px
 }
 
 .category-card strong{
-  display:block;
-  font-size:13px;
+display:block;
+font-size:13px
 }
 
 .category-card span{
-  display:block;
-  margin-top:4px;
-  color:var(--muted);
-  font-size:11px;
+color:var(--muted);
+font-size:11px
 }
 
-/* =========================
-   EXPLORE
-========================= */
+/* EXPLORE */
 
-.explore{
-  padding-top:70px;
-}
+.explore{padding-top:70px}
 
 .section-head-row{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:15px;
+display:flex;
+align-items:end;
+justify-content:space-between;
+gap:15px
 }
 
 .controls{
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
+display:flex;
+gap:9px;
+flex-wrap:wrap
 }
 
 .field{
-  min-width:170px;
-  padding:11px 13px;
-  border-radius:11px;
-  border:1px solid var(--border);
-  background:white;
-  color:var(--text);
-  outline:none;
-}
-
-.field:focus{
-  border-color:#9bb7ed;
-  box-shadow:0 0 0 3px rgba(37,99,235,.08);
+min-width:170px;
+padding:11px 13px;
+border-radius:11px;
+border:1px solid var(--border);
+background:#fff;
+color:var(--text);
+outline:none
 }
 
 .results-info{
-  margin:18px 0 15px;
-  color:var(--muted);
-  font-size:13px;
+margin:18px 0 15px;
+color:var(--muted);
+font-size:13px
 }
 
-/* =========================
-   LISTINGS
-========================= */
+/* CARDS */
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:17px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:17px
 }
 
 .card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  box-shadow:0 5px 20px rgba(31,45,61,.035);
-  transition:.2s;
-  display:flex;
-  flex-direction:column;
-  min-height:255px;
+background:#fff;
+border:1px solid var(--border);
+border-radius:18px;
+padding:20px;
+min-height:285px;
+display:flex;
+flex-direction:column;
+position:relative;
+box-shadow:0 5px 20px rgba(31,45,61,.035);
+transition:.2s
 }
 
 .card:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow);
+transform:translateY(-3px);
+box-shadow:var(--shadow)
+}
+
+.rank-badge{
+position:absolute;
+top:13px;
+left:13px;
+background:#172033;
+color:#fff;
+border-radius:999px;
+padding:4px 9px;
+font-size:10px;
+font-weight:900
 }
 
 .card-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:12px;
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:10px;
+padding-top:18px
 }
 
 .card-icon{
-  width:45px;
-  height:45px;
-  border-radius:13px;
-  background:#eef4ff;
-  color:var(--primary);
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  font-size:18px;
+width:45px;
+height:45px;
+border-radius:13px;
+background:#eef4ff;
+color:var(--primary);
+display:grid;
+place-items:center;
+font-weight:900
 }
 
 .category-tag{
-  background:#f1f5f9;
-  color:#475569;
-  border-radius:999px;
-  padding:5px 9px;
-  font-size:10px;
-  font-weight:800;
+background:#f1f5f9;
+color:#475569;
+border-radius:999px;
+padding:5px 9px;
+font-size:10px;
+font-weight:800
 }
 
 .card h3{
-  margin:16px 0 7px;
-  font-size:18px;
+margin:14px 0 7px;
+font-size:18px
 }
 
 .card p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
-  margin:0;
+color:var(--muted);
+font-size:13px;
+line-height:1.6;
+margin:0
+}
+
+.rank-meta{
+margin-top:9px;
+font-size:11px;
+color:var(--muted);
+font-weight:700
 }
 
 .card-bottom{
-  margin-top:auto;
-  padding-top:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+margin-top:auto;
+padding-top:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
 }
 
 .visit-link{
-  color:var(--primary);
-  text-decoration:none;
-  font-weight:800;
-  font-size:13px;
-}
-
-.visit-link:hover{
-  text-decoration:underline;
+color:var(--primary);
+text-decoration:none;
+font-weight:800;
+font-size:13px
 }
 
 .vote-box{
-  display:flex;
-  align-items:center;
-  gap:6px;
+display:flex;
+align-items:center;
+gap:6px
 }
 
 .vote-btn{
-  border:1px solid var(--border);
-  background:white;
-  color:#475569;
-  width:31px;
-  height:31px;
-  border-radius:9px;
-  font-weight:900;
+border:1px solid var(--border);
+background:#fff;
+color:#475569;
+width:34px;
+height:32px;
+border-radius:9px;
+font-weight:900
 }
 
 .vote-btn:hover{
-  border-color:#9bb7ed;
-  color:var(--primary);
+color:var(--primary);
+border-color:#9bb7ed
+}
+
+.vote-btn.voted{
+background:#eef4ff;
+color:var(--primary);
+border-color:#9bb7ed
 }
 
 .vote-count{
-  min-width:25px;
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-}
-
-.empty{
-  padding:45px 20px;
-  text-align:center;
-  border:1px dashed #cbd5e1;
-  border-radius:17px;
-  color:var(--muted);
-  background:rgba(255,255,255,.6);
+min-width:25px;
+text-align:center;
+font-size:12px;
+font-weight:800;
+color:var(--muted)
 }
 
 .loading{
-  grid-column:1/-1;
-  padding:40px;
-  text-align:center;
-  color:var(--muted);
+grid-column:1/-1;
+padding:40px;
+text-align:center;
+color:var(--muted)
 }
 
-/* =========================
-   DISCOVERY CTA
-========================= */
+.empty{
+padding:45px 20px;
+text-align:center;
+border:1px dashed #cbd5e1;
+border-radius:17px;
+color:var(--muted)
+}
+
+/* CTA */
 
 .discovery-card{
-  margin-top:65px;
-  padding:38px;
-  border-radius:24px;
-  background:linear-gradient(135deg,#172033,#263a68);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-  overflow:hidden;
+margin-top:65px;
+padding:38px;
+border-radius:24px;
+background:linear-gradient(135deg,#172033,#263a68);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:25px
 }
 
-.discovery-card h2{
-  margin:0 0 8px;
-  font-size:30px;
-}
-
-.discovery-card p{
-  margin:0;
-  color:#d4dbea;
-  line-height:1.6;
-}
-
+.discovery-card h2{margin:0 0 8px}
+.discovery-card p{color:#d4dbea}
 .discovery-card .btn{
-  background:white;
-  color:#172033;
-  white-space:nowrap;
+background:#fff;
+color:#172033
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer{
-  margin-top:75px;
-  padding:45px 0 30px;
-  border-top:1px solid var(--border);
-  background:white;
+margin-top:75px;
+padding:45px 0 30px;
+background:#fff;
+border-top:1px solid var(--border)
 }
 
 .footer-main{
-  display:grid;
-  grid-template-columns:1.5fr 1fr 1fr;
-  gap:35px;
-}
-
-.footer-brand strong{
-  font-size:20px;
+display:grid;
+grid-template-columns:1.5fr 1fr 1fr;
+gap:35px
 }
 
 .footer-brand p{
-  color:var(--muted);
-  max-width:330px;
-  font-size:14px;
-}
-
-.footer-column h4{
-  margin:0 0 12px;
-  font-size:14px;
+color:var(--muted);
+max-width:330px
 }
 
 .footer-links{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+display:flex;
+flex-direction:column;
+gap:8px
 }
 
 .footer-links a,
 .footer-link-button{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:14px;
-  background:none;
-  border:0;
-  padding:0;
-  text-align:left;
-  cursor:pointer;
+color:var(--muted);
+text-decoration:none;
+background:none;
+border:0;
+padding:0;
+text-align:left;
+font-size:14px
 }
 
 .footer-links a:hover,
 .footer-link-button:hover{
-  color:var(--primary);
+color:var(--primary)
 }
 
 .footer-bottom{
-  margin-top:35px;
-  padding-top:20px;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
-  color:var(--muted);
-  font-size:12px;
+margin-top:35px;
+padding-top:20px;
+border-top:1px solid var(--border);
+display:flex;
+justify-content:space-between;
+color:var(--muted);
+font-size:12px
 }
 
-/* =========================
-   MODAL
-========================= */
+/* MODALS */
 
 .modal{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(15,23,42,.55);
+position:fixed;
+inset:0;
+z-index:100;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:rgba(15,23,42,.55)
 }
 
-.modal.active{
-  display:flex;
-}
+.modal.active{display:flex}
 
-.modal-card{
-  width:min(520px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:white;
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 30px 80px rgba(0,0,0,.25);
+.modal-card,
+.reset-card{
+width:min(520px,100%);
+max-height:90vh;
+overflow:auto;
+background:#fff;
+border-radius:20px;
+padding:25px;
+box-shadow:0 30px 80px rgba(0,0,0,.25)
 }
 
 .modal-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
 }
 
-.modal-head h2{
-  margin:0;
-  font-size:22px;
-}
+.modal-head h2{margin:0}
 
 .close-btn{
-  width:34px;
-  height:34px;
-  border:1px solid var(--border);
-  background:white;
-  border-radius:9px;
-  font-size:18px;
+width:34px;
+height:34px;
+border:1px solid var(--border);
+background:#fff;
+border-radius:9px;
+font-size:18px
 }
 
-.form-group{
-  margin-bottom:15px;
-}
+.form-group{margin-bottom:15px}
 
 .form-group label{
-  display:block;
-  margin-bottom:6px;
-  font-size:13px;
-  font-weight:750;
+display:block;
+margin-bottom:6px;
+font-size:13px;
+font-weight:750
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  outline:none;
-  color:var(--text);
-  background:white;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus{
-  border-color:#8db0ef;
-  box-shadow:0 0 0 3px rgba(37,99,235,.08);
+width:100%;
+padding:12px;
+border:1px solid var(--border);
+border-radius:10px;
+outline:none;
+color:var(--text);
+background:#fff
 }
 
 .form-group textarea{
-  min-height:100px;
-  resize:vertical;
+min-height:100px;
+resize:vertical
 }
 
 .form-actions{
-  display:flex;
-  gap:9px;
-  justify-content:flex-end;
-  margin-top:20px;
+display:flex;
+gap:9px;
+justify-content:flex-end;
+margin-top:20px
 }
 
 .message{
-  display:none;
-  margin-bottom:14px;
-  padding:11px 13px;
-  border-radius:10px;
-  font-size:13px;
+display:none;
+margin-bottom:14px;
+padding:11px 13px;
+border-radius:10px;
+font-size:13px
 }
 
-.message.show{
-  display:block;
-}
+.message.show{display:block}
+.message.error{background:#fee2e2;color:#991b1b}
+.message.success{background:#dcfce7;color:#166534}
 
-.message.error{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.message.success{
-  background:#dcfce7;
-  color:#166534;
-}
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin-panel{
-  display:none;
-}
-
-.admin-panel.active{
-  display:block;
-}
+/* ADMIN */
 
 .admin-user{
-  padding:12px;
-  border-radius:10px;
-  background:#f8fafc;
-  margin-bottom:18px;
-  font-size:13px;
-  color:var(--muted);
+padding:12px;
+border-radius:10px;
+background:#f8fafc;
+margin-bottom:18px;
+font-size:13px;
+color:var(--muted)
 }
 
 .pending-item{
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:17px;
-  margin-bottom:12px;
-  background:white;
+border:1px solid var(--border);
+border-radius:14px;
+padding:17px;
+margin-bottom:12px;
+background:#fff
 }
 
-.pending-item h3{
-  margin:0 0 5px;
-}
-
+.pending-item h3{margin:0 0 5px}
 .pending-item p{
-  color:var(--muted);
-  font-size:13px;
+color:var(--muted);
+font-size:13px
 }
 
 .pending-meta{
-  font-size:12px;
-  color:var(--muted);
-  margin:7px 0;
+font-size:12px;
+color:var(--muted);
+margin:7px 0
 }
 
 .pending-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:12px;
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:12px
 }
 
-/* =========================
-   PASSWORD RESET
-========================= */
-
-.reset-card{
-  width:min(440px,100%);
-  background:white;
-  border-radius:20px;
-  padding:30px;
-  box-shadow:var(--shadow);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 
 @media(max-width:1050px){
-
-  .category-grid{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .footer-main{
-    grid-template-columns:1fr 1fr;
-  }
+.category-grid{grid-template-columns:repeat(4,1fr)}
+.grid{grid-template-columns:repeat(2,1fr)}
+.footer-main{grid-template-columns:1fr 1fr}
 }
 
 @media(max-width:700px){
 
-  .nav{
-    min-height:64px;
-  }
+.nav{min-height:64px}
+.brand{font-size:18px}
+.logo{width:35px;height:35px}
 
-  .brand{
-    font-size:18px;
-  }
+.nav-actions .btn{
+padding:9px 10px;
+font-size:12px
+}
 
-  .logo{
-    width:35px;
-    height:35px;
-  }
+.hero{
+padding:55px 0 35px
+}
 
-  .nav-actions .btn-light{
-    display:block;
-  }
+.hero h1{
+letter-spacing:-1px
+}
 
-  .nav-actions{
-    gap:6px;
-  }
+.stats{
+grid-template-columns:1fr
+}
 
-  .nav-actions .btn{
-    padding:9px 10px;
-    font-size:12px;
-  }
+.category-grid{
+grid-template-columns:repeat(2,1fr)
+}
 
-  .hero{
-    padding:55px 0 35px;
-  }
+.section-head-row{
+display:block
+}
 
-  .hero h1{
-    letter-spacing:-1.5px;
-  }
+.controls{
+margin-top:15px
+}
 
-  .stats{
-    grid-template-columns:1fr;
-  }
+.controls .field{
+width:100%
+}
 
-  .category-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+.grid{
+grid-template-columns:1fr
+}
 
-  .section-head-row{
-    display:block;
-  }
+.discovery-card{
+display:block;
+padding:27px 22px
+}
 
-  .controls{
-    margin-top:15px;
-  }
+.discovery-card .btn{
+margin-top:20px;
+width:100%
+}
 
-  .controls .field{
-    width:100%;
-  }
+.footer-main{
+grid-template-columns:1fr
+}
 
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .discovery-card{
-    padding:27px 22px;
-    display:block;
-  }
-
-  .discovery-card h2{
-    font-size:25px;
-  }
-
-  .discovery-card .btn{
-    margin-top:20px;
-    width:100%;
-  }
-
-  .footer-main{
-    grid-template-columns:1fr;
-    gap:25px;
-  }
-
-  .footer-bottom{
-    display:block;
-  }
-
-  .footer-bottom div{
-    margin-bottom:7px;
-  }
+.footer-bottom{
+display:block
+}
 }
 
 @media(max-width:430px){
 
-  .nav-actions .btn-primary{
-    display:block;
-  }
-
-  .search-box{
-    flex-direction:column;
-  }
-
-  .search-box .btn{
-    width:100%;
-  }
-
-  .hero h1{
-    font-size:38px;
-  }
-
-  .category-grid{
-    gap:9px;
-  }
-
-  .category-card{
-    padding:15px 8px;
-  }
-
+.nav-actions .btn-primary{
+display:block
 }
 
+.search-box{
+flex-direction:column
+}
+
+.search-box .btn{
+width:100%
+}
+
+.hero h1{
+font-size:38px
+}
+}
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
-
 <div class="container nav">
 
 <a href="/" class="brand">
-  <span class="logo">R</span>
-  <span>RankBoard</span>
+<span class="logo">R</span>
+<span>RankBoard</span>
 </a>
 
 <div class="nav-actions">
 
 <button class="btn btn-light" id="submitOpenBtn">
-  Submit Website
+Submit Website
 </button>
 
 <button class="btn btn-primary" id="adminLoginBtn">
-  Admin Login
+Admin Login
 </button>
 
 </div>
-
 </div>
-
 </header>
 
 
 <main>
-
-<!-- =========================
-     HERO
-========================= -->
 
 <section class="hero">
 
 <div class="container">
 
 <div class="badge">
-  ✦ Discover useful websites
+✦ Discover useful websites
 </div>
 
 <h1>
-  Discover websites
-  <span>worth your time.</span>
+Discover websites
+<span>worth your time.</span>
 </h1>
 
 <p>
-  Explore useful websites, AI tools, education resources,
-  productivity apps, development platforms, design tools and more.
+Explore, compare and rank useful websites, AI tools,
+education resources, productivity apps, development
+platforms, design tools and more.
 </p>
 
 <div class="hero-buttons">
 
 <a href="#explore" class="hero-btn btn-primary">
-  Explore Websites
+Explore Websites
 </a>
 
 <button class="hero-btn hero-btn-outline" id="heroSubmitBtn">
-  Submit Your Website
+Submit Your Website
 </button>
 
 </div>
-
 
 <div class="search-box">
 
 <input
-  type="search"
-  id="searchInput"
-  placeholder="Search websites, tools or categories..."
-  autocomplete="off"
+id="searchInput"
+type="search"
+placeholder="Search websites, tools or categories..."
+autocomplete="off"
 >
 
 <button class="btn btn-primary" id="searchBtn">
-  Search
+Search
 </button>
 
 </div>
 
-
 <div class="stats">
 
 <div class="stat">
-  <strong id="websiteCount">0</strong>
-  <span>Websites Listed</span>
+<strong id="websiteCount">0</strong>
+<span>Websites Listed</span>
 </div>
 
 <div class="stat">
-  <strong id="categoryCount">0</strong>
-  <span>Categories</span>
+<strong id="categoryCount">0</strong>
+<span>Categories</span>
 </div>
 
 <div class="stat">
-  <strong>24/7</strong>
-  <span>Discover Anytime</span>
+<strong id="voteTotal">0</strong>
+<span>Total Upvotes</span>
 </div>
 
 </div>
 
 </div>
-
 </section>
 
-
-<!-- =========================
-     CATEGORIES
-========================= -->
 
 <section class="container category-section">
 
 <div class="section-head">
 
 <div class="section-label">
-  Explore by category
+Explore by category
 </div>
 
 <h2 class="section-title">
-  Find what you need faster
+Find what you need faster
 </h2>
 
 <p class="section-subtitle">
-  Choose a category and discover useful websites.
+Choose a category and discover useful websites.
 </p>
 
 </div>
 
-
 <div class="category-grid">
 
 <div class="category-card" data-category="AI Tools">
-  <div class="category-icon">AI</div>
-  <strong>AI Tools</strong>
-  <span>Smart tools</span>
+<div class="category-icon">AI</div>
+<strong>AI Tools</strong>
+<span>Smart tools</span>
 </div>
 
 <div class="category-card" data-category="Education">
-  <div class="category-icon">ED</div>
-  <strong>Education</strong>
-  <span>Learn better</span>
+<div class="category-icon">ED</div>
+<strong>Education</strong>
+<span>Learn better</span>
 </div>
 
 <div class="category-card" data-category="Productivity">
-  <div class="category-icon">PR</div>
-  <strong>Productivity</strong>
-  <span>Work smarter</span>
+<div class="category-icon">PR</div>
+<strong>Productivity</strong>
+<span>Work smarter</span>
 </div>
 
 <div class="category-card" data-category="Development">
-  <div class="category-icon">DEV</div>
-  <strong>Development</strong>
-  <span>Build online</span>
+<div class="category-icon">DEV</div>
+<strong>Development</strong>
+<span>Build online</span>
 </div>
 
 <div class="category-card" data-category="Design">
-  <div class="category-icon">DS</div>
-  <strong>Design</strong>
-  <span>Create better</span>
+<div class="category-icon">DS</div>
+<strong>Design</strong>
+<span>Create better</span>
 </div>
 
 <div class="category-card" data-category="Business">
-  <div class="category-icon">BU</div>
-  <strong>Business</strong>
-  <span>Grow ideas</span>
+<div class="category-icon">BU</div>
+<strong>Business</strong>
+<span>Grow ideas</span>
 </div>
 
 <div class="category-card" data-category="Technology">
-  <div class="category-icon">TC</div>
-  <strong>Technology</strong>
-  <span>Tech websites</span>
+<div class="category-icon">TC</div>
+<strong>Technology</strong>
+<span>Tech websites</span>
 </div>
 
 </div>
-
 </section>
 
-
-<!-- =========================
-     EXPLORE
-========================= -->
 
 <section class="container explore" id="explore">
 
@@ -1179,103 +961,76 @@ footer{
 <div>
 
 <div class="section-label">
-  Directory
+Directory
 </div>
 
 <h2 class="section-title">
-  Explore Websites
+Explore Websites
 </h2>
 
 <p class="section-subtitle">
-  Browse websites approved by RankBoard.
+Discover the websites people are voting for.
 </p>
 
 </div>
-
 
 <div class="controls">
 
 <select id="categoryFilter" class="field">
 
-<option value="all">
-  All Categories
-</option>
-
-<option value="AI Tools">
-  AI Tools
-</option>
-
-<option value="Education">
-  Education
-</option>
-
-<option value="Productivity">
-  Productivity
-</option>
-
-<option value="Development">
-  Development
-</option>
-
-<option value="Design">
-  Design
-</option>
-
-<option value="Business">
-  Business
-</option>
-
-<option value="Technology">
-  Technology
-</option>
-
-<option value="Other">
-  Other
-</option>
+<option value="all">All Categories</option>
+<option value="AI Tools">AI Tools</option>
+<option value="Education">Education</option>
+<option value="Productivity">Productivity</option>
+<option value="Development">Development</option>
+<option value="Design">Design</option>
+<option value="Business">Business</option>
+<option value="Technology">Technology</option>
+<option value="Other">Other</option>
 
 </select>
-
 
 <select id="sortSelect" class="field">
 
+<option value="top">
+Top Rated
+</option>
+
+<option value="rising">
+Rising
+</option>
+
 <option value="newest">
-  Newest
+Newest
 </option>
 
 <option value="az">
-  A–Z
+A–Z
 </option>
 
 <option value="category">
-  Category
+Category
 </option>
 
 </select>
 
 </div>
-
 </div>
-
 
 <div class="results-info" id="resultsInfo">
-  Loading websites...
+Loading websites...
 </div>
-
 
 <div class="grid" id="listingsGrid">
 
 <div class="loading">
-  Loading websites...
+Loading websites...
 </div>
 
 </div>
 
 </section>
 
-
-<!-- =========================
-     CTA
-========================= -->
 
 <section class="container">
 
@@ -1284,18 +1039,18 @@ footer{
 <div>
 
 <h2>
-  Have a website worth discovering?
+Have a website worth discovering?
 </h2>
 
 <p>
-  Submit your website to RankBoard and let people discover it.
-  Submissions are reviewed before appearing publicly.
+Submit your website to RankBoard and let people discover it.
+Submissions are reviewed before appearing publicly.
 </p>
 
 </div>
 
 <button class="btn" id="ctaSubmitBtn">
-  Submit Website
+Submit Website
 </button>
 
 </div>
@@ -1304,10 +1059,6 @@ footer{
 
 </main>
 
-
-<!-- =========================
-     FOOTER
-========================= -->
 
 <footer>
 
@@ -1320,12 +1071,11 @@ footer{
 <strong>RankBoard</strong>
 
 <p>
-  Discover useful websites, tools and online resources
-  all in one place.
+Discover, compare and rank useful websites,
+tools and online resources.
 </p>
 
 </div>
-
 
 <div class="footer-column">
 
@@ -1333,26 +1083,23 @@ footer{
 
 <div class="footer-links">
 
-<a href="#explore">
-  Websites
-</a>
+<a href="#explore">Websites</a>
 
 <a href="#explore" id="footerAiLink">
-  AI Tools
+AI Tools
 </a>
 
 <a href="#explore" id="footerEducationLink">
-  Education
+Education
 </a>
 
 <a href="#explore" id="footerDevelopmentLink">
-  Development
+Development
 </a>
 
 </div>
 
 </div>
-
 
 <div class="footer-column">
 
@@ -1361,15 +1108,15 @@ footer{
 <div class="footer-links">
 
 <button class="footer-link-button" id="footerSubmitBtn">
-  Submit Website
+Submit Website
 </button>
 
 <a href="#explore">
-  Explore Directory
+Explore Directory
 </a>
 
 <a href="/">
-  Home
+Home
 </a>
 
 </div>
@@ -1377,16 +1124,15 @@ footer{
 </div>
 
 </div>
-
 
 <div class="footer-bottom">
 
 <div>
-  © 2026 RankBoard. All rights reserved.
+© 2026 RankBoard. All rights reserved.
 </div>
 
 <div>
-  Discover • Compare • Explore
+Discover • Compare • Explore
 </div>
 
 </div>
@@ -1396,9 +1142,7 @@ footer{
 </footer>
 
 
-<!-- =========================
-     SUBMIT MODAL
-========================= -->
+<!-- SUBMIT MODAL -->
 
 <div class="modal" id="submitModal">
 
@@ -1406,133 +1150,94 @@ footer{
 
 <div class="modal-head">
 
-<h2>
-  Submit Your Website
-</h2>
+<h2>Submit Your Website</h2>
 
 <button class="close-btn" data-close="submitModal">
-  ×
+×
 </button>
 
 </div>
 
-
 <div class="message" id="submitMessage"></div>
-
 
 <form id="submitForm">
 
 <div class="form-group">
 
-<label for="submitTitle">
-  Website Name
-</label>
+<label>Website Name</label>
 
 <input
-  type="text"
-  id="submitTitle"
-  placeholder="Example: My Website"
-  required
+type="text"
+id="submitTitle"
+placeholder="Example: My Website"
+required
 >
 
 </div>
 
-
 <div class="form-group">
 
-<label for="submitDescription">
-  Description
-</label>
+<label>Description</label>
 
 <textarea
-  id="submitDescription"
-  placeholder="Describe what your website does..."
-  required
+id="submitDescription"
+placeholder="Describe what your website does..."
+required
 ></textarea>
 
 </div>
 
-
 <div class="form-group">
 
-<label for="submitCategory">
-  Category
-</label>
+<label>Category</label>
 
 <select id="submitCategory" required>
 
 <option value="">
-  Select category
+Select category
 </option>
 
-<option value="AI Tools">
-  AI Tools
-</option>
-
-<option value="Education">
-  Education
-</option>
-
-<option value="Productivity">
-  Productivity
-</option>
-
-<option value="Development">
-  Development
-</option>
-
-<option value="Design">
-  Design
-</option>
-
-<option value="Business">
-  Business
-</option>
-
-<option value="Technology">
-  Technology
-</option>
-
-<option value="Other">
-  Other
-</option>
+<option>AI Tools</option>
+<option>Education</option>
+<option>Productivity</option>
+<option>Development</option>
+<option>Design</option>
+<option>Business</option>
+<option>Technology</option>
+<option>Other</option>
 
 </select>
 
 </div>
 
-
 <div class="form-group">
 
-<label for="submitUrl">
-  Website URL
-</label>
+<label>Website URL</label>
 
 <input
-  type="url"
-  id="submitUrl"
-  placeholder="https://example.com"
-  required
+type="url"
+id="submitUrl"
+placeholder="https://example.com"
+required
 >
 
 </div>
 
-
 <div class="form-actions">
 
 <button
-  type="button"
-  class="btn btn-light"
-  data-close="submitModal"
+type="button"
+class="btn btn-light"
+data-close="submitModal"
 >
-  Cancel
+Cancel
 </button>
 
 <button
-  type="submit"
-  class="btn btn-primary"
+type="submit"
+class="btn btn-primary"
 >
-  Submit Website
+Submit Website
 </button>
 
 </div>
@@ -1540,13 +1245,10 @@ footer{
 </form>
 
 </div>
-
 </div>
 
 
-<!-- =========================
-     ADMIN LOGIN MODAL
-========================= -->
+<!-- ADMIN LOGIN -->
 
 <div class="modal" id="adminModal">
 
@@ -1554,88 +1256,74 @@ footer{
 
 <div class="modal-head">
 
-<h2>
-  Admin Login
-</h2>
+<h2>Admin Login</h2>
 
 <button class="close-btn" data-close="adminModal">
-  ×
+×
 </button>
 
 </div>
 
-
 <div class="message" id="adminMessage"></div>
-
 
 <form id="adminLoginForm">
 
 <div class="form-group">
 
-<label for="adminEmail">
-  Email
-</label>
+<label>Email</label>
 
 <input
-  type="email"
-  id="adminEmail"
-  placeholder="Admin email"
-  required
+type="email"
+id="adminEmail"
+placeholder="Admin email"
+required
 >
 
 </div>
-
 
 <div class="form-group">
 
-<label for="adminPassword">
-  Password
-</label>
+<label>Password</label>
 
 <input
-  type="password"
-  id="adminPassword"
-  placeholder="Password"
-  required
+type="password"
+id="adminPassword"
+placeholder="Password"
+required
 >
 
 </div>
-
 
 <div class="form-actions">
 
 <button
-  type="submit"
-  class="btn btn-primary"
+type="submit"
+class="btn btn-primary"
 >
-  Login
+Login
 </button>
 
 </div>
 
 </form>
 
-
 <div style="margin-top:15px;text-align:center">
 
 <button
-  id="forgotPasswordBtn"
-  class="footer-link-button"
-  style="margin:auto"
+id="forgotPasswordBtn"
+class="footer-link-button"
+style="margin:auto"
 >
-  Forgot Password?
+Forgot Password?
 </button>
 
 </div>
 
 </div>
-
 </div>
 
 
-<!-- =========================
-     FORGOT PASSWORD MODAL
-========================= -->
+<!-- FORGOT PASSWORD -->
 
 <div class="modal" id="forgotModal">
 
@@ -1643,45 +1331,38 @@ footer{
 
 <div class="modal-head">
 
-<h2>
-  Reset Password
-</h2>
+<h2>Reset Password</h2>
 
 <button class="close-btn" data-close="forgotModal">
-  ×
+×
 </button>
 
 </div>
 
-
 <div class="message" id="forgotMessage"></div>
-
 
 <form id="forgotForm">
 
 <div class="form-group">
 
-<label for="forgotEmail">
-  Admin Email
-</label>
+<label>Admin Email</label>
 
 <input
-  type="email"
-  id="forgotEmail"
-  placeholder="Enter your email"
-  required
+type="email"
+id="forgotEmail"
+placeholder="Enter your email"
+required
 >
 
 </div>
 
-
 <div class="form-actions">
 
 <button
-  type="submit"
-  class="btn btn-primary"
+type="submit"
+class="btn btn-primary"
 >
-  Send Reset Link
+Send Reset Link
 </button>
 
 </div>
@@ -1689,13 +1370,10 @@ footer{
 </form>
 
 </div>
-
 </div>
 
 
-<!-- =========================
-     RESET PASSWORD MODAL
-========================= -->
+<!-- RESET PASSWORD -->
 
 <div class="modal" id="resetModal">
 
@@ -1703,59 +1381,49 @@ footer{
 
 <div class="modal-head">
 
-<h2>
-  Create New Password
-</h2>
+<h2>Create New Password</h2>
 
 </div>
 
-
 <div class="message" id="resetMessage"></div>
-
 
 <form id="resetForm">
 
 <div class="form-group">
 
-<label for="newPassword">
-  New Password
-</label>
+<label>New Password</label>
 
 <input
-  type="password"
-  id="newPassword"
-  minlength="6"
-  placeholder="Minimum 6 characters"
-  required
+type="password"
+id="newPassword"
+minlength="6"
+placeholder="Minimum 6 characters"
+required
 >
 
 </div>
-
 
 <div class="form-group">
 
-<label for="confirmPassword">
-  Confirm Password
-</label>
+<label>Confirm Password</label>
 
 <input
-  type="password"
-  id="confirmPassword"
-  minlength="6"
-  placeholder="Repeat password"
-  required
+type="password"
+id="confirmPassword"
+minlength="6"
+placeholder="Repeat password"
+required
 >
 
 </div>
-
 
 <div class="form-actions">
 
 <button
-  type="submit"
-  class="btn btn-primary"
+type="submit"
+class="btn btn-primary"
 >
-  Update Password
+Update Password
 </button>
 
 </div>
@@ -1763,1674 +1431,2013 @@ footer{
 </form>
 
 </div>
-
 </div>
 
 
-<!-- =========================
-     ADMIN PANEL MODAL
-========================= -->
+<!-- ADMIN PANEL -->
 
 <div class="modal" id="adminPanelModal">
 
-<div class="modal-card" style="width:min(750px,100%)">
+<div
+class="modal-card"
+style="width:min(750px,100%)"
+>
 
 <div class="modal-head">
 
-<h2>
-  Admin Panel
-</h2>
+<h2>Admin Panel</h2>
 
-<button class="close-btn" data-close="adminPanelModal">
-  ×
+<button
+class="close-btn"
+data-close="adminPanelModal"
+>
+×
 </button>
 
 </div>
 
-
 <div class="admin-user" id="adminUserInfo">
-  Admin
+Admin
 </div>
-
 
 <div id="pendingListings">
 
 <div class="loading">
-  Loading pending submissions...
+Loading pending submissions...
 </div>
 
 </div>
-
 
 <div class="form-actions">
 
 <button
-  class="btn btn-light"
-  id="signOutBtn"
+class="btn btn-light"
+id="signOutBtn"
 >
-  Sign Out
+Sign Out
 </button>
 
 </div>
 
 </div>
-
 </div>
 
 
 <script>
 
-/* =========================================
-   SUPABASE CONFIG
-========================================= */
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
-  "https://kfdbzzwpzcdsfcnvdgrj.supabase.co";
+"https://kfdbzzwpzcdsfcnvdgrj.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_ZTIqzkZAq1KzMU9TW3DPgg_EpJWf0iO";
+"sb_publishable_ZTIqzkZAq1KzMU9TW3DPgg_EpJWf0iO";
 
 const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
-/* =========================================
+/* =====================================================
    HELPERS
-========================================= */
+===================================================== */
 
-const $ = id => document.getElementById(id);
+const $ =
+id => document.getElementById(id);
 
 
 function escapeHTML(value){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
 function safeUrl(value){
 
-  try{
+try{
 
-    const url =
-      new URL(value);
+const url =
+new URL(value);
 
-    if(
-      url.protocol === "http:" ||
-      url.protocol === "https:"
-    ){
-      return url.href;
-    }
+if(
+url.protocol === "http:" ||
+url.protocol === "https:"
+){
 
-  }catch(error){}
+return url.href;
 
-  return "#";
+}
+
+}catch(error){}
+
+return "#";
 
 }
 
 
 function openModal(id){
 
-  const modal = $(id);
-
-  if(modal){
-    modal.classList.add("active");
-  }
+$(id)?.classList.add("active");
 
 }
 
 
 function closeModal(id){
 
-  const modal = $(id);
-
-  if(modal){
-    modal.classList.remove("active");
-  }
+$(id)?.classList.remove("active");
 
 }
 
 
-/* =========================================
-   DEMO LISTINGS
-========================================= */
+/* =====================================================
+   DEMO WEBSITES
+===================================================== */
 
 const demoListings = [
 
 {
-  id:"demo-canva",
-  Title:"Canva",
-  Category:"Design",
-  Website_url:"https://www.canva.com/",
-  Discription:"Create presentations, graphics, social posts and other visual content.",
-  Status:"approved",
-  created_at:"2026-09-01T10:00:00Z"
+id:"demo-canva",
+Title:"Canva",
+Category:"Design",
+Website_url:"https://www.canva.com/",
+Discription:"Create presentations, graphics, social posts and other visual content.",
+Status:"approved",
+created_at:"2026-09-01T10:00:00Z"
 },
 
 {
-  id:"demo-github",
-  Title:"GitHub",
-  Category:"Development",
-  Website_url:"https://github.com/",
-  Discription:"A platform for developers to build, collaborate and manage software projects.",
-  Status:"approved",
-  created_at:"2026-09-02T10:00:00Z"
+id:"demo-github",
+Title:"GitHub",
+Category:"Development",
+Website_url:"https://github.com/",
+Discription:"A platform for developers to build, collaborate and manage software projects.",
+Status:"approved",
+created_at:"2026-09-02T10:00:00Z"
 },
 
 {
-  id:"demo-khan",
-  Title:"Khan Academy",
-  Category:"Education",
-  Website_url:"https://www.khanacademy.org/",
-  Discription:"Free educational resources for learning subjects across different levels.",
-  Status:"approved",
-  created_at:"2026-09-03T10:00:00Z"
+id:"demo-khan",
+Title:"Khan Academy",
+Category:"Education",
+Website_url:"https://www.khanacademy.org/",
+Discription:"Free educational resources for learning subjects across different levels.",
+Status:"approved",
+created_at:"2026-09-03T10:00:00Z"
 },
 
 {
-  id:"demo-chatgpt",
-  Title:"ChatGPT",
-  Category:"AI Tools",
-  Website_url:"https://chatgpt.com/",
-  Discription:"An AI assistant for learning, writing, brainstorming, coding and more.",
-  Status:"approved",
-  created_at:"2026-09-04T10:00:00Z"
+id:"demo-chatgpt",
+Title:"ChatGPT",
+Category:"AI Tools",
+Website_url:"https://chatgpt.com/",
+Discription:"An AI assistant for learning, writing, brainstorming, coding and more.",
+Status:"approved",
+created_at:"2026-09-04T10:00:00Z"
 },
 
 {
-  id:"demo-notion",
-  Title:"Notion",
-  Category:"Productivity",
-  Website_url:"https://www.notion.so/",
-  Discription:"Organize notes, projects, tasks and information in one workspace.",
-  Status:"approved",
-  created_at:"2026-09-05T10:00:00Z"
+id:"demo-notion",
+Title:"Notion",
+Category:"Productivity",
+Website_url:"https://www.notion.so/",
+Discription:"Organize notes, projects, tasks and information in one workspace.",
+Status:"approved",
+created_at:"2026-09-05T10:00:00Z"
 },
 
 {
-  id:"demo-figma",
-  Title:"Figma",
-  Category:"Design",
-  Website_url:"https://www.figma.com/",
-  Discription:"Collaborative design and prototyping platform for digital products.",
-  Status:"approved",
-  created_at:"2026-09-06T10:00:00Z"
+id:"demo-figma",
+Title:"Figma",
+Category:"Design",
+Website_url:"https://www.figma.com/",
+Discription:"Collaborative design and prototyping platform for digital products.",
+Status:"approved",
+created_at:"2026-09-06T10:00:00Z"
 }
 
 ];
 
 
-/* =========================================
+/* =====================================================
    STATE
-========================================= */
+===================================================== */
 
 let listings = [];
 
-let recoveryMode = false;
+let voteCounts = {};
+
+let myVotes = new Set();
 
 
-/* =========================================
-   LOCAL VOTES
-========================================= */
+/* =====================================================
+   VOTER ID
+===================================================== */
 
-function getVotes(){
+function getVoterId(){
 
-  try{
+let id =
+localStorage.getItem(
+"rankboard_voter_id_v1"
+);
 
-    return JSON.parse(
-      localStorage.getItem(
-        "rankboard_light_votes_v1"
-      ) || "{}"
-    );
+if(!id){
 
-  }catch(error){
+id =
+crypto.randomUUID
+? crypto.randomUUID()
+: Date.now()+"-"+Math.random();
 
-    return {};
+localStorage.setItem(
+"rankboard_voter_id_v1",
+id
+);
 
-  }
+}
+
+return id;
 
 }
 
 
-function saveVotes(votes){
+/* =====================================================
+   DEMO LOCAL VOTES
+===================================================== */
 
-  localStorage.setItem(
-    "rankboard_light_votes_v1",
-    JSON.stringify(votes)
-  );
+function getLocalVotes(){
+
+try{
+
+return JSON.parse(
+localStorage.getItem(
+"rankboard_light_votes_v1"
+) || "{}"
+);
+
+}catch(error){
+
+return {};
+
+}
 
 }
 
 
-/* =========================================
-   UPDATE STATS
-========================================= */
+function saveLocalVotes(votes){
+
+localStorage.setItem(
+"rankboard_light_votes_v1",
+JSON.stringify(votes)
+);
+
+}
+
+
+/* =====================================================
+   LOAD REAL VOTES
+===================================================== */
+
+async function loadVotes(){
+
+voteCounts = {};
+
+myVotes = new Set();
+
+
+/* Demo votes */
+
+const local =
+getLocalVotes();
+
+Object.keys(local)
+.forEach(id => {
+
+if(
+String(id).startsWith("demo-")
+){
+
+voteCounts[id] =
+Number(local[id] || 0);
+
+}
+
+});
+
+
+/* Supabase votes */
+
+try{
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("votes")
+.select("listing_id");
+
+if(
+!error &&
+data
+){
+
+data.forEach(vote => {
+
+const id =
+String(vote.listing_id);
+
+voteCounts[id] =
+Number(
+voteCounts[id] || 0
+) + 1;
+
+});
+
+}
+
+
+/* Current visitor votes */
+
+const voterId =
+getVoterId();
+
+const {
+data:myData,
+error:myError
+} =
+await supabaseClient
+.from("votes")
+.select("listing_id")
+.eq("voter_id",voterId);
+
+if(
+!myError &&
+myData
+){
+
+myData.forEach(vote => {
+
+myVotes.add(
+String(vote.listing_id)
+);
+
+});
+
+}
+
+}catch(error){
+
+console.error(
+"Vote loading:",
+error
+);
+
+}
+
+updateStats();
+
+}
+
+
+/* =====================================================
+   TOTAL VOTES
+===================================================== */
+
+function totalVotes(){
+
+return Object
+.values(voteCounts)
+.reduce(
+(total,value) =>
+total + Number(value || 0),
+0
+);
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
 
 function updateStats(){
 
-  const websiteCount =
-    $("websiteCount");
+$("websiteCount")
+.textContent =
+listings.length;
 
-  const categoryCount =
-    $("categoryCount");
+$("categoryCount")
+.textContent =
+new Set(
+listings
+.map(x =>
+String(x.Category || "")
+.trim()
+)
+.filter(Boolean)
+).size;
 
-  const uniqueCategories =
-    new Set(
-      listings
-        .map(item => String(item.Category || "").trim())
-        .filter(Boolean)
-    );
-
-  if(websiteCount){
-
-    websiteCount.textContent =
-      listings.length;
-
-  }
-
-  if(categoryCount){
-
-    categoryCount.textContent =
-      uniqueCategories.size;
-
-  }
+$("voteTotal")
+.textContent =
+totalVotes();
 
 }
 
 
-/* =========================================
-   LOAD APPROVED LISTINGS
-========================================= */
-
-async function loadListings(){
-
-  const grid =
-    $("listingsGrid");
-
-  if(grid){
-
-    grid.innerHTML =
-      `<div class="loading">Loading websites...</div>`;
-
-  }
-
-  try{
-
-    const { data, error } =
-      await supabaseClient
-        .from("Listings")
-        .select("*")
-        .eq("Status","approved")
-        .order("created_at",{ascending:false});
-
-    if(error){
-
-      console.error(
-        "Supabase load error:",
-        error
-      );
-
-      listings =
-        [...demoListings];
-
-    }else{
-
-      listings =
-        [
-          ...demoListings,
-          ...(data || [])
-        ];
-
-    }
-
-  }catch(error){
-
-    console.error(error);
-
-    listings =
-      [...demoListings];
-
-  }
-
-  updateStats();
-
-  renderListings();
-
-}
-
-
-/* =========================================
-   RENDER LISTINGS
-========================================= */
-
-function renderListings(){
-
-  const grid =
-    $("listingsGrid");
-
-  if(!grid) return;
-
-
-  const search =
-    (
-      $("searchInput")?.value || ""
-    )
-    .trim()
-    .toLowerCase();
-
-
-  const category =
-    $("categoryFilter")?.value || "all";
-
-
-  const sort =
-    $("sortSelect")?.value || "newest";
-
-
-  let filtered =
-    listings.filter(item => {
-
-      const title =
-        String(item.Title || "")
-          .toLowerCase();
-
-      const description =
-        String(item.Discription || "")
-          .toLowerCase();
-
-      const itemCategory =
-        String(item.Category || "")
-          .toLowerCase();
-
-      const url =
-        String(item.Website_url || "")
-          .toLowerCase();
-
-
-      const matchesSearch =
-        !search ||
-        title.includes(search) ||
-        description.includes(search) ||
-        itemCategory.includes(search) ||
-        url.includes(search);
-
-
-      const matchesCategory =
-        category === "all" ||
-        item.Category === category;
-
-
-      return (
-        matchesSearch &&
-        matchesCategory
-      );
-
-    });
-
-
-  if(sort === "az"){
-
-    filtered.sort(
-      (a,b) =>
-        String(a.Title || "")
-          .localeCompare(
-            String(b.Title || "")
-          )
-    );
-
-  }
-
-
-  if(sort === "category"){
-
-    filtered.sort(
-      (a,b) =>
-        String(a.Category || "")
-          .localeCompare(
-            String(b.Category || "")
-          )
-    );
-
-  }
-
-
-  if(sort === "newest"){
-
-    filtered.sort(
-      (a,b) =>
-        new Date(
-          b.created_at || 0
-        ) -
-        new Date(
-          a.created_at || 0
-        )
-    );
-
-  }
-
-
-  const resultsInfo =
-    $("resultsInfo");
-
-  if(resultsInfo){
-
-    resultsInfo.textContent =
-      `${filtered.length} ${
-        filtered.length === 1
-          ? "website"
-          : "websites"
-      } found`;
-
-  }
-
-
-  if(!filtered.length){
-
-    grid.innerHTML = `
-
-      <div class="empty">
-
-        <h3 style="margin-top:0;color:var(--text)">
-          No websites found
-        </h3>
-
-        <p>
-          Try another search term or category.
-        </p>
-
-        <button
-          class="btn btn-light"
-          onclick="clearFilters()"
-        >
-          Clear Filters
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  const votes =
-    getVotes();
-
-
-  grid.innerHTML =
-    filtered.map(item => {
-
-      const title =
-        String(item.Title || "Untitled");
-
-      const categoryText =
-        String(item.Category || "Other");
-
-      const description =
-        String(
-          item.Discription ||
-          "No description available."
-        );
-
-      const url =
-        safeUrl(item.Website_url);
-
-      const firstLetter =
-        title
-          .trim()
-          .charAt(0)
-          .toUpperCase() || "W";
-
-      const voteCount =
-        Number(votes[item.id] || 0);
-
-
-      return `
-
-        <article class="card">
-
-          <div class="card-top">
-
-            <div class="card-icon">
-              ${escapeHTML(firstLetter)}
-            </div>
-
-            <span class="category-tag">
-              ${escapeHTML(categoryText)}
-            </span>
-
-          </div>
-
-
-          <h3>
-            ${escapeHTML(title)}
-          </h3>
-
-
-          <p>
-            ${escapeHTML(description)}
-          </p>
-
-
-          <div class="card-bottom">
-
-            <a
-              class="visit-link"
-              href="${escapeHTML(url)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Visit Website →
-            </a>
-
-
-            <div class="vote-box">
-
-              <button
-                class="vote-btn"
-                onclick="voteListing('${String(item.id).replace(/'/g,"\\'")}')"
-                title="Upvote"
-              >
-                ↑
-              </button>
-
-              <span
-                class="vote-count"
-                id="vote-${escapeHTML(item.id)}"
-              >
-                ${voteCount}
-              </span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-      `;
-
-    }).join("");
-
-}
-
-
-/* =========================================
-   CLEAR FILTERS
-========================================= */
-
-function clearFilters(){
-
-  if($("searchInput")){
-    $("searchInput").value = "";
-  }
-
-  if($("categoryFilter")){
-    $("categoryFilter").value = "all";
-  }
-
-  if($("sortSelect")){
-    $("sortSelect").value = "newest";
-  }
-
-  renderListings();
-
-}
-
-
-/* =========================================
-   VOTE
-========================================= */
-
-function voteListing(id){
-
-  const votes =
-    getVotes();
-
-  votes[id] =
-    Number(votes[id] || 0) + 1;
-
-  saveVotes(votes);
-
-  const count =
-    $("vote-" + id);
-
-  if(count){
-
-    count.textContent =
-      votes[id];
-
-  }
-
-}
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-function performSearch(){
-
-  renderListings();
-
-  const explore =
-    document.querySelector("#explore");
-
-  if(explore){
-
-    explore.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
-  }
-
-}
-
-
-$("searchBtn")
-  .addEventListener(
-    "click",
-    performSearch
-  );
-
-
-$("searchInput")
-  .addEventListener(
-    "input",
-    renderListings
-  );
-
-
-$("searchInput")
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if(event.key === "Enter"){
-
-        performSearch();
-
-      }
-
-    }
-  );
-
-
-$("categoryFilter")
-  .addEventListener(
-    "change",
-    renderListings
-  );
-
-
-$("sortSelect")
-  .addEventListener(
-    "change",
-    renderListings
-  );
-
-
-/* =========================================
-   CATEGORY CARDS
-========================================= */
-
-document
-  .querySelectorAll("[data-category]")
-  .forEach(card => {
-
-    card.addEventListener(
-      "click",
-      () => {
-
-        const category =
-          card.dataset.category;
-
-        $("categoryFilter").value =
-          category;
-
-        renderListings();
-
-        $("explore").scrollIntoView({
-          behavior:"smooth",
-          block:"start"
-        });
-
-      }
-    );
-
-  });
-
-
-/* =========================================
-   MODAL OPEN/CLOSE
-========================================= */
-
-$("submitOpenBtn")
-  .addEventListener(
-    "click",
-    () => openModal("submitModal")
-  );
-
-
-$("heroSubmitBtn")
-  .addEventListener(
-    "click",
-    () => openModal("submitModal")
-  );
-
-
-$("ctaSubmitBtn")
-  .addEventListener(
-    "click",
-    () => openModal("submitModal")
-  );
-
-
-$("footerSubmitBtn")
-  .addEventListener(
-    "click",
-    () => openModal("submitModal")
-  );
-
-
-document
-  .querySelectorAll("[data-close]")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        closeModal(
-          button.dataset.close
-        );
-
-      }
-    );
-
-  });
-
-
-document
-  .querySelectorAll(".modal")
-  .forEach(modal => {
-
-    modal.addEventListener(
-      "click",
-      event => {
-
-        if(event.target === modal){
-
-          modal.classList.remove(
-            "active"
-          );
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* =========================================
-   FOOTER CATEGORY LINKS
-========================================= */
-
-$("footerAiLink")
-  .addEventListener(
-    "click",
-    () => {
-
-      $("categoryFilter").value =
-        "AI Tools";
-
-      renderListings();
-
-    }
-  );
-
-
-$("footerEducationLink")
-  .addEventListener(
-    "click",
-    () => {
-
-      $("categoryFilter").value =
-        "Education";
-
-      renderListings();
-
-    }
-  );
-
-
-$("footerDevelopmentLink")
-  .addEventListener(
-    "click",
-    () => {
-
-      $("categoryFilter").value =
-        "Development";
-
-      renderListings();
-
-    }
-  );
-
-
-/* =========================================
-   SUBMIT WEBSITE
-========================================= */
-
-$("submitForm")
-  .addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-
-      const message =
-        $("submitMessage");
-
-
-      const title =
-        $("submitTitle")
-          .value
-          .trim();
-
-
-      const description =
-        $("submitDescription")
-          .value
-          .trim();
-
-
-      const category =
-        $("submitCategory")
-          .value;
-
-
-      const url =
-        $("submitUrl")
-          .value
-          .trim();
-
-
-      message.className =
-        "message";
-
-
-      if(
-        !title ||
-        !description ||
-        !category ||
-        !url
-      ){
-
-        message.textContent =
-          "Please complete all fields.";
-
-        message.classList.add(
-          "show",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      try{
-
-        const parsed =
-          new URL(url);
-
-
-        if(
-          parsed.protocol !== "http:" &&
-          parsed.protocol !== "https:"
-        ){
-
-          throw new Error(
-            "Invalid URL"
-          );
-
-        }
-
-
-        const {
-          error
-        } =
-        await supabaseClient
-          .from("Listings")
-          .insert([{
-
-            Title:title,
-
-            Discription:description,
-
-            Category:category,
-
-            Website_url:url,
-
-            Status:"pending"
-
-          }]);
-
-
-        if(error){
-
-          throw error;
-
-        }
-
-
-        message.textContent =
-          "Website submitted successfully. It will appear after admin approval.";
-
-        message.classList.add(
-          "show",
-          "success"
-        );
-
-
-        $("submitForm").reset();
-
-
-        setTimeout(
-          () => {
-
-            closeModal(
-              "submitModal"
-            );
-
-            message.className =
-              "message";
-
-          },
-          2200
-        );
-
-
-      }catch(error){
-
-        console.error(error);
-
-        message.textContent =
-          "Submission failed. Please try again.";
-
-        message.classList.add(
-          "show",
-          "error"
-        );
-
-      }
-
-    }
-  );
-
-
-/* =========================================
-   ADMIN LOGIN
-========================================= */
-
-$("adminLoginBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      openModal("adminModal");
-
-    }
-  );
-
-
-$("adminLoginForm")
-  .addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-
-      const message =
-        $("adminMessage");
-
-
-      message.className =
-        "message";
-
-
-      const email =
-        $("adminEmail")
-          .value
-          .trim();
-
-
-      const password =
-        $("adminPassword")
-          .value;
-
-
-      try{
-
-        const {
-          data,
-          error
-        } =
-        await supabaseClient.auth
-          .signInWithPassword({
-            email,
-            password
-          });
-
-
-        if(error){
-
-          throw error;
-
-        }
-
-
-        const user =
-          data.user;
-
-
-        if(!user){
-
-          throw new Error(
-            "Login failed."
-          );
-
-        }
-
-
-        const {
-          data:adminRow,
-          error:adminError
-        } =
-        await supabaseClient
-          .from("rankboard_admins")
-          .select("user_id")
-          .eq("user_id",user.id)
-          .maybeSingle();
-
-
-        if(adminError){
-
-          throw adminError;
-
-        }
-
-
-        if(!adminRow){
-
-          await supabaseClient.auth.signOut();
-
-          throw new Error(
-            "This account is not authorized as an admin."
-          );
-
-        }
-
-
-        closeModal("adminModal");
-
-        await openAdminPanel(user);
-
-
-      }catch(error){
-
-        console.error(error);
-
-        message.textContent =
-          error.message ||
-          "Invalid login credentials.";
-
-        message.classList.add(
-          "show",
-          "error"
-        );
-
-      }
-
-    }
-  );
-
-
-/* =========================================
-   OPEN ADMIN PANEL
-========================================= */
-
-async function openAdminPanel(user){
-
-  openModal(
-    "adminPanelModal"
-  );
-
-
-  $("adminUserInfo")
-    .textContent =
-      `Logged in as ${user.email || "Admin"}`;
-
-
-  await loadPendingListings();
-
-}
-
-
-/* =========================================
-   LOAD PENDING LISTINGS
-========================================= */
-
-async function loadPendingListings(){
-
-  const container =
-    $("pendingListings");
-
-
-  container.innerHTML =
-    `<div class="loading">
-      Loading pending submissions...
-    </div>`;
-
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-      .from("Listings")
-      .select("*")
-      .eq("Status","pending")
-      .order("created_at",{ascending:false});
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    if(!data || !data.length){
-
-      container.innerHTML =
-        `<div class="empty">
-          <h3 style="margin-top:0;color:var(--text)">
-            No Pending Submissions
-          </h3>
-          <p>
-            New website submissions will appear here.
-          </p>
-        </div>`;
-
-      return;
-
-    }
-
-
-    container.innerHTML =
-      data.map(item => {
-
-        const title =
-          String(
-            item.Title || "Untitled"
-          );
-
-        const description =
-          String(
-            item.Discription || ""
-          );
-
-        const category =
-          String(
-            item.Category || "Other"
-          );
-
-        const url =
-          safeUrl(item.Website_url);
-
-
-        return `
-
-          <div
-            class="pending-item"
-            id="pending-${escapeHTML(item.id)}"
-          >
-
-            <h3>
-              ${escapeHTML(title)}
-            </h3>
-
-            <div class="pending-meta">
-              Category: ${escapeHTML(category)}
-            </div>
-
-            <p>
-              ${escapeHTML(description)}
-            </p>
-
-            <div class="pending-meta">
-              <a
-                href="${escapeHTML(url)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ${escapeHTML(item.Website_url || "")}
-              </a>
-            </div>
-
-
-            <div class="pending-actions">
-
-              <button
-                class="btn btn-success"
-                onclick="updateListingStatus('${String(item.id).replace(/'/g,"\\'")}','approved')"
-              >
-                Approve
-              </button>
-
-              <button
-                class="btn btn-danger"
-                onclick="updateListingStatus('${String(item.id).replace(/'/g,"\\'")}','rejected')"
-              >
-                Reject
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
-
-      }).join("");
-
-
-  }catch(error){
-
-    console.error(error);
-
-    container.innerHTML =
-      `<div class="message show error">
-        Unable to load pending submissions.
-      </div>`;
-
-  }
-
-}
-
-
-/* =========================================
-   APPROVE / REJECT
-========================================= */
-
-async function updateListingStatus(
-  id,
-  status
-){
-
-  try{
-
-    const {
-      error
-    } =
-    await supabaseClient
-      .from("Listings")
-      .update({
-        Status:status
-      })
-      .eq("id",id);
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    await loadPendingListings();
-
-
-    if(status === "approved"){
-
-      await loadListings();
-
-    }
-
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Unable to update listing."
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   SIGN OUT
-========================================= */
-
-$("signOutBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      await supabaseClient.auth.signOut();
-
-      closeModal(
-        "adminPanelModal"
-      );
-
-    }
-  );
-
-
-/* =========================================
-   FORGOT PASSWORD
-========================================= */
-
-$("forgotPasswordBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      closeModal(
-        "adminModal"
-      );
-
-      openModal(
-        "forgotModal"
-      );
-
-    }
-  );
-
-
-$("forgotForm")
-  .addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-
-      const message =
-        $("forgotMessage");
-
-
-      message.className =
-        "message";
-
-
-      const email =
-        $("forgotEmail")
-          .value
-          .trim();
-
-
-      try{
-
-        const {
-          error
-        } =
-        await supabaseClient.auth
-          .resetPasswordForEmail(
-            email,
-            {
-              redirectTo:
-                window.location.origin
-            }
-          );
-
-
-        if(error){
-
-          throw error;
-
-        }
-
-
-        message.textContent =
-          "Password reset link sent. Check your email.";
-
-        message.classList.add(
-          "show",
-          "success"
-        );
-
-
-      }catch(error){
-
-        console.error(error);
-
-        message.textContent =
-          error.message ||
-          "Unable to send reset link.";
-
-        message.classList.add(
-          "show",
-          "error"
-        );
-
-      }
-
-    }
-  );
-
-
-/* =========================================
-   PASSWORD RECOVERY
-========================================= */
-
-supabaseClient.auth.onAuthStateChange(
-  async (event, session) => {
-
-    if(event === "PASSWORD_RECOVERY"){
-
-      recoveryMode = true;
-
-      openModal(
-        "resetModal"
-      );
-
-    }
-
-  }
+/* =====================================================
+   RANKING SCORE
+===================================================== */
+
+function rankingScore(item){
+
+const votes =
+Number(
+voteCounts[String(item.id)] || 0
+);
+
+const created =
+new Date(
+item.created_at || 0
+).getTime();
+
+const ageDays =
+Math.max(
+0,
+(Date.now()-created) /
+86400000
 );
 
 
-/* =========================================
-   UPDATE PASSWORD
-========================================= */
+/*
+  Votes have strong weight.
+  New websites get a small freshness bonus.
+*/
 
-$("resetForm")
-  .addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-
-      const message =
-        $("resetMessage");
-
-
-      message.className =
-        "message";
-
-
-      const password =
-        $("newPassword")
-          .value;
-
-
-      const confirmPassword =
-        $("confirmPassword")
-          .value;
-
-
-      if(password !== confirmPassword){
-
-        message.textContent =
-          "Passwords do not match.";
-
-        message.classList.add(
-          "show",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      try{
-
-        const {
-          error
-        } =
-        await supabaseClient.auth
-          .updateUser({
-            password
-          });
-
-
-        if(error){
-
-          throw error;
-
-        }
-
-
-        message.textContent =
-          "Password updated successfully.";
-
-        message.classList.add(
-          "show",
-          "success"
-        );
-
-
-        $("resetForm").reset();
-
-
-        setTimeout(
-          async () => {
-
-            closeModal(
-              "resetModal"
-            );
-
-            await supabaseClient.auth
-              .signOut();
-
-          },
-          1800
-        );
-
-
-      }catch(error){
-
-        console.error(error);
-
-        message.textContent =
-          error.message ||
-          "Unable to update password.";
-
-        message.classList.add(
-          "show",
-          "error"
-        );
-
-      }
-
-    }
-  );
-
-
-/* =========================================
-   AUTH SESSION CHECK
-========================================= */
-
-async function checkCurrentSession(){
-
-  try{
-
-    const {
-      data
-    } =
-    await supabaseClient.auth
-      .getSession();
-
-
-    const session =
-      data?.session;
-
-
-    if(
-      session &&
-      session.user
-    ){
-
-      const {
-        data:adminRow
-      } =
-      await supabaseClient
-        .from("rankboard_admins")
-        .select("user_id")
-        .eq(
-          "user_id",
-          session.user.id
-        )
-        .maybeSingle();
-
-
-      if(adminRow){
-
-        /* Admin remains logged in,
-           but panel is not opened automatically. */
-
-      }
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Session check:",
-      error
-    );
-
-  }
+return (
+votes * 100 +
+Math.max(0,30-ageDays)
+);
 
 }
 
 
-/* =========================================
-   START APP
-========================================= */
+/* =====================================================
+   RISING SCORE
+===================================================== */
 
-checkCurrentSession();
+function risingScore(item){
+
+const votes =
+Number(
+voteCounts[String(item.id)] || 0
+);
+
+const created =
+new Date(
+item.created_at || 0
+).getTime();
+
+const ageDays =
+Math.max(
+0.25,
+(Date.now()-created) /
+86400000
+);
+
+return (
+votes /
+Math.sqrt(ageDays)
+);
+
+}
+
+
+/* =====================================================
+   LOAD APPROVED LISTINGS
+===================================================== */
+
+async function loadListings(){
+
+$("listingsGrid")
+.innerHTML =
+`
+<div class="loading">
+Loading websites...
+</div>
+`;
+
+try{
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("Listings")
+.select("*")
+.eq("Status","approved")
+.order(
+"created_at",
+{ascending:false}
+);
+
+
+if(error){
+
+console.error(
+"Supabase error:",
+error
+);
+
+listings =
+[...demoListings];
+
+}else{
+
+listings =
+[
+...demoListings,
+...(data || [])
+];
+
+}
+
+}catch(error){
+
+console.error(error);
+
+listings =
+[...demoListings];
+
+}
+
+await loadVotes();
+
+renderListings();
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderListings(){
+
+const grid =
+$("listingsGrid");
+
+const search =
+(
+$("searchInput").value || ""
+)
+.trim()
+.toLowerCase();
+
+const category =
+$("categoryFilter").value;
+
+const sort =
+$("sortSelect").value;
+
+
+let filtered =
+listings.filter(item => {
+
+const title =
+String(
+item.Title || ""
+).toLowerCase();
+
+const description =
+String(
+item.Discription || ""
+).toLowerCase();
+
+const itemCategory =
+String(
+item.Category || ""
+).toLowerCase();
+
+const url =
+String(
+item.Website_url || ""
+).toLowerCase();
+
+
+const searchMatch =
+!search ||
+title.includes(search) ||
+description.includes(search) ||
+itemCategory.includes(search) ||
+url.includes(search);
+
+
+const categoryMatch =
+category === "all" ||
+item.Category === category;
+
+
+return (
+searchMatch &&
+categoryMatch
+);
+
+});
+
+
+/* Ranking */
+
+if(sort === "top"){
+
+filtered.sort(
+(a,b) =>
+rankingScore(b) -
+rankingScore(a)
+);
+
+}
+
+
+/* Rising */
+
+if(sort === "rising"){
+
+filtered.sort(
+(a,b) =>
+risingScore(b) -
+risingScore(a)
+);
+
+}
+
+
+/* Newest */
+
+if(sort === "newest"){
+
+filtered.sort(
+(a,b) =>
+new Date(
+b.created_at || 0
+) -
+new Date(
+a.created_at || 0
+)
+);
+
+}
+
+
+/* A-Z */
+
+if(sort === "az"){
+
+filtered.sort(
+(a,b) =>
+String(a.Title || "")
+.localeCompare(
+String(b.Title || "")
+)
+);
+
+}
+
+
+/* Category */
+
+if(sort === "category"){
+
+filtered.sort(
+(a,b) =>
+String(a.Category || "")
+.localeCompare(
+String(b.Category || "")
+)
+);
+
+}
+
+
+$("resultsInfo")
+.textContent =
+`${filtered.length} ${
+filtered.length === 1
+? "website"
+: "websites"
+} found`;
+
+
+if(!filtered.length){
+
+grid.innerHTML = `
+
+<div class="empty">
+
+<h3 style="color:var(--text)">
+No websites found
+</h3>
+
+<p>
+Try another search term or category.
+</p>
+
+<button
+class="btn btn-light"
+onclick="clearFilters()"
+>
+Clear Filters
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+/* Global ranking */
+
+const ranked =
+[...listings]
+.sort(
+(a,b) =>
+rankingScore(b) -
+rankingScore(a)
+);
+
+
+grid.innerHTML =
+filtered
+.map(item => {
+
+const id =
+String(item.id);
+
+const title =
+String(
+item.Title ||
+"Untitled"
+);
+
+const categoryText =
+String(
+item.Category ||
+"Other"
+);
+
+const description =
+String(
+item.Discription ||
+"No description available."
+);
+
+const url =
+safeUrl(
+item.Website_url
+);
+
+const firstLetter =
+(
+title.trim()
+.charAt(0) ||
+"W"
+).toUpperCase();
+
+const votes =
+Number(
+voteCounts[id] || 0
+);
+
+const rank =
+ranked.findIndex(
+x =>
+String(x.id) === id
+) + 1;
+
+const voted =
+myVotes.has(id);
+
+
+return `
+
+<article class="card">
+
+<span class="rank-badge">
+#${rank}
+</span>
+
+<div class="card-top">
+
+<div class="card-icon">
+${escapeHTML(firstLetter)}
+</div>
+
+<span class="category-tag">
+${escapeHTML(categoryText)}
+</span>
+
+</div>
+
+<h3>
+${escapeHTML(title)}
+</h3>
+
+<p>
+${escapeHTML(description)}
+</p>
+
+<div class="rank-meta">
+Rank #${rank} •
+${votes}
+${votes === 1
+? "upvote"
+: "upvotes"}
+</div>
+
+<div class="card-bottom">
+
+<a
+class="visit-link"
+href="${escapeHTML(url)}"
+target="_blank"
+rel="noopener noreferrer"
+>
+Visit Website →
+</a>
+
+<div class="vote-box">
+
+<button
+class="vote-btn ${voted ? "voted" : ""}"
+onclick="voteListing('${escapeHTML(id)}')"
+${voted ? "disabled" : ""}
+title="${voted ? "Already voted" : "Upvote"}"
+>
+↑
+</button>
+
+<span class="vote-count">
+${votes}
+</span>
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+})
+.join("");
+
+}
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+function clearFilters(){
+
+$("searchInput").value = "";
+
+$("categoryFilter").value =
+"all";
+
+$("sortSelect").value =
+"top";
+
+renderListings();
+
+}
+
+
+/* =====================================================
+   VOTE
+===================================================== */
+
+async function voteListing(id){
+
+if(
+myVotes.has(
+String(id)
+)
+){
+
+return;
+
+}
+
+
+/* Demo listing */
+
+if(
+String(id)
+.startsWith("demo-")
+){
+
+const local =
+getLocalVotes();
+
+local[id] =
+Number(
+local[id] || 0
+) + 1;
+
+saveLocalVotes(local);
+
+voteCounts[id] =
+Number(local[id]);
+
+myVotes.add(
+String(id)
+);
+
+updateStats();
+
+renderListings();
+
+return;
+
+}
+
+
+/* Real Supabase listing */
+
+const voterId =
+getVoterId();
+
+try{
+
+const {
+error
+} =
+await supabaseClient
+.from("votes")
+.insert([{
+
+listing_id:
+Number(id),
+
+voter_id:
+voterId
+
+}]);
+
+
+if(error){
+
+if(
+String(
+error.message || ""
+)
+.toLowerCase()
+.includes("duplicate")
+){
+
+myVotes.add(
+String(id)
+);
+
+}else{
+
+throw error;
+
+}
+
+}else{
+
+voteCounts[id] =
+Number(
+voteCounts[id] || 0
+) + 1;
+
+myVotes.add(
+String(id)
+);
+
+}
+
+updateStats();
+
+renderListings();
+
+}catch(error){
+
+console.error(
+"Vote error:",
+error
+);
+
+alert(
+"Unable to save your vote. Please try again."
+);
+
+}
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function performSearch(){
+
+renderListings();
+
+$("explore")
+.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+
+$("searchBtn")
+.addEventListener(
+"click",
+performSearch
+);
+
+$("searchInput")
+.addEventListener(
+"input",
+renderListings
+);
+
+$("searchInput")
+.addEventListener(
+"keydown",
+event => {
+
+if(event.key === "Enter"){
+
+performSearch();
+
+}
+
+}
+);
+
+$("categoryFilter")
+.addEventListener(
+"change",
+renderListings
+);
+
+$("sortSelect")
+.addEventListener(
+"change",
+renderListings
+);
+
+
+/* =====================================================
+   CATEGORY CARDS
+===================================================== */
+
+document
+.querySelectorAll(
+"[data-category]"
+)
+.forEach(card => {
+
+card.addEventListener(
+"click",
+() => {
+
+$("categoryFilter")
+.value =
+card.dataset.category;
+
+renderListings();
+
+$("explore")
+.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+);
+
+});
+
+
+/* =====================================================
+   SUBMIT MODAL
+===================================================== */
+
+function openSubmit(){
+
+openModal(
+"submitModal"
+);
+
+}
+
+$("submitOpenBtn")
+.addEventListener(
+"click",
+openSubmit
+);
+
+$("heroSubmitBtn")
+.addEventListener(
+"click",
+openSubmit
+);
+
+$("ctaSubmitBtn")
+.addEventListener(
+"click",
+openSubmit
+);
+
+$("footerSubmitBtn")
+.addEventListener(
+"click",
+openSubmit
+);
+
+
+/* =====================================================
+   CLOSE MODALS
+===================================================== */
+
+document
+.querySelectorAll(
+"[data-close]"
+)
+.forEach(button => {
+
+button.addEventListener(
+"click",
+() => {
+
+closeModal(
+button.dataset.close
+);
+
+}
+);
+
+});
+
+
+document
+.querySelectorAll(".modal")
+.forEach(modal => {
+
+modal.addEventListener(
+"click",
+event => {
+
+if(
+event.target === modal
+){
+
+modal.classList.remove(
+"active"
+);
+
+}
+
+}
+);
+
+});
+
+
+/* =====================================================
+   FOOTER FILTERS
+===================================================== */
+
+function footerCategory(
+category
+){
+
+$("categoryFilter")
+.value =
+category;
+
+renderListings();
+
+$("explore")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+$("footerAiLink")
+.addEventListener(
+"click",
+() =>
+footerCategory(
+"AI Tools"
+)
+);
+
+$("footerEducationLink")
+.addEventListener(
+"click",
+() =>
+footerCategory(
+"Education"
+)
+);
+
+$("footerDevelopmentLink")
+.addEventListener(
+"click",
+() =>
+footerCategory(
+"Development"
+)
+);
+
+
+/* =====================================================
+   SUBMIT WEBSITE
+===================================================== */
+
+$("submitForm")
+.addEventListener(
+"submit",
+async event => {
+
+event.preventDefault();
+
+const message =
+$("submitMessage");
+
+message.className =
+"message";
+
+const title =
+$("submitTitle")
+.value
+.trim();
+
+const description =
+$("submitDescription")
+.value
+.trim();
+
+const category =
+$("submitCategory")
+.value;
+
+const url =
+$("submitUrl")
+.value
+.trim();
+
+
+if(
+!title ||
+!description ||
+!category ||
+!url
+){
+
+message.textContent =
+"Please complete all fields.";
+
+message.classList.add(
+"show",
+"error"
+);
+
+return;
+
+}
+
+
+try{
+
+const parsed =
+new URL(url);
+
+if(
+parsed.protocol !== "http:" &&
+parsed.protocol !== "https:"
+){
+
+throw new Error(
+"Invalid URL"
+);
+
+}
+
+
+const {
+error
+} =
+await supabaseClient
+.from("Listings")
+.insert([{
+
+Title:title,
+
+Discription:
+description,
+
+Category:
+category,
+
+Website_url:
+url,
+
+Status:
+"pending"
+
+}]);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+message.textContent =
+"Website submitted successfully. It will appear after admin approval.";
+
+message.classList.add(
+"show",
+"success"
+);
+
+$("submitForm").reset();
+
+
+setTimeout(
+() => {
+
+closeModal(
+"submitModal"
+);
+
+message.className =
+"message";
+
+},
+2200
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.textContent =
+"Submission failed. Please try again.";
+
+message.classList.add(
+"show",
+"error"
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+$("adminLoginBtn")
+.addEventListener(
+"click",
+() =>
+openModal(
+"adminModal"
+)
+);
+
+
+$("adminLoginForm")
+.addEventListener(
+"submit",
+async event => {
+
+event.preventDefault();
+
+const message =
+$("adminMessage");
+
+message.className =
+"message";
+
+const email =
+$("adminEmail")
+.value
+.trim();
+
+const password =
+$("adminPassword")
+.value;
+
+
+try{
+
+const {
+data,
+error
+} =
+await supabaseClient
+.auth
+.signInWithPassword({
+
+email,
+
+password
+
+});
+
+
+if(error){
+
+throw error;
+
+}
+
+
+if(!data.user){
+
+throw new Error(
+"Login failed."
+);
+
+}
+
+
+const {
+data:adminRow,
+error:adminError
+} =
+await supabaseClient
+.from("rankboard_admins")
+.select("user_id")
+.eq(
+"user_id",
+data.user.id
+)
+.maybeSingle();
+
+
+if(adminError){
+
+throw adminError;
+
+}
+
+
+if(!adminRow){
+
+await supabaseClient
+.auth
+.signOut();
+
+throw new Error(
+"This account is not authorized as an admin."
+);
+
+}
+
+
+closeModal(
+"adminModal"
+);
+
+await openAdminPanel(
+data.user
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.textContent =
+error.message ||
+"Invalid login credentials.";
+
+message.classList.add(
+"show",
+"error"
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   ADMIN PANEL
+===================================================== */
+
+async function openAdminPanel(
+user
+){
+
+openModal(
+"adminPanelModal"
+);
+
+$("adminUserInfo")
+.textContent =
+`Logged in as ${
+user.email || "Admin"
+}`;
+
+await loadPendingListings();
+
+}
+
+
+/* =====================================================
+   PENDING LISTINGS
+===================================================== */
+
+async function loadPendingListings(){
+
+const container =
+$("pendingListings");
+
+container.innerHTML =
+`
+<div class="loading">
+Loading pending submissions...
+</div>
+`;
+
+
+try{
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("Listings")
+.select("*")
+.eq(
+"Status",
+"pending"
+)
+.order(
+"created_at",
+{ascending:false}
+);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+if(
+!data ||
+!data.length
+){
+
+container.innerHTML =
+`
+<div class="empty">
+
+<h3 style="color:var(--text)">
+No Pending Submissions
+</h3>
+
+<p>
+New website submissions will appear here.
+</p>
+
+</div>
+`;
+
+return;
+
+}
+
+
+container.innerHTML =
+data
+.map(item => {
+
+const url =
+safeUrl(
+item.Website_url
+);
+
+return `
+
+<div class="pending-item">
+
+<h3>
+${escapeHTML(
+item.Title || "Untitled"
+)}
+</h3>
+
+<div class="pending-meta">
+Category:
+${escapeHTML(
+item.Category || "Other"
+)}
+</div>
+
+<p>
+${escapeHTML(
+item.Discription || ""
+)}
+</p>
+
+<div class="pending-meta">
+
+<a
+href="${escapeHTML(url)}"
+target="_blank"
+rel="noopener noreferrer"
+>
+${escapeHTML(
+item.Website_url || ""
+)}
+</a>
+
+</div>
+
+<div class="pending-actions">
+
+<button
+class="btn btn-success"
+onclick="updateListingStatus('${escapeHTML(item.id)}','approved')"
+>
+Approve
+</button>
+
+<button
+class="btn btn-danger"
+onclick="updateListingStatus('${escapeHTML(item.id)}','rejected')"
+>
+Reject
+</button>
+
+</div>
+
+</div>
+
+`;
+
+})
+.join("");
+
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML =
+`
+<div class="message show error">
+Unable to load pending submissions.
+</div>
+`;
+
+}
+
+}
+
+
+/* =====================================================
+   APPROVE / REJECT
+===================================================== */
+
+async function updateListingStatus(
+id,
+status
+){
+
+try{
+
+const {
+error
+} =
+await supabaseClient
+.from("Listings")
+.update({
+Status:status
+})
+.eq(
+"id",
+id
+);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+await loadPendingListings();
+
+
+if(
+status === "approved"
+){
+
+await loadListings();
+
+}
+
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Unable to update listing."
+);
+
+}
+
+}
+
+
+/* =====================================================
+   SIGN OUT
+===================================================== */
+
+$("signOutBtn")
+.addEventListener(
+"click",
+async () => {
+
+await supabaseClient
+.auth
+.signOut();
+
+closeModal(
+"adminPanelModal"
+);
+
+}
+);
+
+
+/* =====================================================
+   FORGOT PASSWORD
+===================================================== */
+
+$("forgotPasswordBtn")
+.addEventListener(
+"click",
+() => {
+
+closeModal(
+"adminModal"
+);
+
+openModal(
+"forgotModal"
+);
+
+}
+);
+
+
+$("forgotForm")
+.addEventListener(
+"submit",
+async event => {
+
+event.preventDefault();
+
+const message =
+$("forgotMessage");
+
+message.className =
+"message";
+
+const email =
+$("forgotEmail")
+.value
+.trim();
+
+
+try{
+
+const {
+error
+} =
+await supabaseClient
+.auth
+.resetPasswordForEmail(
+email,
+{
+redirectTo:
+window.location.origin
+}
+);
+
+
+if(error){
+
+throw error;
+
+}
+
+
+message.textContent =
+"Password reset link sent. Check your email.";
+
+message.classList.add(
+"show",
+"success"
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.textContent =
+error.message ||
+"Unable to send reset link.";
+
+message.classList.add(
+"show",
+"error"
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   PASSWORD RECOVERY
+===================================================== */
+
+supabaseClient
+.auth
+.onAuthStateChange(
+async event => {
+
+if(
+event ===
+"PASSWORD_RECOVERY"
+){
+
+openModal(
+"resetModal"
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   UPDATE PASSWORD
+===================================================== */
+
+$("resetForm")
+.addEventListener(
+"submit",
+async event => {
+
+event.preventDefault();
+
+const message =
+$("resetMessage");
+
+message.className =
+"message";
+
+const password =
+$("newPassword")
+.value;
+
+const confirmPassword =
+$("confirmPassword")
+.value;
+
+
+if(
+password !==
+confirmPassword
+){
+
+message.textContent =
+"Passwords do not match.";
+
+message.classList.add(
+"show",
+"error"
+);
+
+return;
+
+}
+
+
+try{
+
+const {
+error
+} =
+await supabaseClient
+.auth
+.updateUser({
+password
+});
+
+
+if(error){
+
+throw error;
+
+}
+
+
+message.textContent =
+"Password updated successfully.";
+
+message.classList.add(
+"show",
+"success"
+);
+
+$("resetForm")
+.reset();
+
+
+setTimeout(
+async () => {
+
+closeModal(
+"resetModal"
+);
+
+await supabaseClient
+.auth
+.signOut();
+
+},
+1800
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.textContent =
+error.message ||
+"Unable to update password.";
+
+message.classList.add(
+"show",
+"error"
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   START
+===================================================== */
 
 loadListings();
 
