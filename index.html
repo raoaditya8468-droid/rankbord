@@ -789,6 +789,90 @@ width:100%
 font-size:38px
 }
 }
+/* TOP RANKED */
+
+.top-ranked{
+  padding-top:65px;
+}
+
+.ranking-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.ranking-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  position:relative;
+  box-shadow:0 5px 20px rgba(31,45,61,.035);
+  transition:.2s;
+}
+
+.ranking-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+
+.ranking-position{
+  position:absolute;
+  top:15px;
+  right:15px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#172033;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:900;
+}
+
+.ranking-card h3{
+  margin:15px 0 6px;
+  font-size:19px;
+}
+
+.ranking-card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  min-height:42px;
+}
+
+.ranking-category{
+  display:inline-block;
+  background:#eef4ff;
+  color:var(--primary);
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.ranking-footer{
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.ranking-votes{
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+@media(max-width:700px){
+  .ranking-grid{
+    grid-template-columns:1fr;
+  }
+  }  
 </style>
 </head>
 
@@ -953,7 +1037,33 @@ Choose a category and discover useful websites.
 </div>
 </section>
 
+<section class="container top-ranked">
 
+  <div class="section-head">
+
+    <div class="section-label">
+      Community Rankings
+    </div>
+
+    <h2 class="section-title">
+      Top Ranked Websites
+    </h2>
+
+    <p class="section-subtitle">
+      The websites receiving the most community votes.
+    </p>
+
+  </div>
+
+  <div class="ranking-grid" id="topRankedGrid">
+
+    <div class="loading">
+      Loading rankings...
+    </div>
+
+  </div>
+
+</section>
 <section class="container explore" id="explore">
 
 <div class="section-head-row">
@@ -1982,6 +2092,8 @@ listings =
 
 await loadVotes();
 
+renderTopRanked();
+
 renderListings();
 
 }
@@ -1990,7 +2102,118 @@ renderListings();
 /* =====================================================
    RENDER
 ===================================================== */
+/* =====================================================
+   TOP RANKED WEBSITES
+===================================================== */
 
+function renderTopRanked(){
+
+  const container =
+    $("topRankedGrid");
+
+  if(!container){
+    return;
+  }
+
+  const ranked =
+    [...listings]
+      .sort(
+        (a,b) =>
+          rankingScore(b) -
+          rankingScore(a)
+      )
+      .slice(0,3);
+
+  if(!ranked.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        No ranked websites yet.
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    ranked.map((item,index) => {
+
+      const id =
+        String(item.id);
+
+      const title =
+        String(
+          item.Title ||
+          "Untitled"
+        );
+
+      const category =
+        String(
+          item.Category ||
+          "Other"
+        );
+
+      const description =
+        String(
+          item.Discription ||
+          "No description available."
+        );
+
+      const url =
+        safeUrl(
+          item.Website_url
+        );
+
+      const votes =
+        Number(
+          voteCounts[id] || 0
+        );
+
+      return `
+
+        <article class="ranking-card">
+
+          <div class="ranking-position">
+            #${index + 1}
+          </div>
+
+          <span class="ranking-category">
+            ${escapeHTML(category)}
+          </span>
+
+          <h3>
+            ${escapeHTML(title)}
+          </h3>
+
+          <p>
+            ${escapeHTML(description)}
+          </p>
+
+          <div class="ranking-footer">
+
+            <span class="ranking-votes">
+              ↑ ${votes}
+              ${votes === 1 ? "upvote" : "upvotes"}
+            </span>
+
+            <a
+              class="visit-link"
+              href="${escapeHTML(url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit →
+            </a>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
 function renderListings(){
 
 const grid =
