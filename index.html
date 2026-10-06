@@ -2,1361 +2,1377 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RankBoard — Discover Useful Websites & Tools</title>
+<title>RankBoard — Discover & Compare</title>
 
-<meta name="description" content="Discover, compare and rank useful websites, AI tools, education resources, productivity apps, development platforms, design tools and more.">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://rankboard.vercel.app/">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="RankBoard — Discover Useful Websites & Tools">
-<meta property="og:description" content="Discover, compare and rank useful websites and tools.">
-<meta property="og:url" content="https://rankboard.vercel.app/">
-<meta property="og:site_name" content="RankBoard">
+<meta name="description"
+content="Discover, compare and rank useful websites with the RankBoard community.">
 
 <meta name="theme-color" content="#f3f7fc">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232563eb'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Arial' font-size='34' font-weight='900' fill='white'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="icon"
+href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23172033%22/><text x=%2250%22 y=%2268%22 text-anchor=%22middle%22 font-size=%2258%22 font-family=%22Arial%22 fill=%22white%22>R</text></svg>">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 :root{
---bg:#f3f7fc;
---white:#fff;
---text:#172033;
---muted:#667085;
---primary:#2563eb;
---primary-dark:#1d4ed8;
---border:#dfe7f2;
---success:#16a34a;
---danger:#dc2626;
---shadow:0 12px 35px rgba(31,45,61,.08);
+  --bg:#f3f7fc;
+  --white:#ffffff;
+  --panel:#f8fbff;
+  --primary:#315efb;
+  --primary-dark:#2347c7;
+  --dark:#172033;
+  --text:#263248;
+  --muted:#718096;
+  --border:#e4eaf2;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --shadow:0 12px 35px rgba(31,45,61,.08);
 }
 
 *{
-box-sizing:border-box
+  box-sizing:border-box;
 }
 
 html{
-scroll-behavior:smooth
+  scroll-behavior:smooth;
 }
 
 body{
-margin:0;
-font-family:Inter,Arial,Helvetica,sans-serif;
-background:var(--bg);
-color:var(--text);
-line-height:1.5
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
 button,
 input,
-select,
-textarea{
-font:inherit
+textarea,
+select{
+  font:inherit;
 }
 
 button{
-cursor:pointer
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
 }
 
 .container{
-width:min(1180px,92%);
-margin:auto
+  width:min(1120px,92%);
+  margin:auto;
 }
-
 
 /* HEADER */
 
 header{
-position:sticky;
-top:0;
-z-index:50;
-background:rgba(255,255,255,.95);
-backdrop-filter:blur(15px);
-border-bottom:1px solid var(--border)
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(14px);
 }
 
 .nav{
-min-height:70px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:15px
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .brand{
-display:flex;
-align-items:center;
-gap:10px;
-text-decoration:none;
-color:var(--text);
-font-weight:900;
-font-size:21px
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:20px;
+  color:var(--dark);
 }
 
 .logo{
-width:38px;
-height:38px;
-border-radius:12px;
-background:linear-gradient(135deg,#2563eb,#4f46e5);
-color:#fff;
-display:grid;
-place-items:center;
-font-weight:900
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:var(--dark);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:21px;
 }
 
 .nav-actions{
-display:flex;
-gap:8px
+  display:flex;
+  align-items:center;
+  gap:9px;
 }
 
 .btn{
-border:0;
-border-radius:11px;
-padding:11px 17px;
-font-weight:750;
-transition:.2s
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  font-weight:800;
+  font-size:13px;
+  transition:.2s;
 }
 
 .btn:hover{
-transform:translateY(-1px)
+  transform:translateY(-1px);
 }
 
 .btn-primary{
-background:var(--primary);
-color:#fff
+  background:var(--primary);
+  color:#fff;
 }
 
 .btn-primary:hover{
-background:var(--primary-dark)
+  background:var(--primary-dark);
 }
 
 .btn-light{
-background:#fff;
-color:var(--text);
-border:1px solid var(--border)
-}
-
-.btn-success{
-background:#dcfce7;
-color:#166534
+  background:#fff;
+  color:var(--dark);
+  border:1px solid var(--border);
 }
 
 .btn-danger{
-background:#fee2e2;
-color:#991b1b
+  background:#fff0f0;
+  color:var(--danger);
+  border:1px solid #ffd5d5;
 }
 
+.btn-success{
+  background:#eaf8ef;
+  color:var(--success);
+  border:1px solid #c9efd5;
+}
+
+.account-name{
+  max-width:130px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 
 /* HERO */
 
 .hero{
-padding:80px 0 55px;
-text-align:center;
-background:
-radial-gradient(circle at 20% 20%,rgba(37,99,235,.13),transparent 30%),
-radial-gradient(circle at 80% 10%,rgba(124,58,237,.11),transparent 28%)
+  padding:78px 0 60px;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(49,94,251,.10),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(124,58,237,.08),transparent 30%);
 }
 
-.badge{
-display:inline-flex;
-padding:7px 13px;
-border:1px solid #d8e5ff;
-background:#fff;
-border-radius:999px;
-color:var(--primary);
-font-size:12px;
-font-weight:800
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:45px;
+  align-items:center;
+}
+
+.eyebrow{
+  color:var(--primary);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-bottom:12px;
 }
 
 .hero h1{
-max-width:850px;
-margin:20px auto 15px;
-font-size:clamp(38px,6vw,65px);
-line-height:1.05;
-font-weight:900;
-letter-spacing:-3px
-}
-
-.hero h1 span{
-color:var(--primary)
+  font-size:clamp(40px,6vw,68px);
+  line-height:1.02;
+  letter-spacing:-2.5px;
+  color:var(--dark);
+  margin:0 0 20px;
 }
 
 .hero p{
-max-width:700px;
-margin:auto;
-color:var(--muted);
-font-size:17px
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.7;
+  max-width:650px;
+  margin:0 0 25px;
 }
 
 .hero-buttons{
-display:flex;
-justify-content:center;
-gap:12px;
-margin-top:25px;
-flex-wrap:wrap
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
-.hero-btn{
-padding:13px 20px;
-border-radius:12px;
-text-decoration:none;
-font-weight:800
+.hero-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:25px;
+  box-shadow:var(--shadow);
 }
 
-.hero-btn-outline{
-background:#fff;
-color:var(--text);
-border:1px solid var(--border)
+.hero-card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
 }
 
+.hero-card-title{
+  font-weight:900;
+  color:var(--dark);
+}
+
+.live-dot{
+  width:9px;
+  height:9px;
+  background:#22c55e;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:6px;
+}
+
+.mini-ranking{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.mini-ranking:last-child{
+  border-bottom:0;
+}
+
+.mini-number{
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:#eef4ff;
+  color:var(--primary);
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  font-weight:900;
+}
+
+.mini-info{
+  flex:1;
+}
+
+.mini-info strong{
+  display:block;
+  font-size:13px;
+  color:var(--dark);
+}
+
+.mini-info span{
+  color:var(--muted);
+  font-size:11px;
+}
 
 /* SEARCH */
 
+.search-area{
+  margin-top:-22px;
+  position:relative;
+  z-index:5;
+}
+
 .search-box{
-max-width:760px;
-margin:30px auto 0;
-display:flex;
-gap:8px;
-padding:7px;
-background:#fff;
-border:1px solid var(--border);
-border-radius:15px;
-box-shadow:var(--shadow)
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  box-shadow:var(--shadow);
+  padding:9px;
+  display:flex;
+  gap:8px;
 }
 
 .search-box input{
-flex:1;
-min-width:0;
-border:0;
-outline:0;
-padding:12px;
-background:transparent
+  flex:1;
+  border:0;
+  outline:0;
+  padding:13px;
+  color:var(--dark);
+  background:transparent;
 }
-
-.search-box .btn{
-min-width:110px
-}
-
 
 /* STATS */
 
 .stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:14px;
-margin:35px auto 10px;
-max-width:780px
+  padding:30px 0 20px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
 }
 
 .stat{
-background:#fff;
-border:1px solid var(--border);
-border-radius:16px;
-padding:18px;
-text-align:center
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
 }
 
 .stat strong{
-display:block;
-font-size:25px
+  display:block;
+  font-size:25px;
+  color:var(--dark);
 }
 
 .stat span{
-color:var(--muted);
-font-size:13px
+  color:var(--muted);
+  font-size:12px;
 }
-
 
 /* SECTIONS */
 
+section{
+  scroll-margin-top:90px;
+}
+
+.top-ranked,
+.explore,
+.categories-section,
+.cta{
+  padding:65px 0 10px;
+}
+
 .section-head{
-margin-bottom:22px
+  margin-bottom:25px;
 }
 
 .section-label{
-color:var(--primary);
-font-size:12px;
-font-weight:850;
-text-transform:uppercase;
-letter-spacing:1px
+  color:var(--primary);
+  text-transform:uppercase;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1.3px;
+  margin-bottom:7px;
 }
 
 .section-title{
-margin:5px 0;
-font-size:30px
+  margin:0;
+  color:var(--dark);
+  font-size:32px;
+  letter-spacing:-1px;
 }
 
 .section-subtitle{
-color:var(--muted);
-margin:0
+  color:var(--muted);
+  margin:8px 0 0;
+  line-height:1.6;
 }
-
 
 /* CATEGORIES */
 
-.category-section{
-margin-top:30px
-}
-
 .category-grid{
-display:grid;
-grid-template-columns:repeat(7,1fr);
-gap:12px
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
 }
 
 .category-card{
-background:#fff;
-border:1px solid var(--border);
-border-radius:15px;
-padding:18px 8px;
-text-align:center;
-cursor:pointer;
-transition:.2s
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
 }
 
 .category-card:hover{
-transform:translateY(-3px);
-box-shadow:var(--shadow)
-}
-
-.category-icon{
-width:42px;
-height:42px;
-margin:auto auto 10px;
-border-radius:12px;
-display:grid;
-place-items:center;
-background:#eef4ff;
-color:var(--primary);
-font-weight:900;
-font-size:13px
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
 }
 
 .category-card strong{
-display:block;
-font-size:13px
+  display:block;
+  font-size:13px;
+  color:var(--dark);
 }
 
 .category-card span{
-color:var(--muted);
-font-size:11px
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
 }
 
+/* FILTERS */
 
-/* TOP RANKED */
-
-.top-ranked{
-padding-top:65px
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:20px;
 }
+
+.filter-btn{
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--muted);
+  border-radius:999px;
+  padding:8px 13px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.filter-btn.active{
+  background:var(--dark);
+  color:#fff;
+  border-color:var(--dark);
+}
+
+/* RANKING */
 
 .ranking-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:17px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
 }
 
 .ranking-card{
-background:#fff;
-border:1px solid var(--border);
-border-radius:18px;
-padding:22px;
-position:relative;
-box-shadow:0 5px 20px rgba(31,45,61,.035);
-transition:.2s
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  position:relative;
+  box-shadow:0 5px 20px rgba(31,45,61,.035);
+  transition:.2s;
 }
 
 .ranking-card:hover{
-transform:translateY(-3px);
-box-shadow:var(--shadow)
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
 }
 
 .ranking-position{
-position:absolute;
-top:15px;
-right:15px;
-width:38px;
-height:38px;
-border-radius:50%;
-background:#172033;
-color:#fff;
-display:grid;
-place-items:center;
-font-size:12px;
-font-weight:900
+  position:absolute;
+  top:15px;
+  right:15px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#172033;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:900;
 }
 
 .ranking-card h3{
-margin:15px 0 6px;
-font-size:19px
+  margin:15px 0 6px;
+  font-size:19px;
 }
 
 .ranking-card p{
-color:var(--muted);
-font-size:13px;
-line-height:1.6;
-min-height:42px
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  min-height:42px;
 }
 
 .ranking-category{
-display:inline-block;
-background:#eef4ff;
-color:var(--primary);
-padding:5px 9px;
-border-radius:999px;
-font-size:10px;
-font-weight:800
+  display:inline-block;
+  background:#eef4ff;
+  color:var(--primary);
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
 }
 
 .ranking-footer{
-margin-top:18px;
-padding-top:14px;
-border-top:1px solid var(--border);
-display:flex;
-justify-content:space-between;
-align-items:center
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
 }
 
 .ranking-votes{
-font-size:12px;
-font-weight:800;
-color:var(--muted)
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
 }
 
+/* LISTINGS */
 
-/* EXPLORE */
-
-.explore{
-padding-top:70px
+.listings-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
 }
 
-.section-head-row{
-display:flex;
-align-items:end;
-justify-content:space-between;
-gap:15px
+.website-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(31,45,61,.035);
+  transition:.2s;
 }
 
-.controls{
-display:flex;
-gap:9px;
-flex-wrap:wrap
+.website-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
 }
 
-.field{
-min-width:170px;
-padding:11px 13px;
-border-radius:11px;
-border:1px solid var(--border);
-background:#fff;
-color:var(--text);
-outline:none
+.website-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.results-info{
-margin:18px 0 15px;
-color:var(--muted);
-font-size:13px
+.website-card h3{
+  color:var(--dark);
+  margin:10px 0 7px;
+  font-size:19px;
 }
 
-
-/* CARDS */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:17px
+.website-description{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  min-height:42px;
 }
 
-.card{
-background:#fff;
-border:1px solid var(--border);
-border-radius:18px;
-padding:20px;
-min-height:285px;
-display:flex;
-flex-direction:column;
-position:relative;
-box-shadow:0 5px 20px rgba(31,45,61,.035);
-transition:.2s
+.website-category{
+  display:inline-block;
+  background:#eef4ff;
+  color:var(--primary);
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
 }
 
-.card:hover{
-transform:translateY(-3px);
-box-shadow:var(--shadow)
-}
-
-.rank-badge{
-position:absolute;
-top:13px;
-left:13px;
-background:#172033;
-color:#fff;
-border-radius:999px;
-padding:4px 9px;
-font-size:10px;
-font-weight:900
-}
-
-.card-top{
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-gap:10px;
-padding-top:18px
-}
-
-.card-icon{
-width:45px;
-height:45px;
-border-radius:13px;
-background:#eef4ff;
-color:var(--primary);
-display:grid;
-place-items:center;
-font-weight:900
-}
-
-.category-tag{
-background:#f1f5f9;
-color:#475569;
-border-radius:999px;
-padding:5px 9px;
-font-size:10px;
-font-weight:800
-}
-
-.card h3{
-margin:14px 0 7px;
-font-size:18px
-}
-
-.card p{
-color:var(--muted);
-font-size:13px;
-line-height:1.6;
-margin:0
-}
-
-.rank-meta{
-margin-top:9px;
-font-size:11px;
-color:var(--muted);
-font-weight:700
-}
-
-.card-bottom{
-margin-top:auto;
-padding-top:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px
-}
-
-.visit-link{
-color:var(--primary);
-text-decoration:none;
-font-weight:800;
-font-size:13px;
-border:0;
-background:transparent;
-padding:0;
-cursor:pointer
-}
-
-.visit-link:hover{
-text-decoration:underline
-}
-
-.vote-box{
-display:flex;
-align-items:center;
-gap:6px
+.website-footer{
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
 }
 
 .vote-btn{
-border:1px solid var(--border);
-background:#fff;
-color:#475569;
-width:34px;
-height:32px;
-border-radius:9px;
-font-weight:900
-}
-
-.vote-btn:hover{
-color:var(--primary);
-border-color:#9bb7ed
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  padding:8px 11px;
+  font-size:11px;
+  font-weight:900;
+  color:var(--dark);
 }
 
 .vote-btn.voted{
-background:#eef4ff;
-color:var(--primary);
-border-color:#9bb7ed
+  background:#eef4ff;
+  color:var(--primary);
+  border-color:#cbd8ff;
 }
 
-.vote-count{
-min-width:25px;
-text-align:center;
-font-size:12px;
-font-weight:800;
-color:var(--muted)
+.visit-link{
+  border:0;
+  background:none;
+  color:var(--primary);
+  font-weight:900;
+  font-size:11px;
+  padding:0;
 }
-
-.loading{
-grid-column:1/-1;
-padding:40px;
-text-align:center;
-color:var(--muted)
-}
-
-.empty{
-padding:45px 20px;
-text-align:center;
-border:1px dashed #cbd5e1;
-border-radius:17px;
-color:var(--muted)
-}
-
-
-/* WEBSITE DETAILS */
-
-.details-box{
-padding:8px 3px
-}
-
-.details-category{
-display:inline-block;
-background:#eef4ff;
-color:var(--primary);
-padding:6px 10px;
-border-radius:999px;
-font-size:11px;
-font-weight:800
-}
-
-.details-box h2{
-margin:14px 0 8px;
-font-size:28px
-}
-
-.details-description{
-color:var(--muted);
-line-height:1.7;
-font-size:14px;
-margin:0
-}
-
-.details-stats{
-display:flex;
-gap:12px;
-margin:20px 0;
-flex-wrap:wrap
-}
-
-.details-stat{
-background:#f7f9fc;
-border:1px solid var(--border);
-border-radius:12px;
-padding:12px 16px;
-min-width:110px
-}
-
-.details-stat strong{
-display:block;
-font-size:18px
-}
-
-.details-stat span{
-font-size:11px;
-color:var(--muted)
-}
-
-.details-actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:20px
-}
-
 
 /* CTA */
 
-.discovery-card{
-margin-top:65px;
-padding:38px;
-border-radius:24px;
-background:linear-gradient(135deg,#172033,#263a68);
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:25px
+.cta-box{
+  background:var(--dark);
+  color:#fff;
+  border-radius:24px;
+  padding:35px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
 }
 
-.discovery-card h2{
-margin:0 0 8px
+.cta-box h2{
+  margin:0 0 7px;
+  font-size:27px;
 }
 
-.discovery-card p{
-color:#d4dbea
+.cta-box p{
+  margin:0;
+  color:#b9c2d2;
+  line-height:1.5;
 }
-
-.discovery-card .btn{
-background:#fff;
-color:#172033
-}
-
 
 /* FOOTER */
 
 footer{
-margin-top:75px;
-padding:45px 0 30px;
-background:#fff;
-border-top:1px solid var(--border)
+  margin-top:70px;
+  border-top:1px solid var(--border);
+  background:#fff;
 }
 
-.footer-main{
-display:grid;
-grid-template-columns:1.5fr 1fr 1fr;
-gap:35px
+.footer-inner{
+  min-height:100px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
 }
 
-.footer-brand p{
-color:var(--muted);
-max-width:330px
+.footer-inner p{
+  color:var(--muted);
+  font-size:12px;
 }
 
 .footer-links{
-display:flex;
-flex-direction:column;
-gap:8px
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-.footer-links a,
-.footer-link-button{
-color:var(--muted);
-text-decoration:none;
-background:none;
-border:0;
-padding:0;
-text-align:left;
-font-size:14px
+.footer-links a{
+  color:var(--muted);
+  font-size:12px;
 }
 
-.footer-links a:hover,
-.footer-link-button:hover{
-color:var(--primary)
-}
-
-.footer-bottom{
-margin-top:35px;
-padding-top:20px;
-border-top:1px solid var(--border);
-display:flex;
-justify-content:space-between;
-color:var(--muted);
-font-size:12px
-}
-
-
-/* MODALS */
+/* MODAL */
 
 .modal{
-position:fixed;
-inset:0;
-z-index:100;
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:rgba(15,23,42,.55)
+  position:fixed;
+  inset:0;
+  background:rgba(10,18,32,.58);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:100;
+  overflow-y:auto;
 }
 
-.modal.active{
-display:flex
+.modal.show{
+  display:flex;
 }
 
-.modal-card,
-.reset-card{
-width:min(520px,100%);
-max-height:90vh;
-overflow:auto;
-background:#fff;
-border-radius:20px;
-padding:25px;
-box-shadow:0 30px 80px rgba(0,0,0,.25)
+.modal-card{
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 25px 80px rgba(0,0,0,.2);
+}
+
+.modal-card.large{
+  width:min(850px,100%);
 }
 
 .modal-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:20px;
 }
 
 .modal-head h2{
-margin:0
+  margin:0;
+  color:var(--dark);
+  font-size:22px;
 }
 
 .close-btn{
-width:34px;
-height:34px;
-border:1px solid var(--border);
-background:#fff;
-border-radius:9px;
-font-size:18px
-}
-
-.close-btn:hover{
-background:#f8fafc
+  width:35px;
+  height:35px;
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  font-size:22px;
+  color:var(--muted);
 }
 
 .form-group{
-margin-bottom:15px
+  margin-bottom:15px;
 }
 
 .form-group label{
-display:block;
-margin-bottom:6px;
-font-size:13px;
-font-weight:750
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  color:var(--dark);
+  margin-bottom:7px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select{
-width:100%;
-padding:12px;
-border:1px solid var(--border);
-border-radius:10px;
-outline:none;
-color:var(--text);
-background:#fff
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:12px;
+  outline:none;
+  color:var(--dark);
+  background:#fff;
 }
 
 .form-group textarea{
-min-height:100px;
-resize:vertical
+  min-height:105px;
+  resize:vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+  border-color:var(--primary);
 }
 
 .form-actions{
-display:flex;
-gap:9px;
-justify-content:flex-end;
-margin-top:20px
+  display:flex;
+  gap:9px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  margin-top:18px;
 }
 
 .message{
-display:none;
-margin-bottom:14px;
-padding:11px 13px;
-border-radius:10px;
-font-size:13px
+  padding:11px 13px;
+  border-radius:10px;
+  font-size:12px;
+  margin-bottom:15px;
+  display:none;
 }
 
 .message.show{
-display:block
+  display:block;
 }
 
 .message.error{
-background:#fee2e2;
-color:#991b1b
+  background:#fff1f1;
+  color:var(--danger);
 }
 
 .message.success{
-background:#dcfce7;
-color:#166534
+  background:#edfaf1;
+  color:var(--success);
 }
 
+/* ACCOUNT */
+
+.auth-switch{
+  display:flex;
+  gap:6px;
+  background:#f5f7fb;
+  padding:5px;
+  border-radius:12px;
+  margin-bottom:18px;
+}
+
+.auth-switch button{
+  flex:1;
+  border:0;
+  background:transparent;
+  border-radius:9px;
+  padding:10px;
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+.auth-switch button.active{
+  background:#fff;
+  color:var(--dark);
+  box-shadow:0 2px 7px rgba(0,0,0,.06);
+}
+
+.profile-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.avatar{
+  width:54px;
+  height:54px;
+  border-radius:16px;
+  background:var(--dark);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:21px;
+  font-weight:900;
+}
+
+.profile-info strong{
+  display:block;
+  color:var(--dark);
+  font-size:17px;
+}
+
+.profile-info span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* DETAILS */
+
+.details-box{
+  padding:8px 3px;
+}
+
+.details-category{
+  display:inline-block;
+  background:#eef4ff;
+  color:var(--primary);
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.details-box h2{
+  margin:14px 0 8px;
+  font-size:28px;
+  color:var(--dark);
+}
+
+.details-description{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+  margin:0;
+}
+
+.details-stats{
+  display:flex;
+  gap:12px;
+  margin:20px 0;
+  flex-wrap:wrap;
+}
+
+.details-stat{
+  background:#f7f9fc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px 16px;
+  min-width:110px;
+}
+
+.details-stat strong{
+  display:block;
+  font-size:18px;
+  color:var(--dark);
+}
+
+.details-stat span{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.details-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.owner-box{
+  margin-top:20px;
+  padding:17px;
+  background:#f8fbff;
+  border:1px solid var(--border);
+  border-radius:15px;
+}
+
+.owner-title{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:9px;
+}
+
+.owner-row{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.owner-avatar{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:var(--dark);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  font-weight:900;
+}
+
+.owner-row strong{
+  color:var(--dark);
+  font-size:13px;
+}
+
+.owner-row p{
+  color:var(--muted);
+  font-size:11px;
+  margin:3px 0 0;
+}
+
+/* REVIEWS */
+
+.reviews-section{
+  margin-top:25px;
+  padding-top:22px;
+  border-top:1px solid var(--border);
+}
+
+.reviews-section h3{
+  color:var(--dark);
+  margin:0 0 15px;
+  font-size:18px;
+}
+
+.review-form{
+  background:#f8fbff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:18px;
+}
+
+.review-item{
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+
+.review-item:last-child{
+  border-bottom:0;
+}
+
+.review-user{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.review-avatar{
+  width:32px;
+  height:32px;
+  border-radius:9px;
+  background:#172033;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  font-weight:900;
+}
+
+.review-user strong{
+  color:var(--dark);
+  font-size:12px;
+}
+
+.review-date{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:2px;
+}
+
+.review-text{
+  color:var(--text);
+  font-size:13px;
+  line-height:1.6;
+  margin:9px 0 0 41px;
+}
+
+.review-delete{
+  border:0;
+  background:none;
+  color:var(--danger);
+  font-size:10px;
+  font-weight:800;
+  margin-left:41px;
+  margin-top:6px;
+  padding:0;
+}
+
+.login-review-note{
+  background:#f5f7fb;
+  border-radius:12px;
+  padding:13px;
+  color:var(--muted);
+  font-size:12px;
+}
 
 /* ADMIN */
 
-.admin-user{
-padding:12px;
-border-radius:10px;
-background:#f8fafc;
-margin-bottom:18px;
-font-size:13px;
-color:var(--muted)
+.admin-list{
+  display:grid;
+  gap:12px;
 }
 
-.pending-item{
-border:1px solid var(--border);
-border-radius:14px;
-padding:17px;
-margin-bottom:12px;
-background:#fff
+.admin-item{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  background:#fff;
 }
 
-.pending-item h3{
-margin:0 0 5px
+.admin-item h3{
+  margin:0 0 5px;
+  color:var(--dark);
+  font-size:16px;
 }
 
-.pending-item p{
-color:var(--muted);
-font-size:13px
+.admin-item p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
 }
 
-.pending-meta{
-font-size:12px;
-color:var(--muted);
-margin:7px 0
+.admin-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:8px 0;
 }
 
-.pending-actions{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:12px
+.admin-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
 }
 
+/* LOADING */
+
+.loading,
+.empty{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:25px;
+  color:var(--muted);
+  text-align:center;
+  font-size:13px;
+  grid-column:1/-1;
+}
 
 /* RESPONSIVE */
 
-@media(max-width:1050px){
+@media(max-width:900px){
 
-.category-grid{
-grid-template-columns:repeat(4,1fr)
-}
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
 
-.grid{
-grid-template-columns:repeat(2,1fr)
-}
+  .category-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
 
-.ranking-grid{
-grid-template-columns:repeat(2,1fr)
-}
-
-.footer-main{
-grid-template-columns:1fr 1fr
-}
+  .listings-grid,
+  .ranking-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 
 }
 
 @media(max-width:700px){
 
-.nav{
-min-height:64px
+  .nav{
+    min-height:64px;
+  }
+
+  .brand{
+    font-size:17px;
+  }
+
+  .logo{
+    width:35px;
+    height:35px;
+  }
+
+  .nav-actions{
+    gap:5px;
+  }
+
+  .nav-actions .btn{
+    padding:9px 10px;
+    font-size:10px;
+  }
+
+  .account-name{
+    max-width:70px;
+  }
+
+  .hero{
+    padding:55px 0 45px;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .listings-grid,
+  .ranking-grid{
+    grid-template-columns:1fr;
+  }
+
+  .cta-box{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:20px 0;
+  }
+
+  .search-box{
+    flex-direction:row;
+  }
 }
-
-.brand{
-font-size:18px
-}
-
-.logo{
-width:35px;
-height:35px
-}
-
-.nav-actions .btn{
-padding:9px 10px;
-font-size:12px
-}
-
-.hero{
-padding:55px 0 35px
-}
-
-.hero h1{
-letter-spacing:-1px
-}
-
-.stats{
-grid-template-columns:1fr
-}
-
-.category-grid{
-grid-template-columns:repeat(2,1fr)
-}
-
-.section-head-row{
-display:block
-}
-
-.controls{
-margin-top:15px
-}
-
-.controls .field{
-width:100%
-}
-
-.grid{
-grid-template-columns:1fr
-}
-
-.ranking-grid{
-grid-template-columns:1fr
-}
-
-.discovery-card{
-display:block;
-padding:27px 22px
-}
-
-.discovery-card .btn{
-margin-top:20px;
-width:100%
-}
-
-.footer-main{
-grid-template-columns:1fr
-}
-
-.footer-bottom{
-display:block
-}
-
-.details-box h2{
-font-size:24px
-}
-
-}
-
-@media(max-width:430px){
-
-.nav-actions .btn-primary,
-.nav-actions .btn-light{
-display:block
-}
-
-.search-box{
-flex-direction:column
-}
-
-.search-box .btn{
-width:100%
-}
-
-.hero h1{
-font-size:38px
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-
 <!-- HEADER -->
 
 <header>
+  <div class="container nav">
 
-<div class="container nav">
+    <a href="/" class="brand">
+      <span class="logo">R</span>
+      <span>RankBoard</span>
+    </a>
 
-<a href="/" class="brand">
+    <div class="nav-actions">
 
-<span class="logo">R</span>
+      <button class="btn btn-light"
+              id="submitOpenBtn">
+        Submit Website
+      </button>
 
-<span>RankBoard</span>
+      <button class="btn btn-light"
+              id="accountBtn">
+        Account
+      </button>
 
-</a>
+      <button class="btn btn-primary"
+              id="adminLoginBtn">
+        Admin Login
+      </button>
 
-<div class="nav-actions">
+    </div>
 
-<button
-class="btn btn-light"
-id="submitOpenBtn"
->
-Submit Website
-</button>
-
-<button
-class="btn btn-primary"
-id="adminLoginBtn"
->
-Admin Login
-</button>
-
-</div>
-
-</div>
-
+  </div>
 </header>
-
-
-<main>
 
 
 <!-- HERO -->
 
 <section class="hero">
+  <div class="container hero-grid">
 
-<div class="container">
+    <div>
 
-<div class="badge">
-✦ Discover useful websites
-</div>
+      <div class="eyebrow">
+        Community-powered rankings
+      </div>
 
-<h1>
-Discover websites
-<span>worth your time.</span>
-</h1>
+      <h1>
+        Discover What's Rising.
+      </h1>
 
-<p>
-Explore, compare and rank useful websites, AI tools,
-education resources, productivity apps, development
-platforms, design tools and more.
-</p>
+      <p>
+        Discover useful websites, compare them with the community
+        and help the best websites rise to the top.
+      </p>
 
-<div class="hero-buttons">
+      <div class="hero-buttons">
 
-<a
-href="#explore"
-class="hero-btn btn-primary"
->
-Explore Websites
-</a>
+        <button class="btn btn-primary"
+                onclick="document.getElementById('explore').scrollIntoView()">
+          Explore Websites
+        </button>
 
-<button
-class="hero-btn hero-btn-outline"
-id="heroSubmitBtn"
->
-Submit Your Website
-</button>
+        <button class="btn btn-light"
+                id="heroSubmitBtn">
+          Submit Your Website
+        </button>
 
-</div>
+      </div>
+
+    </div>
+
+    <div class="hero-card">
+
+      <div class="hero-card-top">
+        <div class="hero-card-title">
+          Live Community Rankings
+        </div>
+
+        <div>
+          <span class="live-dot"></span>
+          Live
+        </div>
+      </div>
+
+      <div id="miniRanking">
+        <div class="loading">
+          Loading...
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
 
-<div class="search-box">
+<!-- SEARCH -->
 
-<input
-id="searchInput"
-type="search"
-placeholder="Search websites, tools or categories..."
-autocomplete="off"
->
+<div class="container search-area">
 
-<button
-class="btn btn-primary"
-id="searchBtn"
->
-Search
-</button>
+  <div class="search-box">
 
-</div>
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search websites..."
+    >
 
+    <button
+      class="btn btn-primary"
+      id="searchBtn">
+      Search
+    </button>
 
-<div class="stats">
-
-<div class="stat">
-
-<strong id="websiteCount">
-0
-</strong>
-
-<span>
-Websites Listed
-</span>
-
-</div>
-
-<div class="stat">
-
-<strong id="categoryCount">
-0
-</strong>
-
-<span>
-Categories
-</span>
+  </div>
 
 </div>
 
-<div class="stat">
 
-<strong id="voteTotal">
-0
-</strong>
+<!-- STATS -->
 
-<span>
-Total Upvotes
-</span>
+<section class="stats">
+  <div class="container stats-grid">
 
-</div>
+    <div class="stat">
+      <strong id="statWebsites">0</strong>
+      <span>Approved Websites</span>
+    </div>
 
-</div>
+    <div class="stat">
+      <strong id="statVotes">0</strong>
+      <span>Community Votes</span>
+    </div>
 
-</div>
+    <div class="stat">
+      <strong id="statCategories">0</strong>
+      <span>Categories</span>
+    </div>
 
+    <div class="stat">
+      <strong id="statUsers">Community</strong>
+      <span>Powered Rankings</span>
+    </div>
+
+  </div>
 </section>
 
 
 <!-- CATEGORIES -->
 
-<section class="container category-section">
+<section class="categories-section">
 
-<div class="section-head">
+  <div class="container">
 
-<div class="section-label">
-Explore by category
-</div>
+    <div class="section-head">
+      <div class="section-label">
+        Explore
+      </div>
 
-<h2 class="section-title">
-Find what you need faster
-</h2>
+      <h2 class="section-title">
+        Browse Categories
+      </h2>
 
-<p class="section-subtitle">
-Choose a category and discover useful websites.
-</p>
+      <p class="section-subtitle">
+        Find websites based on what you need.
+      </p>
+    </div>
 
-</div>
+    <div class="category-grid">
 
+      <div class="category-card" data-category="Technology">
+        <strong>Technology</strong>
+        <span>Tech & software</span>
+      </div>
 
-<div class="category-grid">
+      <div class="category-card" data-category="Education">
+        <strong>Education</strong>
+        <span>Learning resources</span>
+      </div>
 
+      <div class="category-card" data-category="Design">
+        <strong>Design</strong>
+        <span>Creative tools</span>
+      </div>
 
-<div
-class="category-card"
-data-category="AI Tools"
->
+      <div class="category-card" data-category="Productivity">
+        <strong>Productivity</strong>
+        <span>Work smarter</span>
+      </div>
 
-<div class="category-icon">
-AI
-</div>
+      <div class="category-card" data-category="Community">
+        <strong>Community</strong>
+        <span>People & platforms</span>
+      </div>
 
-<strong>
-AI Tools
-</strong>
+      <div class="category-card" data-category="Other">
+        <strong>Other</strong>
+        <span>More websites</span>
+      </div>
 
-<span>
-Smart tools
-</span>
+    </div>
 
-</div>
-
-
-<div
-class="category-card"
-data-category="Education"
->
-
-<div class="category-icon">
-ED
-</div>
-
-<strong>
-Education
-</strong>
-
-<span>
-Learn better
-</span>
-
-</div>
-
-
-<div
-class="category-card"
-data-category="Productivity"
->
-
-<div class="category-icon">
-PR
-</div>
-
-<strong>
-Productivity
-</strong>
-
-<span>
-Work smarter
-</span>
-
-</div>
-
-
-<div
-class="category-card"
-data-category="Development"
->
-
-<div class="category-icon">
-DEV
-</div>
-
-<strong>
-Development
-</strong>
-
-<span>
-Build online
-</span>
-
-</div>
-
-
-<div
-class="category-card"
-data-category="Design"
->
-
-<div class="category-icon">
-DS
-</div>
-
-<strong>
-Design
-</strong>
-
-<span>
-Create better
-</span>
-
-</div>
-
-
-<div
-class="category-card"
-data-category="Business"
->
-
-<div class="category-icon">
-BU
-</div>
-
-<strong>
-Business
-</strong>
-
-<span>
-Grow ideas
-</span>
-
-</div>
-
-
-<div
-class="category-card"
-data-category="Technology"
->
-
-<div class="category-icon">
-TC
-</div>
-
-<strong>
-Technology
-</strong>
-
-<span>
-Tech websites
-</span>
-
-</div>
-
-
-</div>
+  </div>
 
 </section>
 
@@ -1365,807 +1381,687 @@ Tech websites
 
 <section class="container top-ranked">
 
-<div class="section-head">
+  <div class="section-head">
 
-<div class="section-label">
-Community Rankings
-</div>
+    <div class="section-label">
+      Community Rankings
+    </div>
 
-<h2 class="section-title">
-Top Ranked Websites
-</h2>
+    <h2 class="section-title">
+      Top Ranked Websites
+    </h2>
 
-<p class="section-subtitle">
-The websites receiving the most community votes.
-</p>
+    <p class="section-subtitle">
+      The websites receiving the most community votes.
+    </p>
 
-</div>
+  </div>
 
-<div
-class="ranking-grid"
-id="topRankedGrid"
->
+  <div class="ranking-grid"
+       id="topRankedGrid">
 
-<div class="loading">
-Loading rankings...
-</div>
+    <div class="loading">
+      Loading rankings...
+    </div>
 
-</div>
+  </div>
 
 </section>
 
 
 <!-- EXPLORE -->
 
-<section
-class="container explore"
-id="explore"
->
+<section class="container explore"
+         id="explore">
 
-<div class="section-head-row">
+  <div class="section-head">
 
-<div>
+    <div class="section-label">
+      Discover
+    </div>
 
-<div class="section-label">
-Directory
-</div>
+    <h2 class="section-title">
+      Explore Websites
+    </h2>
 
-<h2 class="section-title">
-Explore Websites
-</h2>
+    <p class="section-subtitle">
+      Browse websites submitted by the RankBoard community.
+    </p>
 
-<p class="section-subtitle">
-Discover the websites people are voting for.
-</p>
+  </div>
 
-</div>
+  <div class="filters">
 
+    <button class="filter-btn active"
+            data-filter="All">
+      All
+    </button>
 
-<div class="controls">
+    <button class="filter-btn"
+            data-filter="Technology">
+      Technology
+    </button>
 
-<select
-id="categoryFilter"
-class="field"
->
+    <button class="filter-btn"
+            data-filter="Education">
+      Education
+    </button>
 
-<option value="all">
-All Categories
-</option>
+    <button class="filter-btn"
+            data-filter="Design">
+      Design
+    </button>
 
-<option value="AI Tools">
-AI Tools
-</option>
+    <button class="filter-btn"
+            data-filter="Productivity">
+      Productivity
+    </button>
 
-<option value="Education">
-Education
-</option>
+    <button class="filter-btn"
+            data-filter="Community">
+      Community
+    </button>
 
-<option value="Productivity">
-Productivity
-</option>
+  </div>
 
-<option value="Development">
-Development
-</option>
+  <div class="listings-grid"
+       id="listingsGrid">
 
-<option value="Design">
-Design
-</option>
+    <div class="loading">
+      Loading websites...
+    </div>
 
-<option value="Business">
-Business
-</option>
-
-<option value="Technology">
-Technology
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-
-<select
-id="sortSelect"
-class="field"
->
-
-<option value="top">
-Top Rated
-</option>
-
-<option value="rising">
-Rising
-</option>
-
-<option value="newest">
-Newest
-</option>
-
-<option value="az">
-A–Z
-</option>
-
-<option value="category">
-Category
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-
-<div
-class="results-info"
-id="resultsInfo"
->
-Loading websites...
-</div>
-
-
-<div
-class="grid"
-id="listingsGrid"
->
-
-<div class="loading">
-Loading websites...
-</div>
-
-</div>
+  </div>
 
 </section>
 
 
 <!-- CTA -->
 
-<section class="container">
+<section class="container cta">
 
-<div class="discovery-card">
+  <div class="cta-box">
 
-<div>
+    <div>
+      <h2>
+        Have a useful website?
+      </h2>
 
-<h2>
-Have a website worth discovering?
-</h2>
+      <p>
+        Submit it to RankBoard and let the community discover it.
+      </p>
+    </div>
 
-<p>
-Submit your website to RankBoard and let people discover it.
-Submissions are reviewed before appearing publicly.
-</p>
+    <button class="btn btn-light"
+            id="ctaSubmitBtn">
+      Submit Website
+    </button>
 
-</div>
-
-<button
-class="btn"
-id="ctaSubmitBtn"
->
-Submit Website
-</button>
-
-</div>
+  </div>
 
 </section>
-
-
-</main>
 
 
 <!-- FOOTER -->
 
 <footer>
 
-<div class="container">
+  <div class="container footer-inner">
 
-<div class="footer-main">
+    <p>
+      © 2026 RankBoard. Community-powered website discovery.
+    </p>
 
+    <div class="footer-links">
+      <a href="#explore">Explore</a>
+      <a href="#topRankedGrid">Rankings</a>
+      <a href="#" id="footerAccount">Account</a>
+    </div>
 
-<div class="footer-brand">
-
-<strong>
-RankBoard
-</strong>
-
-<p>
-Discover, compare and rank useful websites,
-tools and online resources.
-</p>
-
-</div>
-
-
-<div class="footer-column">
-
-<h4>
-Explore
-</h4>
-
-<div class="footer-links">
-
-<a href="#explore">
-Websites
-</a>
-
-<a
-href="#explore"
-id="footerAiLink"
->
-AI Tools
-</a>
-
-<a
-href="#explore"
-id="footerEducationLink"
->
-Education
-</a>
-
-<a
-href="#explore"
-id="footerDevelopmentLink"
->
-Development
-</a>
-
-</div>
-
-</div>
-
-
-<div class="footer-column">
-
-<h4>
-RankBoard
-</h4>
-
-<div class="footer-links">
-
-<button
-class="footer-link-button"
-id="footerSubmitBtn"
->
-Submit Website
-</button>
-
-<a href="#explore">
-Explore Directory
-</a>
-
-<a href="/">
-Home
-</a>
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="footer-bottom">
-
-<div>
-© 2026 RankBoard. All rights reserved.
-</div>
-
-<div>
-Discover • Compare • Explore
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </footer>
 
 
 <!-- SUBMIT MODAL -->
 
-<div
-class="modal"
-id="submitModal"
->
+<div class="modal"
+     id="submitModal">
 
-<div class="modal-card">
+  <div class="modal-card">
 
-<div class="modal-head">
+    <div class="modal-head">
 
-<h2>
-Submit Your Website
-</h2>
+      <h2>
+        Submit Website
+      </h2>
 
-<button
-class="close-btn"
-data-close="submitModal"
->
-×
-</button>
+      <button class="close-btn"
+              id="submitClose">
+        ×
+      </button>
 
-</div>
+    </div>
 
+    <div class="message"
+         id="submitMessage">
+    </div>
 
-<div
-class="message"
-id="submitMessage"
-></div>
+    <div class="form-group">
 
+      <label>
+        Website Title
+      </label>
 
-<form id="submitForm">
+      <input
+        id="submitTitle"
+        placeholder="Example: My Awesome Website"
+      >
 
+    </div>
 
-<div class="form-group">
+    <div class="form-group">
 
-<label>
-Website Name
-</label>
+      <label>
+        Description
+      </label>
 
-<input
-type="text"
-id="submitTitle"
-placeholder="Example: My Website"
-required
->
+      <textarea
+        id="submitDescription"
+        placeholder="Tell the community what this website does..."
+      ></textarea>
 
-</div>
+    </div>
 
+    <div class="form-group">
 
-<div class="form-group">
+      <label>
+        Category
+      </label>
 
-<label>
-Description
-</label>
+      <select id="submitCategory">
 
-<textarea
-id="submitDescription"
-placeholder="Describe what your website does..."
-required
-></textarea>
+        <option value="Technology">
+          Technology
+        </option>
 
-</div>
+        <option value="Education">
+          Education
+        </option>
 
+        <option value="Design">
+          Design
+        </option>
 
-<div class="form-group">
+        <option value="Productivity">
+          Productivity
+        </option>
 
-<label>
-Category
-</label>
+        <option value="Community">
+          Community
+        </option>
 
-<select
-id="submitCategory"
-required
->
+        <option value="Other">
+          Other
+        </option>
 
-<option value="">
-Select category
-</option>
+      </select>
 
-<option>
-AI Tools
-</option>
+    </div>
 
-<option>
-Education
-</option>
+    <div class="form-group">
 
-<option>
-Productivity
-</option>
+      <label>
+        Website URL
+      </label>
 
-<option>
-Development
-</option>
+      <input
+        id="submitUrl"
+        type="url"
+        placeholder="https://example.com"
+      >
 
-<option>
-Design
-</option>
+    </div>
 
-<option>
-Business
-</option>
+    <div class="form-actions">
 
-<option>
-Technology
-</option>
+      <button class="btn btn-light"
+              id="submitCancel">
+        Cancel
+      </button>
 
-<option>
-Other
-</option>
+      <button class="btn btn-primary"
+              id="submitWebsiteBtn">
+        Submit Website
+      </button>
 
-</select>
+    </div>
 
-</div>
-
-
-<div class="form-group">
-
-<label>
-Website URL
-</label>
-
-<input
-type="url"
-id="submitUrl"
-placeholder="https://example.com"
-required
->
+  </div>
 
 </div>
 
 
-<div class="form-actions">
+<!-- ACCOUNT MODAL -->
 
-<button
-type="button"
-class="btn btn-light"
-data-close="submitModal"
->
-Cancel
-</button>
+<div class="modal"
+     id="accountModal">
 
-<button
-type="submit"
-class="btn btn-primary"
->
-Submit Website
-</button>
+  <div class="modal-card">
 
-</div>
+    <div class="modal-head">
 
-</form>
+      <h2>
+        RankBoard Account
+      </h2>
 
-</div>
+      <button class="close-btn"
+              id="accountClose">
+        ×
+      </button>
 
-</div>
+    </div>
 
+    <!-- AUTH VIEW -->
 
-<!-- ADMIN LOGIN -->
+    <div id="authView">
 
-<div
-class="modal"
-id="adminModal"
->
+      <div class="auth-switch">
 
-<div class="modal-card">
+        <button id="loginTab"
+                class="active">
+          Login
+        </button>
 
-<div class="modal-head">
+        <button id="signupTab">
+          Sign Up
+        </button>
 
-<h2>
-Admin Login
-</h2>
+      </div>
 
-<button
-class="close-btn"
-data-close="adminModal"
->
-×
-</button>
+      <div class="message"
+           id="authMessage">
+      </div>
 
-</div>
+      <div class="form-group">
 
+        <label>
+          Email
+        </label>
 
-<div
-class="message"
-id="adminMessage"
-></div>
+        <input
+          id="authEmail"
+          type="email"
+          placeholder="you@example.com"
+        >
 
+      </div>
 
-<form id="adminLoginForm">
+      <div class="form-group">
 
-<div class="form-group">
+        <label>
+          Password
+        </label>
 
-<label>
-Email
-</label>
+        <input
+          id="authPassword"
+          type="password"
+          placeholder="Enter password"
+        >
 
-<input
-type="email"
-id="adminEmail"
-placeholder="Admin email"
-required
->
+      </div>
 
-</div>
+      <button class="btn btn-primary"
+              id="authSubmitBtn"
+              style="width:100%">
+        Login
+      </button>
 
+      <button
+        id="forgotPasswordBtn"
+        style="
+          width:100%;
+          margin-top:12px;
+          border:0;
+          background:none;
+          color:var(--primary);
+          font-size:11px;
+          font-weight:800;
+        ">
+        Forgot Password?
+      </button>
 
-<div class="form-group">
-
-<label>
-Password
-</label>
-
-<input
-type="password"
-id="adminPassword"
-placeholder="Password"
-required
->
-
-</div>
-
-
-<div class="form-actions">
-
-<button
-type="submit"
-class="btn btn-primary"
->
-Login
-</button>
-
-</div>
-
-</form>
+    </div>
 
 
-<div
-style="margin-top:15px;text-align:center"
->
+    <!-- PROFILE VIEW -->
 
-<button
-id="forgotPasswordBtn"
-class="footer-link-button"
-style="margin:auto"
->
-Forgot Password?
-</button>
+    <div id="profileView"
+         style="display:none">
 
-</div>
+      <div class="profile-header">
 
-</div>
+        <div class="avatar"
+             id="profileAvatar">
+          U
+        </div>
+
+        <div class="profile-info">
+
+          <strong id="profileEmail">
+            User
+          </strong>
+
+          <span>
+            RankBoard Member
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="message"
+           id="profileMessage">
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Username
+        </label>
+
+        <input
+          id="profileUsername"
+          placeholder="Choose a username"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Bio
+        </label>
+
+        <textarea
+          id="profileBio"
+          placeholder="Tell people something about yourself..."
+        ></textarea>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn btn-light"
+                id="logoutBtn">
+          Logout
+        </button>
+
+        <button class="btn btn-primary"
+                id="saveProfileBtn">
+          Save Profile
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
 
 
 <!-- FORGOT PASSWORD -->
 
-<div
-class="modal"
-id="forgotModal"
->
+<div class="modal"
+     id="forgotModal">
 
-<div class="modal-card">
+  <div class="modal-card">
 
-<div class="modal-head">
+    <div class="modal-head">
 
-<h2>
-Reset Password
-</h2>
+      <h2>
+        Reset Password
+      </h2>
 
-<button
-class="close-btn"
-data-close="forgotModal"
->
-×
-</button>
+      <button class="close-btn"
+              id="forgotClose">
+        ×
+      </button>
 
-</div>
+    </div>
 
+    <div class="message"
+         id="forgotMessage">
+    </div>
 
-<div
-class="message"
-id="forgotMessage"
-></div>
+    <div class="form-group">
 
+      <label>
+        Email
+      </label>
 
-<form id="forgotForm">
+      <input
+        id="forgotEmail"
+        type="email"
+        placeholder="Your account email"
+      >
 
-<div class="form-group">
+    </div>
 
-<label>
-Admin Email
-</label>
+    <div class="form-actions">
 
-<input
-type="email"
-id="forgotEmail"
-placeholder="Enter your email"
-required
->
+      <button class="btn btn-light"
+              id="forgotCancel">
+        Cancel
+      </button>
 
-</div>
+      <button class="btn btn-primary"
+              id="sendResetBtn">
+        Send Reset Link
+      </button>
 
+    </div>
 
-<div class="form-actions">
-
-<button
-type="submit"
-class="btn btn-primary"
->
-Send Reset Link
-</button>
-
-</div>
-
-</form>
-
-</div>
+  </div>
 
 </div>
 
 
 <!-- RESET PASSWORD -->
 
-<div
-class="modal"
-id="resetModal"
->
+<div class="modal"
+     id="resetModal">
 
-<div class="reset-card">
+  <div class="modal-card">
 
-<div class="modal-head">
+    <div class="modal-head">
 
-<h2>
-Create New Password
-</h2>
+      <h2>
+        Create New Password
+      </h2>
+
+    </div>
+
+    <div class="message"
+         id="resetMessage">
+    </div>
+
+    <div class="form-group">
+
+      <label>
+        New Password
+      </label>
+
+      <input
+        id="newPassword"
+        type="password"
+        placeholder="New password"
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label>
+        Confirm Password
+      </label>
+
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Confirm password"
+      >
+
+    </div>
+
+    <div class="form-actions">
+
+      <button class="btn btn-primary"
+              id="updatePasswordBtn">
+        Update Password
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- WEBSITE DETAILS -->
+
+<div class="modal"
+     id="detailsModal">
+
+  <div class="modal-card large">
+
+    <div class="modal-head">
+
+      <h2>
+        Website Details
+      </h2>
+
+      <button class="close-btn"
+              id="detailsClose">
+        ×
+      </button>
+
+    </div>
+
+    <div id="detailsContent">
+      Loading...
+    </div>
+
+  </div>
 
 </div>
 
 
-<div
-class="message"
-id="resetMessage"
-></div>
+<!-- ADMIN LOGIN -->
 
+<div class="modal"
+     id="adminLoginModal">
 
-<form id="resetForm">
+  <div class="modal-card">
 
-<div class="form-group">
+    <div class="modal-head">
 
-<label>
-New Password
-</label>
+      <h2>
+        Admin Login
+      </h2>
 
-<input
-type="password"
-id="newPassword"
-minlength="6"
-placeholder="Minimum 6 characters"
-required
->
+      <button class="close-btn"
+              id="adminLoginClose">
+        ×
+      </button>
 
-</div>
+    </div>
 
+    <div class="message"
+         id="adminLoginMessage">
+    </div>
 
-<div class="form-group">
+    <div class="form-group">
 
-<label>
-Confirm Password
-</label>
+      <label>
+        Email
+      </label>
 
-<input
-type="password"
-id="confirmPassword"
-minlength="6"
-placeholder="Repeat password"
-required
->
+      <input
+        id="adminEmail"
+        type="email"
+        placeholder="Admin email"
+      >
 
-</div>
+    </div>
 
+    <div class="form-group">
 
-<div class="form-actions">
+      <label>
+        Password
+      </label>
 
-<button
-type="submit"
-class="btn btn-primary"
->
-Update Password
-</button>
+      <input
+        id="adminPassword"
+        type="password"
+        placeholder="Admin password"
+      >
 
-</div>
+    </div>
 
-</form>
+    <div class="form-actions">
 
-</div>
+      <button class="btn btn-primary"
+              id="adminLoginSubmit">
+        Login
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
 
 <!-- ADMIN PANEL -->
 
-<div
-class="modal"
-id="adminPanelModal"
->
+<div class="modal"
+     id="adminPanelModal">
 
-<div
-class="modal-card"
-style="width:min(750px,100%)"
->
+  <div class="modal-card large">
 
-<div class="modal-head">
+    <div class="modal-head">
 
-<h2>
-Admin Panel
-</h2>
+      <h2>
+        Admin Panel
+      </h2>
 
-<button
-class="close-btn"
-data-close="adminPanelModal"
->
-×
-</button>
+      <button class="close-btn"
+              id="adminPanelClose">
+        ×
+      </button>
 
-</div>
+    </div>
 
+    <div id="adminPanelContent">
 
-<div
-class="admin-user"
-id="adminUserInfo"
->
-Admin
-</div>
+      <div class="loading">
+        Loading pending websites...
+      </div>
 
+    </div>
 
-<div id="pendingListings">
-
-<div class="loading">
-Loading pending submissions...
-</div>
-
-</div>
-
-
-<div class="form-actions">
-
-<button
-class="btn btn-light"
-id="signOutBtn"
->
-Sign Out
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- WEBSITE DETAILS MODAL -->
-
-<div
-class="modal"
-id="detailsModal"
->
-
-<div class="modal-card">
-
-<div class="modal-head">
-
-<h2>
-Website Details
-</h2>
-
-<button
-class="close-btn"
-onclick="closeWebsiteDetails()"
-aria-label="Close"
->
-×
-</button>
-
-</div>
-
-<div id="detailsContent">
-Loading...
-</div>
-
-</div>
+  </div>
 
 </div>
 
 
 <script>
 
-/* =====================================================
+/* =========================================
    SUPABASE
-===================================================== */
+========================================= */
 
 const SUPABASE_URL =
 "https://kfdbzzwpzcdsfcnvdgrj.supabase.co";
@@ -2175,2305 +2071,2835 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
 
-/* =====================================================
+/* =========================================
    HELPERS
-===================================================== */
+========================================= */
 
-const $ =
-id => document.getElementById(id);
-
+const $ = id => document.getElementById(id);
 
 function escapeHTML(value){
 
-return String(value ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
+function showMessage(id,text,type="error"){
 
-function safeUrl(value){
+  const el=$(id);
 
-try{
+  if(!el) return;
 
-const url =
-new URL(value);
+  el.textContent=text;
 
-if(
-url.protocol === "http:" ||
-url.protocol === "https:"
-){
-
-return url.href;
+  el.className="message show "+type;
 
 }
 
-}catch(error){}
+function hideMessage(id){
 
-return "#";
+  const el=$(id);
+
+  if(!el) return;
+
+  el.className="message";
 
 }
-
 
 function openModal(id){
 
-$(id)?.classList.add("active");
+  $(id)?.classList.add("show");
 
 }
-
 
 function closeModal(id){
 
-$(id)?.classList.remove("active");
+  $(id)?.classList.remove("show");
 
 }
 
 
-/* =====================================================
-   DEMO WEBSITES
-===================================================== */
+/* =========================================
+   STATE
+========================================= */
 
-const demoListings = [
+let listings=[];
+let voteCounts={};
+let myVotes=new Set();
 
-{
-id:"demo-canva",
-Title:"Canva",
-Category:"Design",
-Website_url:"https://www.canva.com/",
-Discription:"Create presentations, graphics, social posts and other visual content.",
-Status:"approved",
-created_at:"2026-09-01T10:00:00Z"
-},
+let currentFilter="All";
+let currentUser=null;
+let currentDetailsId=null;
 
-{
-id:"demo-github",
-Title:"GitHub",
-Category:"Development",
-Website_url:"https://github.com/",
-Discription:"A platform for developers to build, collaborate and manage software projects.",
-Status:"approved",
-created_at:"2026-09-02T10:00:00Z"
-},
+let authMode="login";
 
-{
-id:"demo-khan",
-Title:"Khan Academy",
-Category:"Education",
-Website_url:"https://www.khanacademy.org/",
-Discription:"Free educational resources for learning subjects across different levels.",
-Status:"approved",
-created_at:"2026-09-03T10:00:00Z"
-},
+const DEMO_LISTINGS=[
 
-{
-id:"demo-chatgpt",
-Title:"ChatGPT",
-Category:"AI Tools",
-Website_url:"https://chatgpt.com/",
-Discription:"An AI assistant for learning, writing, brainstorming, coding and more.",
-Status:"approved",
-created_at:"2026-09-04T10:00:00Z"
-},
+  {
+    id:"demo-1",
+    Title:"Canva",
+    Discription:"A simple online design platform for creating graphics and visual content.",
+    Category:"Design",
+    Website_url:"https://www.canva.com",
+    Status:"approved"
+  },
 
-{
-id:"demo-notion",
-Title:"Notion",
-Category:"Productivity",
-Website_url:"https://www.notion.so/",
-Discription:"Organize notes, projects, tasks and information in one workspace.",
-Status:"approved",
-created_at:"2026-09-05T10:00:00Z"
-},
+  {
+    id:"demo-2",
+    Title:"GitHub",
+    Discription:"A platform for developers to build, collaborate and share software projects.",
+    Category:"Technology",
+    Website_url:"https://github.com",
+    Status:"approved"
+  },
 
-{
-id:"demo-figma",
-Title:"Figma",
-Category:"Design",
-Website_url:"https://www.figma.com/",
-Discription:"Collaborative design and prototyping platform for digital products.",
-Status:"approved",
-created_at:"2026-09-06T10:00:00Z"
-}
+  {
+    id:"demo-3",
+    Title:"Khan Academy",
+    Discription:"Free educational resources for students and learners.",
+    Category:"Education",
+    Website_url:"https://www.khanacademy.org",
+    Status:"approved"
+  },
+
+  {
+    id:"demo-4",
+    Title:"ChatGPT",
+    Discription:"An AI assistant for learning, writing, brainstorming and productivity.",
+    Category:"Technology",
+    Website_url:"https://chatgpt.com",
+    Status:"approved"
+  },
+
+  {
+    id:"demo-5",
+    Title:"Notion",
+    Discription:"A flexible workspace for notes, projects, documents and productivity.",
+    Category:"Productivity",
+    Website_url:"https://www.notion.so",
+    Status:"approved"
+  },
+
+  {
+    id:"demo-6",
+    Title:"Figma",
+    Discription:"A collaborative interface design and prototyping platform.",
+    Category:"Design",
+    Website_url:"https://www.figma.com",
+    Status:"approved"
+  }
 
 ];
 
 
-/* =====================================================
-   STATE
-===================================================== */
-
-let listings = [];
-
-let voteCounts = {};
-
-let myVotes = new Set();
-
-
-/* =====================================================
+/* =========================================
    VOTER ID
-===================================================== */
+========================================= */
 
 function getVoterId(){
 
-let id =
-localStorage.getItem(
-"rankboard_voter_id_v1"
-);
+  let id=
+    localStorage.getItem(
+      "rankboard_voter_id_v1"
+    );
 
-if(!id){
+  if(!id){
 
-id =
-crypto.randomUUID
-? crypto.randomUUID()
-: Date.now()+"-"+Math.random();
+    id=
+      crypto.randomUUID();
 
-localStorage.setItem(
-"rankboard_voter_id_v1",
-id
-);
+    localStorage.setItem(
+      "rankboard_voter_id_v1",
+      id
+    );
 
-}
+  }
 
-return id;
+  return id;
 
 }
 
 
-/* =====================================================
-   LOCAL DEMO VOTES
-===================================================== */
-
-function getLocalVotes(){
-
-try{
-
-return JSON.parse(
-localStorage.getItem(
-"rankboard_light_votes_v1"
-) || "{}"
-);
-
-}catch(error){
-
-return {};
-
-}
-
-}
-
-
-function saveLocalVotes(votes){
-
-localStorage.setItem(
-"rankboard_light_votes_v1",
-JSON.stringify(votes)
-);
-
-}
-
-
-/* =====================================================
-   LOAD REAL VOTES
-===================================================== */
+/* =========================================
+   LOAD VOTES
+========================================= */
 
 async function loadVotes(){
 
-voteCounts = {};
+  voteCounts={};
+  myVotes=new Set();
 
-myVotes = new Set();
+  const localVotes=
+    JSON.parse(
+      localStorage.getItem(
+        "rankboard_light_votes_v1"
+      ) || "{}"
+    );
 
+  Object.keys(localVotes).forEach(id=>{
 
-const local =
-getLocalVotes();
+    voteCounts[id]=
+      Number(localVotes[id] || 0);
 
-Object.keys(local)
-.forEach(id => {
-
-if(
-String(id).startsWith("demo-")
-){
-
-voteCounts[id] =
-Number(local[id] || 0);
-
-}
-
-});
+  });
 
 
-try{
+  const {data,error}=await supabaseClient
+    .from("votes")
+    .select("listing_id,voter_id");
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("votes")
-.select("listing_id");
+  if(!error && data){
 
-if(
-!error &&
-data
-){
+    data.forEach(v=>{
 
-data.forEach(vote => {
+      const id=String(v.listing_id);
 
-const id =
-String(vote.listing_id);
+      voteCounts[id]=
+        Number(voteCounts[id] || 0)+1;
 
-voteCounts[id] =
-Number(
-voteCounts[id] || 0
-) + 1;
+      if(
+        v.voter_id===getVoterId()
+      ){
 
-});
+        myVotes.add(id);
+
+      }
+
+    });
+
+  }
 
 }
 
 
-const voterId =
-getVoterId();
-
-const {
-data:myData,
-error:myError
-} =
-await supabaseClient
-.from("votes")
-.select("listing_id")
-.eq("voter_id",voterId);
-
-if(
-!myError &&
-myData
-){
-
-myData.forEach(vote => {
-
-myVotes.add(
-String(vote.listing_id)
-);
-
-});
-
-}
-
-}catch(error){
-
-console.error(
-"Vote loading:",
-error
-);
-
-}
-
-updateStats();
-
-}
-
-
-/* =====================================================
-   TOTAL VOTES
-===================================================== */
-
-function totalVotes(){
-
-return Object
-.values(voteCounts)
-.reduce(
-(total,value) =>
-total + Number(value || 0),
-0
-);
-
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-function updateStats(){
-
-$("websiteCount")
-.textContent =
-listings.length;
-
-$("categoryCount")
-.textContent =
-new Set(
-listings
-.map(x =>
-String(x.Category || "")
-.trim()
-)
-.filter(Boolean)
-).size;
-
-$("voteTotal")
-.textContent =
-totalVotes();
-
-}
-
-
-/* =====================================================
-   RANKING SCORE
-===================================================== */
-
-function rankingScore(item){
-
-const votes =
-Number(
-voteCounts[String(item.id)] || 0
-);
-
-const created =
-new Date(
-item.created_at || 0
-).getTime();
-
-const ageDays =
-Math.max(
-0,
-(Date.now()-created) /
-86400000
-);
-
-return (
-votes * 100 +
-Math.max(0,30-ageDays)
-);
-
-}
-
-
-/* =====================================================
-   RISING SCORE
-===================================================== */
-
-function risingScore(item){
-
-const votes =
-Number(
-voteCounts[String(item.id)] || 0
-);
-
-const created =
-new Date(
-item.created_at || 0
-).getTime();
-
-const ageDays =
-Math.max(
-0.25,
-(Date.now()-created) /
-86400000
-);
-
-return (
-votes /
-Math.sqrt(ageDays)
-);
-
-}
-
-
-/* =====================================================
-   LOAD APPROVED LISTINGS
-===================================================== */
+/* =========================================
+   LOAD LISTINGS
+========================================= */
 
 async function loadListings(){
 
-$("listingsGrid")
-.innerHTML =
-`
-<div class="loading">
-Loading websites...
-</div>
-`;
+  try{
 
-try{
+    const {data,error}=
+      await supabaseClient
+      .from("Listings")
+      .select("*")
+      .eq("Status","approved")
+      .order("created_at",{ascending:false});
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("Listings")
-.select("*")
-.eq("Status","approved")
-.order(
-"created_at",
-{ascending:false}
-);
+    if(error){
 
-if(error){
+      console.error(error);
 
-console.error(
-"Supabase error:",
-error
-);
+      listings=[
+        ...DEMO_LISTINGS
+      ];
 
-listings =
-[...demoListings];
+    }else{
 
-}else{
+      listings=[
+        ...DEMO_LISTINGS,
+        ...(data || [])
+      ];
 
-listings =
-[
-...demoListings,
-...(data || [])
-];
+    }
 
-}
+    await loadVotes();
 
-}catch(error){
+    renderTopRanked();
+    renderMiniRanking();
+    renderListings();
+    updateStats();
 
-console.error(error);
+  }catch(error){
 
-listings =
-[...demoListings];
+    console.error(error);
 
-}
+    listings=[
+      ...DEMO_LISTINGS
+    ];
 
-await loadVotes();
+    renderTopRanked();
+    renderMiniRanking();
+    renderListings();
+    updateStats();
 
-renderTopRanked();
-
-renderListings();
+  }
 
 }
 
 
-/* =====================================================
-   WEBSITE DETAILS
-===================================================== */
+/* =========================================
+   RANKING
+========================================= */
 
-function openWebsiteDetails(id){
+function rankingScore(item){
 
-const item =
-listings.find(
-x =>
-String(x.id) === String(id)
-);
-
-if(!item){
-return;
-}
-
-
-const votes =
-Number(
-voteCounts[String(item.id)] || 0
-);
-
-
-const sorted =
-[...listings]
-.sort(
-(a,b) =>
-rankingScore(b) -
-rankingScore(a)
-);
-
-
-const rankIndex =
-sorted.findIndex(
-x =>
-String(x.id) ===
-String(item.id)
-);
-
-
-const rank =
-rankIndex >= 0
-? rankIndex + 1
-: "—";
-
-
-const category =
-String(
-item.Category ||
-"Other"
-);
-
-
-const title =
-String(
-item.Title ||
-"Untitled"
-);
-
-
-const description =
-String(
-item.Discription ||
-"No description available."
-);
-
-
-const url =
-safeUrl(
-item.Website_url
-);
-
-
-$("detailsContent")
-.innerHTML = `
-
-<div class="details-box">
-
-<span class="details-category">
-${escapeHTML(category)}
-</span>
-
-<h2>
-${escapeHTML(title)}
-</h2>
-
-<p class="details-description">
-${escapeHTML(description)}
-</p>
-
-
-<div class="details-stats">
-
-<div class="details-stat">
-
-<strong>
-#${rank}
-</strong>
-
-<span>
-Current Rank
-</span>
-
-</div>
-
-
-<div class="details-stat">
-
-<strong>
-${votes}
-</strong>
-
-<span>
-Upvotes
-</span>
-
-</div>
-
-
-<div class="details-stat">
-
-<strong>
-${escapeHTML(category)}
-</strong>
-
-<span>
-Category
-</span>
-
-</div>
-
-</div>
-
-
-<div class="details-actions">
-
-<a
-class="btn btn-primary"
-href="${escapeHTML(url)}"
-target="_blank"
-rel="noopener noreferrer"
->
-Visit Website →
-</a>
-
-<button
-class="btn btn-light"
-onclick="closeWebsiteDetails()"
->
-Close
-</button>
-
-</div>
-
-</div>
-
-`;
-
-
-openModal(
-"detailsModal"
-);
+  return Number(
+    voteCounts[String(item.id)] || 0
+  );
 
 }
 
-
-/* =====================================================
-   CLOSE WEBSITE DETAILS
-===================================================== */
-
-function closeWebsiteDetails(){
-
-closeModal(
-"detailsModal"
-);
-
-}
-
-
-/* =====================================================
-   TOP RANKED WEBSITES
-===================================================== */
 
 function renderTopRanked(){
 
-const container =
-$("topRankedGrid");
+  const container=
+    $("topRankedGrid");
 
-if(!container){
-return;
-}
+  if(!container) return;
 
+  const ranked=
+    [...listings]
+      .sort(
+        (a,b)=>
+          rankingScore(b)-
+          rankingScore(a)
+      )
+      .slice(0,3);
 
-const ranked =
-[...listings]
-.sort(
-(a,b) =>
-rankingScore(b) -
-rankingScore(a)
-)
-.slice(0,3);
+  if(!ranked.length){
 
+    container.innerHTML=
+      `<div class="empty">
+        No ranked websites yet.
+      </div>`;
 
-if(!ranked.length){
+    return;
 
-container.innerHTML = `
-<div class="empty">
-No ranked websites yet.
-</div>
-`;
+  }
 
-return;
+  container.innerHTML=
+    ranked.map((item,index)=>{
 
-}
+      const id=
+        String(item.id);
 
+      const title=
+        String(
+          item.Title ||
+          "Untitled"
+        );
 
-container.innerHTML =
-ranked
-.map(
-(item,index) => {
+      const category=
+        String(
+          item.Category ||
+          "Other"
+        );
 
-const id =
-String(item.id);
+      const description=
+        String(
+          item.Discription ||
+          "No description available."
+        );
 
-const title =
-String(
-item.Title ||
-"Untitled"
-);
+      const votes=
+        Number(
+          voteCounts[id] || 0
+        );
 
-const category =
-String(
-item.Category ||
-"Other"
-);
+      return `
 
-const description =
-String(
-item.Discription ||
-"No description available."
-);
+        <article class="ranking-card">
 
-const votes =
-Number(
-voteCounts[id] || 0
-);
+          <div class="ranking-position">
+            #${index+1}
+          </div>
 
+          <span class="ranking-category">
+            ${escapeHTML(category)}
+          </span>
 
-return `
+          <h3>
+            ${escapeHTML(title)}
+          </h3>
 
-<article class="ranking-card">
+          <p>
+            ${escapeHTML(description)}
+          </p>
 
-<div class="ranking-position">
-#${index + 1}
-</div>
+          <div class="ranking-footer">
 
-<span class="ranking-category">
-${escapeHTML(category)}
-</span>
+            <span class="ranking-votes">
+              ↑ ${votes}
+              ${votes===1?"upvote":"upvotes"}
+            </span>
 
-<h3>
-${escapeHTML(title)}
-</h3>
+            <button
+              class="visit-link details-button"
+              data-id="${escapeHTML(id)}">
+              View Details →
+            </button>
 
-<p>
-${escapeHTML(description)}
-</p>
+          </div>
 
+        </article>
 
-<div class="ranking-footer">
+      `;
 
-<span class="ranking-votes">
+    }).join("");
 
-↑ ${votes}
-${votes === 1
-? "upvote"
-: "upvotes"}
+  document
+    .querySelectorAll(".details-button")
+    .forEach(btn=>{
 
-</span>
+      btn.addEventListener(
+        "click",
+        ()=>{
+          openWebsiteDetails(
+            btn.dataset.id
+          );
+        }
+      );
 
-
-<button
-class="visit-link"
-onclick="openWebsiteDetails('${escapeHTML(id)}')"
->
-View Details →
-</button>
-
-</div>
-
-</article>
-
-`;
-
-}
-)
-.join("");
+    });
 
 }
 
 
-/* =====================================================
+/* =========================================
+   MINI RANKING
+========================================= */
+
+function renderMiniRanking(){
+
+  const container=
+    $("miniRanking");
+
+  if(!container) return;
+
+  const ranked=
+    [...listings]
+      .sort(
+        (a,b)=>
+          rankingScore(b)-
+          rankingScore(a)
+      )
+      .slice(0,3);
+
+  if(!ranked.length){
+
+    container.innerHTML=
+      `<div class="loading">
+        No rankings yet.
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML=
+    ranked.map((item,index)=>{
+
+      const votes=
+        Number(
+          voteCounts[
+            String(item.id)
+          ] || 0
+        );
+
+      return `
+
+        <div class="mini-ranking">
+
+          <div class="mini-number">
+            #${index+1}
+          </div>
+
+          <div class="mini-info">
+
+            <strong>
+              ${escapeHTML(
+                item.Title ||
+                "Untitled"
+              )}
+            </strong>
+
+            <span>
+              ${votes} votes
+            </span>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================
    RENDER LISTINGS
-===================================================== */
+========================================= */
 
 function renderListings(){
 
-const grid =
-$("listingsGrid");
+  const container=
+    $("listingsGrid");
 
-const search =
-(
-$("searchInput").value || ""
-)
-.trim()
-.toLowerCase();
+  if(!container) return;
 
-const category =
-$("categoryFilter").value;
+  const search=
+    $("searchInput")
+    ?.value
+    .trim()
+    .toLowerCase() || "";
 
-const sort =
-$("sortSelect").value;
+  let filtered=
+    [...listings];
 
+  if(currentFilter!=="All"){
 
-let filtered =
-listings.filter(
-item => {
+    filtered=
+      filtered.filter(
+        item=>
+          String(
+            item.Category || ""
+          ).toLowerCase()
+          ===
+          currentFilter.toLowerCase()
+      );
 
-const title =
-String(
-item.Title || ""
-).toLowerCase();
+  }
 
-const description =
-String(
-item.Discription || ""
-).toLowerCase();
+  if(search){
 
-const itemCategory =
-String(
-item.Category || ""
-).toLowerCase();
+    filtered=
+      filtered.filter(item=>{
 
-const url =
-String(
-item.Website_url || ""
-).toLowerCase();
+        const text=
+          (
+            item.Title || ""
+          )+
+          " "+
+          (
+            item.Discription || ""
+          )+
+          " "+
+          (
+            item.Category || ""
+          );
 
+        return text
+          .toLowerCase()
+          .includes(search);
 
-const searchMatch =
-!search ||
-title.includes(search) ||
-description.includes(search) ||
-itemCategory.includes(search) ||
-url.includes(search);
+      });
 
+  }
 
-const categoryMatch =
-category === "all" ||
-item.Category === category;
+  if(!filtered.length){
 
+    container.innerHTML=
+      `<div class="empty">
+        No websites found.
+      </div>`;
 
-return (
-searchMatch &&
-categoryMatch
-);
+    return;
 
-}
-);
+  }
 
+  container.innerHTML=
+    filtered.map(item=>{
 
-/* TOP */
+      const id=
+        String(item.id);
 
-if(sort === "top"){
+      const votes=
+        Number(
+          voteCounts[id] || 0
+        );
 
-filtered.sort(
-(a,b) =>
-rankingScore(b) -
-rankingScore(a)
-);
+      const voted=
+        myVotes.has(id);
 
-}
+      return `
 
+        <article class="website-card">
 
-/* RISING */
+          <div class="website-top">
 
-if(sort === "rising"){
+            <span class="website-category">
+              ${escapeHTML(
+                item.Category || "Other"
+              )}
+            </span>
 
-filtered.sort(
-(a,b) =>
-risingScore(b) -
-risingScore(a)
-);
+          </div>
 
-}
+          <h3>
+            ${escapeHTML(
+              item.Title ||
+              "Untitled"
+            )}
+          </h3>
 
+          <div class="website-description">
+            ${escapeHTML(
+              item.Discription ||
+              "No description available."
+            )}
+          </div>
 
-/* NEWEST */
+          <div class="website-footer">
 
-if(sort === "newest"){
+            <button
+              class="vote-btn ${voted?"voted":""}"
+              data-vote-id="${escapeHTML(id)}">
 
-filtered.sort(
-(a,b) =>
-new Date(
-b.created_at || 0
-) -
-new Date(
-a.created_at || 0
-)
-);
+              ${voted?"↑ Voted":"↑ Upvote"}
+              · ${votes}
 
-}
+            </button>
 
+            <button
+              class="visit-link details-list-button"
+              data-id="${escapeHTML(id)}">
 
-/* A-Z */
+              View Details →
 
-if(sort === "az"){
+            </button>
 
-filtered.sort(
-(a,b) =>
-String(a.Title || "")
-.localeCompare(
-String(b.Title || "")
-)
-);
+          </div>
 
-}
+        </article>
 
+      `;
 
-/* CATEGORY */
-
-if(sort === "category"){
-
-filtered.sort(
-(a,b) =>
-String(a.Category || "")
-.localeCompare(
-String(b.Category || "")
-)
-);
-
-}
+    }).join("");
 
 
-$("resultsInfo")
-.textContent =
-`${filtered.length} ${
-filtered.length === 1
-? "website"
-: "websites"
-} found`;
+  document
+    .querySelectorAll("[data-vote-id]")
+    .forEach(btn=>{
+
+      btn.addEventListener(
+        "click",
+        ()=>{
+          voteListing(
+            btn.dataset.voteId
+          );
+        }
+      );
+
+    });
 
 
-if(!filtered.length){
+  document
+    .querySelectorAll(".details-list-button")
+    .forEach(btn=>{
 
-grid.innerHTML = `
+      btn.addEventListener(
+        "click",
+        ()=>{
+          openWebsiteDetails(
+            btn.dataset.id
+          );
+        }
+      );
 
-<div class="empty">
-
-<h3 style="color:var(--text)">
-No websites found
-</h3>
-
-<p>
-Try another search term or category.
-</p>
-
-<button
-class="btn btn-light"
-onclick="clearFilters()"
->
-Clear Filters
-</button>
-
-</div>
-
-`;
-
-return;
+    });
 
 }
 
 
-/* GLOBAL RANK */
+/* =========================================
+   STATS
+========================================= */
 
-const ranked =
-[...listings]
-.sort(
-(a,b) =>
-rankingScore(b) -
-rankingScore(a)
-);
+function updateStats(){
 
+  const realListings=
+    listings.filter(
+      x=>!String(x.id)
+        .startsWith("demo-")
+    );
 
-grid.innerHTML =
-filtered
-.map(
-item => {
+  $("statWebsites").textContent=
+    listings.length;
 
-const id =
-String(item.id);
+  const totalVotes=
+    Object.values(voteCounts)
+      .reduce(
+        (a,b)=>a+Number(b||0),
+        0
+      );
 
-const title =
-String(
-item.Title ||
-"Untitled"
-);
+  $("statVotes").textContent=
+    totalVotes;
 
-const categoryText =
-String(
-item.Category ||
-"Other"
-);
+  const categories=
+    new Set(
+      listings.map(
+        x=>x.Category
+      )
+    );
 
-const description =
-String(
-item.Discription ||
-"No description available."
-);
-
-const firstLetter =
-(
-title.trim()
-.charAt(0) ||
-"W"
-).toUpperCase();
-
-const votes =
-Number(
-voteCounts[id] || 0
-);
-
-const rankIndex =
-ranked.findIndex(
-x =>
-String(x.id) === id
-);
-
-const rank =
-rankIndex >= 0
-? rankIndex + 1
-: "—";
-
-const voted =
-myVotes.has(id);
-
-
-return `
-
-<article class="card">
-
-<span class="rank-badge">
-#${rank}
-</span>
-
-
-<div class="card-top">
-
-<div class="card-icon">
-${escapeHTML(firstLetter)}
-</div>
-
-<span class="category-tag">
-${escapeHTML(categoryText)}
-</span>
-
-</div>
-
-
-<h3>
-${escapeHTML(title)}
-</h3>
-
-
-<p>
-${escapeHTML(description)}
-</p>
-
-
-<div class="rank-meta">
-
-Rank #${rank} •
-${votes}
-${votes === 1
-? "upvote"
-: "upvotes"}
-
-</div>
-
-
-<div class="card-bottom">
-
-
-<button
-class="visit-link"
-onclick="openWebsiteDetails('${escapeHTML(id)}')"
->
-View Details →
-</button>
-
-
-<div class="vote-box">
-
-<button
-class="vote-btn ${voted ? "voted" : ""}"
-onclick="voteListing('${escapeHTML(id)}')"
-${voted ? "disabled" : ""}
-title="${voted ? "Already voted" : "Upvote"}"
->
-↑
-</button>
-
-
-<span class="vote-count">
-${votes}
-</span>
-
-</div>
-
-</div>
-
-</article>
-
-`;
-
-}
-)
-.join("");
+  $("statCategories").textContent=
+    categories.size;
 
 }
 
 
-/* =====================================================
-   CLEAR FILTERS
-===================================================== */
-
-function clearFilters(){
-
-$("searchInput").value = "";
-
-$("categoryFilter").value =
-"all";
-
-$("sortSelect").value =
-"top";
-
-renderListings();
-
-}
-
-
-/* =====================================================
+/* =========================================
    VOTE
-===================================================== */
+========================================= */
 
 async function voteListing(id){
 
-if(
-myVotes.has(
-String(id)
-)
+  const item=
+    listings.find(
+      x=>String(x.id)===String(id)
+    );
+
+  if(!item) return;
+
+  if(myVotes.has(String(id))){
+
+    alert(
+      "You have already voted for this website on this browser."
+    );
+
+    return;
+
+  }
+
+
+  /* DEMO LISTING */
+
+  if(
+    String(id).startsWith("demo-")
+  ){
+
+    const local=
+      JSON.parse(
+        localStorage.getItem(
+          "rankboard_light_votes_v1"
+        ) || "{}"
+      );
+
+    local[id]=
+      Number(local[id]||0)+1;
+
+    localStorage.setItem(
+      "rankboard_light_votes_v1",
+      JSON.stringify(local)
+    );
+
+    voteCounts[id]=
+      Number(voteCounts[id]||0)+1;
+
+    myVotes.add(String(id));
+
+    renderTopRanked();
+    renderMiniRanking();
+    renderListings();
+    updateStats();
+
+    return;
+
+  }
+
+
+  try{
+
+    const {error}=
+      await supabaseClient
+      .from("votes")
+      .insert([{
+
+        listing_id:
+          Number(id),
+
+        voter_id:
+          getVoterId()
+
+      }]);
+
+    if(error){
+
+      if(
+        error.code==="23505"
+      ){
+
+        alert(
+          "You have already voted for this website."
+        );
+
+        myVotes.add(String(id));
+
+        renderListings();
+
+        return;
+
+      }
+
+      throw error;
+
+    }
+
+    voteCounts[id]=
+      Number(voteCounts[id]||0)+1;
+
+    myVotes.add(String(id));
+
+    renderTopRanked();
+    renderMiniRanking();
+    renderListings();
+    updateStats();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Unable to submit vote right now."
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   WEBSITE DETAILS
+========================================= */
+
+async function openWebsiteDetails(id){
+
+  currentDetailsId=
+    String(id);
+
+  const item=
+    listings.find(
+      x=>String(x.id)===String(id)
+    );
+
+  if(!item) return;
+
+  openModal("detailsModal");
+
+  $("detailsContent").innerHTML=
+    `<div class="loading">
+      Loading details...
+    </div>`;
+
+
+  const ranked=
+    [...listings]
+      .sort(
+        (a,b)=>
+          rankingScore(b)-
+          rankingScore(a)
+      );
+
+  const rank=
+    ranked.findIndex(
+      x=>String(x.id)===String(id)
+    )+1;
+
+  const votes=
+    Number(
+      voteCounts[String(id)]||0
+    );
+
+
+  let ownerHTML=
+    `<div class="owner-box">
+
+      <div class="owner-title">
+        Website Owner
+      </div>
+
+      <div class="owner-row">
+
+        <div class="owner-avatar">
+          C
+        </div>
+
+        <div>
+
+          <strong>
+            Community Submission
+          </strong>
+
+          <p>
+            Submitted to RankBoard
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>`;
+
+
+  if(
+    item.owner_id &&
+    !String(id).startsWith("demo-")
+  ){
+
+    try{
+
+      const {data}=await supabaseClient
+        .from("profiles")
+        .select("username,bio")
+        .eq("id",item.owner_id)
+        .maybeSingle();
+
+      if(data){
+
+        const name=
+          data.username ||
+          "RankBoard Member";
+
+        ownerHTML=
+          `<div class="owner-box">
+
+            <div class="owner-title">
+              Website Owner
+            </div>
+
+            <div class="owner-row">
+
+              <div class="owner-avatar">
+                ${escapeHTML(
+                  name.charAt(0)
+                    .toUpperCase()
+                )}
+              </div>
+
+              <div>
+
+                <strong>
+                  ${escapeHTML(name)}
+                </strong>
+
+                <p>
+                  ${escapeHTML(
+                    data.bio ||
+                    "RankBoard member"
+                  )}
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>`;
+
+      }
+
+    }catch(error){
+
+      console.log(error);
+
+    }
+
+  }
+
+
+  const safeUrl=
+    String(
+      item.Website_url ||
+      "#"
+    );
+
+
+  $("detailsContent").innerHTML=
+
+    `<div class="details-box">
+
+      <span class="details-category">
+        ${escapeHTML(
+          item.Category ||
+          "Other"
+        )}
+      </span>
+
+      <h2>
+        ${escapeHTML(
+          item.Title ||
+          "Untitled"
+        )}
+      </h2>
+
+      <p class="details-description">
+        ${escapeHTML(
+          item.Discription ||
+          "No description available."
+        )}
+      </p>
+
+      <div class="details-stats">
+
+        <div class="details-stat">
+
+          <strong>
+            #${rank}
+          </strong>
+
+          <span>
+            Current Rank
+          </span>
+
+        </div>
+
+        <div class="details-stat">
+
+          <strong>
+            ${votes}
+          </strong>
+
+          <span>
+            Upvotes
+          </span>
+
+        </div>
+
+        <div class="details-stat">
+
+          <strong>
+            ${escapeHTML(
+              item.Category ||
+              "Other"
+            )}
+          </strong>
+
+          <span>
+            Category
+          </span>
+
+        </div>
+
+      </div>
+
+      ${ownerHTML}
+
+      <div class="details-actions">
+
+        <a
+          class="btn btn-primary"
+          href="${escapeHTML(safeUrl)}"
+          target="_blank"
+          rel="noopener noreferrer">
+          Visit Website
+        </a>
+
+        <button
+          class="btn btn-light"
+          onclick="voteListing('${escapeHTML(String(id))}')">
+          ↑ Upvote
+        </button>
+
+      </div>
+
+      <div class="reviews-section">
+
+        <h3>
+          Reviews & Comments
+        </h3>
+
+        <div id="reviewArea">
+          Loading reviews...
+        </div>
+
+      </div>
+
+    </div>`;
+
+
+  await loadReviews(
+    String(id)
+  );
+
+}
+
+
+/* =========================================
+   REVIEWS
+========================================= */
+
+async function loadReviews(listingId){
+
+  const area=
+    $("reviewArea");
+
+  if(!area) return;
+
+  const {
+    data,
+    error
+  }=
+    await supabaseClient
+    .from("reviews")
+    .select(
+      "id,user_id,review,created_at"
+    )
+    .eq(
+      "listing_id",
+      Number(listingId)
+    )
+    .order(
+      "created_at",
+      {ascending:false}
+    );
+
+  if(error){
+
+    console.error(error);
+
+    area.innerHTML=
+      `<div class="login-review-note">
+        Unable to load reviews.
+      </div>`;
+
+    return;
+
+  }
+
+
+  let reviewForm="";
+
+  if(currentUser){
+
+    reviewForm=
+      `<div class="review-form">
+
+        <div class="form-group"
+             style="margin-bottom:10px">
+
+          <label>
+            Write a Review
+          </label>
+
+          <textarea
+            id="reviewInput"
+            placeholder="Share your experience with this website..."
+            style="min-height:85px"></textarea>
+
+        </div>
+
+        <button
+          class="btn btn-primary"
+          id="postReviewBtn">
+          Post Review
+        </button>
+
+        <div
+          class="message"
+          id="reviewMessage">
+        </div>
+
+      </div>`;
+
+  }else{
+
+    reviewForm=
+      `<div class="login-review-note">
+
+        Please login to write a review.
+
+        <button
+          id="reviewLoginBtn"
+          style="
+            border:0;
+            background:none;
+            color:var(--primary);
+            font-weight:900;
+            font-size:12px;
+            padding:0;
+          ">
+          Login
+        </button>
+
+      </div>`;
+
+  }
+
+
+  let reviewsHTML="";
+
+  if(!data || !data.length){
+
+    reviewsHTML=
+      `<div class="login-review-note">
+        No reviews yet. Be the first to review this website.
+      </div>`;
+
+  }else{
+
+    const userIds=[
+      ...new Set(
+        data.map(
+          x=>x.user_id
+        )
+      )
+    ];
+
+    let profiles={};
+
+    if(userIds.length){
+
+      const {data:profileData}=
+        await supabaseClient
+        .from("profiles")
+        .select("id,username")
+        .in("id",userIds);
+
+      (profileData||[])
+        .forEach(p=>{
+          profiles[p.id]=p.username;
+        });
+
+    }
+
+
+    reviewsHTML=
+      data.map(review=>{
+
+        const username=
+          profiles[review.user_id] ||
+          "RankBoard Member";
+
+        const date=
+          new Date(
+            review.created_at
+          ).toLocaleDateString(
+            undefined,
+            {
+              year:"numeric",
+              month:"short",
+              day:"numeric"
+            }
+          );
+
+        const own=
+          currentUser &&
+          currentUser.id===
+          review.user_id;
+
+        return `
+
+          <div class="review-item">
+
+            <div class="review-user">
+
+              <div class="review-avatar">
+                ${escapeHTML(
+                  username
+                    .charAt(0)
+                    .toUpperCase()
+                )}
+              </div>
+
+              <div>
+
+                <strong>
+                  ${escapeHTML(username)}
+                </strong>
+
+                <span class="review-date">
+                  ${escapeHTML(date)}
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="review-text">
+              ${escapeHTML(
+                review.review
+              )}
+            </div>
+
+            ${
+              own
+              ?
+              `<button
+                class="review-delete"
+                data-delete-review="${review.id}">
+                Delete Review
+              </button>`
+              :
+              ""
+            }
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  }
+
+
+  area.innerHTML=
+    reviewForm+
+    reviewsHTML;
+
+
+  $("postReviewBtn")
+    ?.addEventListener(
+      "click",
+      ()=>{
+        postReview(
+          listingId
+        );
+      }
+    );
+
+
+  $("reviewLoginBtn")
+    ?.addEventListener(
+      "click",
+      ()=>{
+        closeModal("detailsModal");
+        openModal("accountModal");
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      "[data-delete-review]"
+    )
+    .forEach(btn=>{
+
+      btn.addEventListener(
+        "click",
+        ()=>{
+          deleteReview(
+            btn.dataset.deleteReview,
+            listingId
+          );
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================
+   POST REVIEW
+========================================= */
+
+async function postReview(listingId){
+
+  if(!currentUser){
+
+    openModal("accountModal");
+
+    return;
+
+  }
+
+  const input=
+    $("reviewInput");
+
+  const text=
+    input?.value.trim();
+
+  if(!text){
+
+    showMessage(
+      "reviewMessage",
+      "Please write a review.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(text.length>1000){
+
+    showMessage(
+      "reviewMessage",
+      "Review is too long.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const {error}=
+    await supabaseClient
+    .from("reviews")
+    .insert([{
+
+      listing_id:
+        Number(listingId),
+
+      user_id:
+        currentUser.id,
+
+      review:text
+
+    }]);
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "reviewMessage",
+      "Unable to post review.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  await loadReviews(
+    listingId
+  );
+
+}
+
+
+/* =========================================
+   DELETE REVIEW
+========================================= */
+
+async function deleteReview(
+  reviewId,
+  listingId
 ){
 
-return;
+  if(!currentUser) return;
+
+  const {error}=
+    await supabaseClient
+    .from("reviews")
+    .delete()
+    .eq(
+      "id",
+      Number(reviewId)
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
+  if(error){
+
+    console.error(error);
+
+    alert(
+      "Unable to delete review."
+    );
+
+    return;
+
+  }
+
+  await loadReviews(
+    listingId
+  );
 
 }
 
 
-/* DEMO */
+/* =========================================
+   PROFILE
+========================================= */
 
-if(
-String(id)
-.startsWith("demo-")
+async function ensureProfile(user){
+
+  if(!user) return;
+
+  const {data}=await supabaseClient
+    .from("profiles")
+    .select("id,username,bio")
+    .eq("id",user.id)
+    .maybeSingle();
+
+  if(!data){
+
+    const defaultUsername=
+      user.email
+        ? user.email.split("@")[0]
+        : "RankBoard User";
+
+    await supabaseClient
+      .from("profiles")
+      .insert([{
+
+        id:user.id,
+
+        username:
+          defaultUsername,
+
+        bio:""
+
+      }]);
+
+  }
+
+}
+
+
+async function loadProfile(){
+
+  if(!currentUser) return;
+
+  await ensureProfile(
+    currentUser
+  );
+
+  const {data,error}=
+    await supabaseClient
+    .from("profiles")
+    .select(
+      "username,bio"
+    )
+    .eq(
+      "id",
+      currentUser.id
+    )
+    .maybeSingle();
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  $("profileEmail").textContent=
+    currentUser.email || "User";
+
+  $("profileUsername").value=
+    data?.username || "";
+
+  $("profileBio").value=
+    data?.bio || "";
+
+  const first=
+    (
+      data?.username ||
+      currentUser.email ||
+      "U"
+    )
+    .charAt(0)
+    .toUpperCase();
+
+  $("profileAvatar").textContent=
+    first;
+
+}
+
+
+function updateAccountButton(){
+
+  const btn=
+    $("accountBtn");
+
+  if(!btn) return;
+
+  if(currentUser){
+
+    btn.innerHTML=
+      `<span class="account-name">
+        ${escapeHTML(
+          currentUser.email ||
+          "Account"
+        )}
+      </span>`;
+
+  }else{
+
+    btn.textContent=
+      "Account";
+
+  }
+
+}
+
+
+/* =========================================
+   AUTH
+========================================= */
+
+function setAuthMode(mode){
+
+  authMode=mode;
+
+  if(mode==="login"){
+
+    $("loginTab")
+      .classList.add("active");
+
+    $("signupTab")
+      .classList.remove("active");
+
+    $("authSubmitBtn")
+      .textContent="Login";
+
+  }else{
+
+    $("signupTab")
+      .classList.add("active");
+
+    $("loginTab")
+      .classList.remove("active");
+
+    $("authSubmitBtn")
+      .textContent="Create Account";
+
+  }
+
+  hideMessage("authMessage");
+
+}
+
+
+async function handleAuth(){
+
+  const email=
+    $("authEmail")
+    .value
+    .trim();
+
+  const password=
+    $("authPassword")
+    .value;
+
+  if(!email || !password){
+
+    showMessage(
+      "authMessage",
+      "Please enter email and password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  $("authSubmitBtn")
+    .disabled=true;
+
+
+  try{
+
+    if(authMode==="login"){
+
+      const {data,error}=
+        await supabaseClient
+        .auth
+        .signInWithPassword({
+
+          email,
+          password
+
+        });
+
+      if(error)
+        throw error;
+
+      currentUser=
+        data.user;
+
+      await ensureProfile(
+        currentUser
+      );
+
+      updateAccountButton();
+      await loadProfile();
+
+      showProfileView();
+
+    }else{
+
+      const {data,error}=
+        await supabaseClient
+        .auth
+        .signUp({
+
+          email,
+          password
+
+        });
+
+      if(error)
+        throw error;
+
+
+      if(data.session){
+
+        currentUser=
+          data.user;
+
+        await ensureProfile(
+          currentUser
+        );
+
+        updateAccountButton();
+        await loadProfile();
+
+        showMessage(
+          "authMessage",
+          "Account created successfully.",
+          "success"
+        );
+
+        showProfileView();
+
+      }else{
+
+        showMessage(
+          "authMessage",
+          "Account created. Please check your email and confirm your account, then login.",
+          "success"
+        );
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "authMessage",
+      error.message ||
+      "Authentication failed.",
+      "error"
+    );
+
+  }finally{
+
+    $("authSubmitBtn")
+      .disabled=false;
+
+  }
+
+}
+
+
+function showProfileView(){
+
+  $("authView")
+    .style.display="none";
+
+  $("profileView")
+    .style.display="block";
+
+}
+
+
+function showAuthView(){
+
+  $("authView")
+    .style.display="block";
+
+  $("profileView")
+    .style.display="none";
+
+}
+
+
+async function logout(){
+
+  await supabaseClient
+    .auth
+    .signOut();
+
+  currentUser=null;
+
+  updateAccountButton();
+
+  showAuthView();
+
+  closeModal("accountModal");
+
+}
+
+
+/* =========================================
+   SAVE PROFILE
+========================================= */
+
+async function saveProfile(){
+
+  if(!currentUser) return;
+
+  const username=
+    $("profileUsername")
+    .value
+    .trim();
+
+  const bio=
+    $("profileBio")
+    .value
+    .trim();
+
+  if(!username){
+
+    showMessage(
+      "profileMessage",
+      "Please enter a username.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const {error}=
+    await supabaseClient
+    .from("profiles")
+    .upsert({
+
+      id:
+        currentUser.id,
+
+      username,
+
+      bio
+
+    },{
+      onConflict:"id"
+    });
+
+
+  if(error){
+
+    console.error(error);
+
+    if(error.code==="23505"){
+
+      showMessage(
+        "profileMessage",
+        "That username is already taken.",
+        "error"
+      );
+
+    }else{
+
+      showMessage(
+        "profileMessage",
+        "Unable to save profile.",
+        "error"
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  showMessage(
+    "profileMessage",
+    "Profile saved successfully.",
+    "success"
+  );
+
+}
+
+
+/* =========================================
+   SUBMIT WEBSITE
+========================================= */
+
+async function submitWebsite(){
+
+  const title=
+    $("submitTitle")
+    .value
+    .trim();
+
+  const description=
+    $("submitDescription")
+    .value
+    .trim();
+
+  const category=
+    $("submitCategory")
+    .value;
+
+  const url=
+    $("submitUrl")
+    .value
+    .trim();
+
+
+  if(!title ||
+     !description ||
+     !url){
+
+    showMessage(
+      "submitMessage",
+      "Please complete all required fields.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    new URL(url);
+
+  }catch{
+
+    showMessage(
+      "submitMessage",
+      "Please enter a valid website URL.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  $("submitWebsiteBtn")
+    .disabled=true;
+
+
+  const {error}=
+    await supabaseClient
+    .from("Listings")
+    .insert([{
+
+      Title:title,
+
+      Discription:
+        description,
+
+      Category:
+        category,
+
+      Website_url:
+        url,
+
+      Status:
+        "pending",
+
+      owner_id:
+        currentUser
+          ? currentUser.id
+          : null
+
+    }]);
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "submitMessage",
+      "Unable to submit website: "+
+      error.message,
+      "error"
+    );
+
+    $("submitWebsiteBtn")
+      .disabled=false;
+
+    return;
+
+  }
+
+
+  showMessage(
+    "submitMessage",
+    "Website submitted successfully. It will appear after admin approval.",
+    "success"
+  );
+
+
+  $("submitTitle").value="";
+  $("submitDescription").value="";
+  $("submitUrl").value="";
+
+  $("submitWebsiteBtn")
+    .disabled=false;
+
+}
+
+
+/* =========================================
+   ADMIN
+========================================= */
+
+async function isAdmin(user){
+
+  if(!user) return false;
+
+  const {data,error}=
+    await supabaseClient
+    .from("rankboard_admins")
+    .select("user_id")
+    .eq(
+      "user_id",
+      user.id
+    )
+    .maybeSingle();
+
+  if(error){
+
+    console.error(error);
+
+    return false;
+
+  }
+
+  return !!data;
+
+}
+
+
+async function adminLogin(){
+
+  const email=
+    $("adminEmail")
+    .value
+    .trim();
+
+  const password=
+    $("adminPassword")
+    .value;
+
+
+  if(!email || !password){
+
+    showMessage(
+      "adminLoginMessage",
+      "Enter admin email and password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const {data,error}=
+    await supabaseClient
+    .auth
+    .signInWithPassword({
+
+      email,
+      password
+
+    });
+
+
+  if(error){
+
+    showMessage(
+      "adminLoginMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const admin=
+    await isAdmin(
+      data.user
+    );
+
+  if(!admin){
+
+    await supabaseClient
+      .auth
+      .signOut();
+
+    showMessage(
+      "adminLoginMessage",
+      "This account is not an administrator.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  currentUser=
+    data.user;
+
+  closeModal(
+    "adminLoginModal"
+  );
+
+  openModal(
+    "adminPanelModal"
+  );
+
+  loadAdminPanel();
+
+}
+
+
+async function loadAdminPanel(){
+
+  const container=
+    $("adminPanelContent");
+
+  container.innerHTML=
+    `<div class="loading">
+      Loading pending websites...
+    </div>`;
+
+
+  const {data,error}=
+    await supabaseClient
+    .from("Listings")
+    .select("*")
+    .eq("Status","pending")
+    .order(
+      "created_at",
+      {ascending:false}
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    container.innerHTML=
+      `<div class="message show error">
+        Unable to load pending websites.
+      </div>`;
+
+    return;
+
+  }
+
+
+  if(!data || !data.length){
+
+    container.innerHTML=
+      `<div class="empty">
+        No pending websites.
+      </div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML=
+    `<div class="admin-list">
+
+      ${
+        data.map(item=>`
+
+          <div class="admin-item">
+
+            <h3>
+              ${escapeHTML(
+                item.Title
+              )}
+            </h3>
+
+            <p>
+              ${escapeHTML(
+                item.Discription
+              )}
+            </p>
+
+            <div class="admin-meta">
+
+              <span class="ranking-category">
+                ${escapeHTML(
+                  item.Category ||
+                  "Other"
+                )}
+              </span>
+
+            </div>
+
+            <p>
+              ${escapeHTML(
+                item.Website_url
+              )}
+            </p>
+
+            <div class="admin-actions">
+
+              <button
+                class="btn btn-success"
+                data-approve="${item.id}">
+                Approve
+              </button>
+
+              <button
+                class="btn btn-danger"
+                data-reject="${item.id}">
+                Reject
+              </button>
+
+            </div>
+
+          </div>
+
+        `).join("")
+      }
+
+    </div>`;
+
+
+  document
+    .querySelectorAll(
+      "[data-approve]"
+    )
+    .forEach(btn=>{
+
+      btn.addEventListener(
+        "click",
+        ()=>{
+          updateListingStatus(
+            btn.dataset.approve,
+            "approved"
+          );
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(
+      "[data-reject]"
+    )
+    .forEach(btn=>{
+
+      btn.addEventListener(
+        "click",
+        ()=>{
+          updateListingStatus(
+            btn.dataset.reject,
+            "rejected"
+          );
+        }
+      );
+
+    });
+
+}
+
+
+async function updateListingStatus(
+  id,
+  status
 ){
 
-const local =
-getLocalVotes();
+  const {error}=
+    await supabaseClient
+    .from("Listings")
+    .update({
+      Status:status
+    })
+    .eq(
+      "id",
+      Number(id)
+    );
 
-local[id] =
-Number(
-local[id] || 0
-) + 1;
+  if(error){
 
-saveLocalVotes(local);
+    console.error(error);
 
-voteCounts[id] =
-Number(local[id]);
+    alert(
+      "Unable to update listing."
+    );
 
-myVotes.add(
-String(id)
-);
+    return;
 
-updateStats();
-
-renderTopRanked();
-
-renderListings();
-
-return;
-
-}
+  }
 
 
-/* REAL */
+  await loadAdminPanel();
 
-const voterId =
-getVoterId();
+  if(status==="approved"){
 
+    await loadListings();
 
-try{
-
-const {
-error
-} =
-await supabaseClient
-.from("votes")
-.insert([{
-
-listing_id:
-Number(id),
-
-voter_id:
-voterId
-
-}]);
-
-
-if(error){
-
-if(
-String(
-error.message || ""
-)
-.toLowerCase()
-.includes("duplicate")
-){
-
-myVotes.add(
-String(id)
-);
-
-}else{
-
-throw error;
-
-}
-
-}else{
-
-voteCounts[id] =
-Number(
-voteCounts[id] || 0
-) + 1;
-
-myVotes.add(
-String(id)
-);
+  }
 
 }
 
 
-updateStats();
+/* =========================================
+   PASSWORD RESET
+========================================= */
 
-renderTopRanked();
+async function sendResetLink(){
 
-renderListings();
+  const email=
+    $("forgotEmail")
+    .value
+    .trim();
+
+  if(!email){
+
+    showMessage(
+      "forgotMessage",
+      "Enter your email.",
+      "error"
+    );
+
+    return;
+
+  }
 
 
-}catch(error){
+  const {error}=
+    await supabaseClient
+    .auth
+    .resetPasswordForEmail(
+      email,
+      {
+        redirectTo:
+          window.location.origin
+      }
+    );
 
-console.error(
-"Vote error:",
-error
-);
 
-alert(
-"Unable to save your vote. Please try again."
-);
+  if(error){
+
+    showMessage(
+      "forgotMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "forgotMessage",
+    "Password reset link sent. Check your email.",
+    "success"
+  );
 
 }
 
+
+async function updatePassword(){
+
+  const password=
+    $("newPassword")
+    .value;
+
+  const confirm=
+    $("confirmPassword")
+    .value;
+
+
+  if(!password || !confirm){
+
+    showMessage(
+      "resetMessage",
+      "Enter and confirm your new password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(password!==confirm){
+
+    showMessage(
+      "resetMessage",
+      "Passwords do not match.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const {error}=
+    await supabaseClient
+    .auth
+    .updateUser({
+      password
+    });
+
+
+  if(error){
+
+    showMessage(
+      "resetMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "resetMessage",
+    "Password updated successfully.",
+    "success"
+  );
+
+
+  setTimeout(
+    ()=>{
+      closeModal("resetModal");
+      openModal("accountModal");
+    },
+    1200
+  );
+
 }
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
+/* =========================================
+   EVENTS
+========================================= */
 
-function performSearch(){
+$("submitOpenBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+      openModal("submitModal");
+    }
+  );
 
-renderListings();
+$("heroSubmitBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+      openModal("submitModal");
+    }
+  );
 
-$("explore")
-.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
+$("ctaSubmitBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+      openModal("submitModal");
+    }
+  );
 
-}
+
+$("submitClose")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("submitModal");
+    }
+  );
+
+$("submitCancel")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("submitModal");
+    }
+  );
+
+$("submitWebsiteBtn")
+  .addEventListener(
+    "click",
+    submitWebsite
+  );
+
+
+$("accountBtn")
+  .addEventListener(
+    "click",
+    async ()=>{
+
+      openModal("accountModal");
+
+      if(currentUser){
+
+        await loadProfile();
+        showProfileView();
+
+      }else{
+
+        showAuthView();
+
+      }
+
+    }
+  );
+
+
+$("footerAccount")
+  .addEventListener(
+    "click",
+    event=>{
+
+      event.preventDefault();
+
+      openModal("accountModal");
+
+    }
+  );
+
+
+$("accountClose")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("accountModal");
+    }
+  );
+
+
+$("loginTab")
+  .addEventListener(
+    "click",
+    ()=>{
+      setAuthMode("login");
+    }
+  );
+
+
+$("signupTab")
+  .addEventListener(
+    "click",
+    ()=>{
+      setAuthMode("signup");
+    }
+  );
+
+
+$("authSubmitBtn")
+  .addEventListener(
+    "click",
+    handleAuth
+  );
+
+
+$("logoutBtn")
+  .addEventListener(
+    "click",
+    logout
+  );
+
+
+$("saveProfileBtn")
+  .addEventListener(
+    "click",
+    saveProfile
+  );
+
+
+$("forgotPasswordBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      closeModal("accountModal");
+
+      openModal("forgotModal");
+
+    }
+  );
+
+
+$("forgotClose")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("forgotModal");
+    }
+  );
+
+
+$("forgotCancel")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("forgotModal");
+    }
+  );
+
+
+$("sendResetBtn")
+  .addEventListener(
+    "click",
+    sendResetLink
+  );
+
+
+$("updatePasswordBtn")
+  .addEventListener(
+    "click",
+    updatePassword
+  );
+
+
+$("detailsClose")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("detailsModal");
+    }
+  );
+
+
+$("adminLoginBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+      openModal("adminLoginModal");
+    }
+  );
+
+
+$("adminLoginClose")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("adminLoginModal");
+    }
+  );
+
+
+$("adminLoginSubmit")
+  .addEventListener(
+    "click",
+    adminLogin
+  );
+
+
+$("adminPanelClose")
+  .addEventListener(
+    "click",
+    ()=>{
+      closeModal("adminPanelModal");
+    }
+  );
+
+
+$("searchInput")
+  .addEventListener(
+    "input",
+    renderListings
+  );
 
 
 $("searchBtn")
-.addEventListener(
-"click",
-performSearch
-);
+  .addEventListener(
+    "click",
+    renderListings
+  );
 
 
-$("searchInput")
-.addEventListener(
-"input",
-renderListings
-);
-
-
-$("searchInput")
-.addEventListener(
-"keydown",
-event => {
-
-if(event.key === "Enter"){
-
-performSearch();
-
-}
-
-}
-);
-
-
-$("categoryFilter")
-.addEventListener(
-"change",
-renderListings
-);
-
-
-$("sortSelect")
-.addEventListener(
-"change",
-renderListings
-);
-
-
-/* =====================================================
-   CATEGORY CARDS
-===================================================== */
+/* FILTERS */
 
 document
-.querySelectorAll(
-"[data-category]"
-)
-.forEach(
-card => {
+  .querySelectorAll(".filter-btn")
+  .forEach(btn=>{
 
-card.addEventListener(
-"click",
-() => {
+    btn.addEventListener(
+      "click",
+      ()=>{
 
-$("categoryFilter")
-.value =
-card.dataset.category;
+        document
+          .querySelectorAll(
+            ".filter-btn"
+          )
+          .forEach(x=>
+            x.classList.remove(
+              "active"
+            )
+          );
 
-renderListings();
+        btn.classList.add("active");
 
-$("explore")
-.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
+        currentFilter=
+          btn.dataset.filter;
 
-}
-);
+        renderListings();
 
-}
-);
+      }
+    );
 
-
-/* =====================================================
-   SUBMIT MODAL
-===================================================== */
-
-function openSubmit(){
-
-openModal(
-"submitModal"
-);
-
-}
+  });
 
 
-$("submitOpenBtn")
-.addEventListener(
-"click",
-openSubmit
-);
-
-
-$("heroSubmitBtn")
-.addEventListener(
-"click",
-openSubmit
-);
-
-
-$("ctaSubmitBtn")
-.addEventListener(
-"click",
-openSubmit
-);
-
-
-$("footerSubmitBtn")
-.addEventListener(
-"click",
-openSubmit
-);
-
-
-/* =====================================================
-   CLOSE MODALS
-===================================================== */
+/* CATEGORIES */
 
 document
-.querySelectorAll(
-"[data-close]"
-)
-.forEach(
-button => {
+  .querySelectorAll(
+    ".category-card"
+  )
+  .forEach(card=>{
 
-button.addEventListener(
-"click",
-() => {
+    card.addEventListener(
+      "click",
+      ()=>{
 
-closeModal(
-button.dataset.close
-);
+        currentFilter=
+          card.dataset.category;
 
-}
-);
+        document
+          .querySelectorAll(
+            ".filter-btn"
+          )
+          .forEach(btn=>{
 
-}
-);
+            btn.classList.toggle(
+              "active",
+              btn.dataset.filter===
+              currentFilter
+            );
 
+          });
+
+        $("explore")
+          .scrollIntoView();
+
+        renderListings();
+
+      }
+    );
+
+  });
+
+
+/* MODAL BACKDROP */
 
 document
-.querySelectorAll(
-".modal"
-)
-.forEach(
-modal => {
+  .querySelectorAll(".modal")
+  .forEach(modal=>{
 
-modal.addEventListener(
-"click",
-event => {
+    modal.addEventListener(
+      "click",
+      event=>{
 
-if(
-event.target === modal
-){
+        if(
+          event.target===modal
+        ){
 
-modal.classList.remove(
-"active"
-);
+          modal.classList.remove(
+            "show"
+          );
 
-}
+        }
 
-}
-);
+      }
+    );
 
-}
-);
+  });
 
 
-/* =====================================================
-   FOOTER FILTERS
-===================================================== */
-
-function footerCategory(
-category
-){
-
-$("categoryFilter")
-.value =
-category;
-
-renderListings();
-
-$("explore")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-}
-
-
-$("footerAiLink")
-.addEventListener(
-"click",
-() =>
-footerCategory(
-"AI Tools"
-)
-);
-
-
-$("footerEducationLink")
-.addEventListener(
-"click",
-() =>
-footerCategory(
-"Education"
-)
-);
-
-
-$("footerDevelopmentLink")
-.addEventListener(
-"click",
-() =>
-footerCategory(
-"Development"
-)
-);
-
-
-/* =====================================================
-   SUBMIT WEBSITE
-===================================================== */
-
-$("submitForm")
-.addEventListener(
-"submit",
-async event => {
-
-event.preventDefault();
-
-
-const message =
-$("submitMessage");
-
-message.className =
-"message";
-
-
-const title =
-$("submitTitle")
-.value
-.trim();
-
-const description =
-$("submitDescription")
-.value
-.trim();
-
-const category =
-$("submitCategory")
-.value;
-
-const url =
-$("submitUrl")
-.value
-.trim();
-
-
-if(
-!title ||
-!description ||
-!category ||
-!url
-){
-
-message.textContent =
-"Please complete all fields.";
-
-message.classList.add(
-"show",
-"error"
-);
-
-return;
-
-}
-
-
-try{
-
-const parsed =
-new URL(url);
-
-
-if(
-parsed.protocol !== "http:" &&
-parsed.protocol !== "https:"
-){
-
-throw new Error(
-"Invalid URL"
-);
-
-}
-
-
-const {
-error
-} =
-await supabaseClient
-.from("Listings")
-.insert([{
-
-Title:title,
-
-Discription:
-description,
-
-Category:
-category,
-
-Website_url:
-url,
-
-Status:
-"pending"
-
-}]);
-
-
-if(error){
-
-throw error;
-
-}
-
-
-message.textContent =
-"Website submitted successfully. It will appear after admin approval.";
-
-message.classList.add(
-"show",
-"success"
-);
-
-
-$("submitForm")
-.reset();
-
-
-setTimeout(
-() => {
-
-closeModal(
-"submitModal"
-);
-
-message.className =
-"message";
-
-},
-2200
-);
-
-
-}catch(error){
-
-console.error(error);
-
-message.textContent =
-"Submission failed. Please try again.";
-
-message.classList.add(
-"show",
-"error"
-);
-
-}
-
-}
-);
-
-
-/* =====================================================
-   ADMIN LOGIN
-===================================================== */
-
-$("adminLoginBtn")
-.addEventListener(
-"click",
-() =>
-openModal(
-"adminModal"
-)
-);
-
-
-$("adminLoginForm")
-.addEventListener(
-"submit",
-async event => {
-
-event.preventDefault();
-
-
-const message =
-$("adminMessage");
-
-message.className =
-"message";
-
-
-const email =
-$("adminEmail")
-.value
-.trim();
-
-const password =
-$("adminPassword")
-.value;
-
-
-try{
-
-const {
-data,
-error
-} =
-await supabaseClient
-.auth
-.signInWithPassword({
-
-email,
-
-password
-
-});
-
-
-if(error){
-
-throw error;
-
-}
-
-
-if(!data.user){
-
-throw new Error(
-"Login failed."
-);
-
-}
-
-
-const {
-data:adminRow,
-error:adminError
-} =
-await supabaseClient
-.from("rankboard_admins")
-.select("user_id")
-.eq(
-"user_id",
-data.user.id
-)
-.maybeSingle();
-
-
-if(adminError){
-
-throw adminError;
-
-}
-
-
-if(!adminRow){
-
-await supabaseClient
-.auth
-.signOut();
-
-throw new Error(
-"This account is not authorized as an admin."
-);
-
-}
-
-
-closeModal(
-"adminModal"
-);
-
-await openAdminPanel(
-data.user
-);
-
-
-}catch(error){
-
-console.error(error);
-
-message.textContent =
-error.message ||
-"Invalid login credentials.";
-
-message.classList.add(
-"show",
-"error"
-);
-
-}
-
-}
-);
-
-
-/* =====================================================
-   ADMIN PANEL
-===================================================== */
-
-async function openAdminPanel(
-user
-){
-
-openModal(
-"adminPanelModal"
-);
-
-$("adminUserInfo")
-.textContent =
-`Logged in as ${
-user.email || "Admin"
-}`;
-
-await loadPendingListings();
-
-}
-
-
-/* =====================================================
-   PENDING LISTINGS
-===================================================== */
-
-async function loadPendingListings(){
-
-const container =
-$("pendingListings");
-
-
-container.innerHTML =
-`
-<div class="loading">
-Loading pending submissions...
-</div>
-`;
-
-
-try{
-
-const {
-data,
-error
-} =
-await supabaseClient
-.from("Listings")
-.select("*")
-.eq(
-"Status",
-"pending"
-)
-.order(
-"created_at",
-{ascending:false}
-);
-
-
-if(error){
-
-throw error;
-
-}
-
-
-if(
-!data ||
-!data.length
-){
-
-container.innerHTML =
-`
-<div class="empty">
-
-<h3 style="color:var(--text)">
-No Pending Submissions
-</h3>
-
-<p>
-New website submissions will appear here.
-</p>
-
-</div>
-`;
-
-return;
-
-}
-
-
-container.innerHTML =
-data
-.map(
-item => {
-
-const url =
-safeUrl(
-item.Website_url
-);
-
-
-return `
-
-<div class="pending-item">
-
-<h3>
-${escapeHTML(
-item.Title ||
-"Untitled"
-)}
-</h3>
-
-
-<div class="pending-meta">
-
-Category:
-${escapeHTML(
-item.Category ||
-"Other"
-)}
-
-</div>
-
-
-<p>
-${escapeHTML(
-item.Discription ||
-""
-)}
-</p>
-
-
-<div class="pending-meta">
-
-<a
-href="${escapeHTML(url)}"
-target="_blank"
-rel="noopener noreferrer"
->
-${escapeHTML(
-item.Website_url ||
-""
-)}
-</a>
-
-</div>
-
-
-<div class="pending-actions">
-
-<button
-class="btn btn-success"
-onclick="updateListingStatus('${escapeHTML(item.id)}','approved')"
->
-Approve
-</button>
-
-
-<button
-class="btn btn-danger"
-onclick="updateListingStatus('${escapeHTML(item.id)}','rejected')"
->
-Reject
-</button>
-
-</div>
-
-</div>
-
-`;
-
-}
-)
-.join("");
-
-
-}catch(error){
-
-console.error(error);
-
-container.innerHTML =
-`
-<div class="message show error">
-Unable to load pending submissions.
-</div>
-`;
-
-}
-
-}
-
-
-/* =====================================================
-   APPROVE / REJECT
-===================================================== */
-
-async function updateListingStatus(
-id,
-status
-){
-
-try{
-
-const {
-error
-} =
-await supabaseClient
-.from("Listings")
-.update({
-Status:status
-})
-.eq(
-"id",
-id
-);
-
-
-if(error){
-
-throw error;
-
-}
-
-
-await loadPendingListings();
-
-
-if(
-status === "approved"
-){
-
-await loadListings();
-
-}
-
-
-}catch(error){
-
-console.error(error);
-
-alert(
-"Unable to update listing."
-);
-
-}
-
-}
-
-
-/* =====================================================
-   SIGN OUT
-===================================================== */
-
-$("signOutBtn")
-.addEventListener(
-"click",
-async () => {
-
-await supabaseClient
-.auth
-.signOut();
-
-closeModal(
-"adminPanelModal"
-);
-
-}
-);
-
-
-/* =====================================================
-   FORGOT PASSWORD
-===================================================== */
-
-$("forgotPasswordBtn")
-.addEventListener(
-"click",
-() => {
-
-closeModal(
-"adminModal"
-);
-
-openModal(
-"forgotModal"
-);
-
-}
-);
-
-
-$("forgotForm")
-.addEventListener(
-"submit",
-async event => {
-
-event.preventDefault();
-
-
-const message =
-$("forgotMessage");
-
-message.className =
-"message";
-
-
-const email =
-$("forgotEmail")
-.value
-.trim();
-
-
-try{
-
-const {
-error
-} =
-await supabaseClient
-.auth
-.resetPasswordForEmail(
-email,
-{
-redirectTo:
-window.location.origin
-}
-);
-
-
-if(error){
-
-throw error;
-
-}
-
-
-message.textContent =
-"Password reset link sent. Check your email.";
-
-message.classList.add(
-"show",
-"success"
-);
-
-
-}catch(error){
-
-console.error(error);
-
-message.textContent =
-error.message ||
-"Unable to send reset link.";
-
-message.classList.add(
-"show",
-"error"
-);
-
-}
-
-}
-);
-
-
-/* =====================================================
-   PASSWORD RECOVERY
-===================================================== */
+/* =========================================
+   AUTH STATE
+========================================= */
 
 supabaseClient
-.auth
-.onAuthStateChange(
-async event => {
+  .auth
+  .onAuthStateChange(
+    async (event,session)=>{
 
-if(
-event ===
-"PASSWORD_RECOVERY"
-){
+      currentUser=
+        session?.user || null;
 
-openModal(
-"resetModal"
-);
+      updateAccountButton();
 
-}
+      if(currentUser){
 
-}
-);
+        await ensureProfile(
+          currentUser
+        );
 
+      }
 
-/* =====================================================
-   UPDATE PASSWORD
-===================================================== */
-
-$("resetForm")
-.addEventListener(
-"submit",
-async event => {
-
-event.preventDefault();
+    }
+  );
 
 
-const message =
-$("resetMessage");
+/* =========================================
+   INITIALIZE
+========================================= */
 
-message.className =
-"message";
+async function initialize(){
 
+  const {
+    data
+  }=
+    await supabaseClient
+    .auth
+    .getSession();
 
-const password =
-$("newPassword")
-.value;
+  currentUser=
+    data?.session?.user ||
+    null;
 
-const confirmPassword =
-$("confirmPassword")
-.value;
+  updateAccountButton();
 
+  if(currentUser){
 
-if(
-password !==
-confirmPassword
-){
+    await ensureProfile(
+      currentUser
+    );
 
-message.textContent =
-"Passwords do not match.";
+  }
 
-message.classList.add(
-"show",
-"error"
-);
-
-return;
-
-}
+  await loadListings();
 
 
-try{
+  /* PASSWORD RECOVERY */
 
-const {
-error
-} =
-await supabaseClient
-.auth
-.updateUser({
-password
-});
+  const hash=
+    window.location.hash;
 
+  if(
+    hash.includes(
+      "type=recovery"
+    )
+  ){
 
-if(error){
+    openModal(
+      "resetModal"
+    );
 
-throw error;
+  }
 
 }
 
-
-message.textContent =
-"Password updated successfully.";
-
-message.classList.add(
-"show",
-"success"
-);
-
-
-$("resetForm")
-.reset();
-
-
-setTimeout(
-async () => {
-
-closeModal(
-"resetModal"
-);
-
-await supabaseClient
-.auth
-.signOut();
-
-},
-1800
-);
-
-
-}catch(error){
-
-console.error(error);
-
-message.textContent =
-error.message ||
-"Unable to update password.";
-
-message.classList.add(
-"show",
-"error"
-);
-
-}
-
-}
-);
-
-
-/* =====================================================
-   START
-===================================================== */
-
-loadListings();
+initialize();
 
 </script>
 
