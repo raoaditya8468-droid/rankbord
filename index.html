@@ -1166,6 +1166,7 @@ footer{
   .search-box{
     flex-direction:row;
   }
+
 }
 </style>
 </head>
@@ -1325,6 +1326,7 @@ footer{
   <div class="container">
 
     <div class="section-head">
+
       <div class="section-label">
         Explore
       </div>
@@ -1336,6 +1338,7 @@ footer{
       <p class="section-subtitle">
         Find websites based on what you need.
       </p>
+
     </div>
 
     <div class="category-grid">
@@ -1483,6 +1486,7 @@ footer{
   <div class="cta-box">
 
     <div>
+
       <h2>
         Have a useful website?
       </h2>
@@ -1490,6 +1494,7 @@ footer{
       <p>
         Submit it to RankBoard and let the community discover it.
       </p>
+
     </div>
 
     <button class="btn btn-light"
@@ -1513,9 +1518,20 @@ footer{
     </p>
 
     <div class="footer-links">
-      <a href="#explore">Explore</a>
-      <a href="#topRankedGrid">Rankings</a>
-      <a href="#" id="footerAccount">Account</a>
+
+      <a href="#explore">
+        Explore
+      </a>
+
+      <a href="#topRankedGrid">
+        Rankings
+      </a>
+
+      <a href="#"
+         id="footerAccount">
+        Account
+      </a>
+
     </div>
 
   </div>
@@ -1661,6 +1677,7 @@ footer{
       </button>
 
     </div>
+
 
     <!-- AUTH VIEW -->
 
@@ -2080,7 +2097,9 @@ window.supabase.createClient(
    HELPERS
 ========================================= */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+  document.getElementById(id);
+
 
 function escapeHTML(value){
 
@@ -2093,7 +2112,12 @@ function escapeHTML(value){
 
 }
 
-function showMessage(id,text,type="error"){
+
+function showMessage(
+  id,
+  text,
+  type="error"
+){
 
   const el=$(id);
 
@@ -2101,9 +2125,12 @@ function showMessage(id,text,type="error"){
 
   el.textContent=text;
 
-  el.className="message show "+type;
+  el.className=
+    "message show "+
+    type;
 
 }
+
 
 function hideMessage(id){
 
@@ -2115,11 +2142,13 @@ function hideMessage(id){
 
 }
 
+
 function openModal(id){
 
   $(id)?.classList.add("show");
 
 }
+
 
 function closeModal(id){
 
@@ -2133,21 +2162,31 @@ function closeModal(id){
 ========================================= */
 
 let listings=[];
+
 let voteCounts={};
+
 let myVotes=new Set();
 
 let currentFilter="All";
+
 let currentUser=null;
+
 let currentDetailsId=null;
 
 let authMode="login";
+
+
+/* =========================================
+   DEMO LISTINGS
+========================================= */
 
 const DEMO_LISTINGS=[
 
   {
     id:"demo-1",
     Title:"Canva",
-    Discription:"A simple online design platform for creating graphics and visual content.",
+    Discription:
+      "A simple online design platform for creating graphics and visual content.",
     Category:"Design",
     Website_url:"https://www.canva.com",
     Status:"approved"
@@ -2156,7 +2195,8 @@ const DEMO_LISTINGS=[
   {
     id:"demo-2",
     Title:"GitHub",
-    Discription:"A platform for developers to build, collaborate and share software projects.",
+    Discription:
+      "A platform for developers to build, collaborate and share software projects.",
     Category:"Technology",
     Website_url:"https://github.com",
     Status:"approved"
@@ -2165,7 +2205,8 @@ const DEMO_LISTINGS=[
   {
     id:"demo-3",
     Title:"Khan Academy",
-    Discription:"Free educational resources for students and learners.",
+    Discription:
+      "Free educational resources for students and learners.",
     Category:"Education",
     Website_url:"https://www.khanacademy.org",
     Status:"approved"
@@ -2174,7 +2215,8 @@ const DEMO_LISTINGS=[
   {
     id:"demo-4",
     Title:"ChatGPT",
-    Discription:"An AI assistant for learning, writing, brainstorming and productivity.",
+    Discription:
+      "An AI assistant for learning, writing, brainstorming and productivity.",
     Category:"Technology",
     Website_url:"https://chatgpt.com",
     Status:"approved"
@@ -2183,7 +2225,8 @@ const DEMO_LISTINGS=[
   {
     id:"demo-5",
     Title:"Notion",
-    Discription:"A flexible workspace for notes, projects, documents and productivity.",
+    Discription:
+      "A flexible workspace for notes, projects, documents and productivity.",
     Category:"Productivity",
     Website_url:"https://www.notion.so",
     Status:"approved"
@@ -2192,7 +2235,8 @@ const DEMO_LISTINGS=[
   {
     id:"demo-6",
     Title:"Figma",
-    Discription:"A collaborative interface design and prototyping platform.",
+    Discription:
+      "A collaborative interface design and prototyping platform.",
     Category:"Design",
     Website_url:"https://www.figma.com",
     Status:"approved"
@@ -2236,6 +2280,7 @@ function getVoterId(){
 async function loadVotes(){
 
   voteCounts={};
+
   myVotes=new Set();
 
   const localVotes=
@@ -2245,29 +2290,43 @@ async function loadVotes(){
       ) || "{}"
     );
 
-  Object.keys(localVotes).forEach(id=>{
 
-    voteCounts[id]=
-      Number(localVotes[id] || 0);
+  Object.keys(localVotes)
+    .forEach(id=>{
 
-  });
+      voteCounts[id]=
+        Number(localVotes[id] || 0);
+
+    });
 
 
-  const {data,error}=await supabaseClient
+  const {
+    data,
+    error
+  }=
+    await supabaseClient
     .from("votes")
-    .select("listing_id,voter_id");
+    .select(
+      "listing_id,voter_id"
+    );
+
 
   if(!error && data){
 
     data.forEach(v=>{
 
-      const id=String(v.listing_id);
+      const id=
+        String(v.listing_id);
 
       voteCounts[id]=
-        Number(voteCounts[id] || 0)+1;
+        Number(
+          voteCounts[id] || 0
+        )+1;
+
 
       if(
-        v.voter_id===getVoterId()
+        v.voter_id===
+        getVoterId()
       ){
 
         myVotes.add(id);
@@ -2289,12 +2348,22 @@ async function loadListings(){
 
   try{
 
-    const {data,error}=
+    const {
+      data,
+      error
+    }=
       await supabaseClient
       .from("Listings")
       .select("*")
-      .eq("Status","approved")
-      .order("created_at",{ascending:false});
+      .eq(
+        "Status",
+        "approved"
+      )
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
 
     if(error){
 
@@ -2313,12 +2382,17 @@ async function loadListings(){
 
     }
 
+
     await loadVotes();
 
     renderTopRanked();
+
     renderMiniRanking();
+
     renderListings();
+
     updateStats();
+
 
   }catch(error){
 
@@ -2329,8 +2403,11 @@ async function loadListings(){
     ];
 
     renderTopRanked();
+
     renderMiniRanking();
+
     renderListings();
+
     updateStats();
 
   }
@@ -2339,17 +2416,23 @@ async function loadListings(){
 
 
 /* =========================================
-   RANKING
+   RANKING SCORE
 ========================================= */
 
 function rankingScore(item){
 
   return Number(
-    voteCounts[String(item.id)] || 0
+    voteCounts[
+      String(item.id)
+    ] || 0
   );
 
 }
 
+
+/* =========================================
+   TOP RANKED
+========================================= */
 
 function renderTopRanked(){
 
@@ -2357,6 +2440,7 @@ function renderTopRanked(){
     $("topRankedGrid");
 
   if(!container) return;
+
 
   const ranked=
     [...listings]
@@ -2366,6 +2450,7 @@ function renderTopRanked(){
           rankingScore(a)
       )
       .slice(0,3);
+
 
   if(!ranked.length){
 
@@ -2378,78 +2463,85 @@ function renderTopRanked(){
 
   }
 
+
   container.innerHTML=
-    ranked.map((item,index)=>{
+    ranked.map(
+      (item,index)=>{
 
-      const id=
-        String(item.id);
+        const id=
+          String(item.id);
 
-      const title=
-        String(
-          item.Title ||
-          "Untitled"
-        );
+        const title=
+          String(
+            item.Title ||
+            "Untitled"
+          );
 
-      const category=
-        String(
-          item.Category ||
-          "Other"
-        );
+        const category=
+          String(
+            item.Category ||
+            "Other"
+          );
 
-      const description=
-        String(
-          item.Discription ||
-          "No description available."
-        );
+        const description=
+          String(
+            item.Discription ||
+            "No description available."
+          );
 
-      const votes=
-        Number(
-          voteCounts[id] || 0
-        );
+        const votes=
+          Number(
+            voteCounts[id] || 0
+          );
 
-      return `
 
-        <article class="ranking-card">
+        return `
 
-          <div class="ranking-position">
-            #${index+1}
-          </div>
+          <article class="ranking-card">
 
-          <span class="ranking-category">
-            ${escapeHTML(category)}
-          </span>
+            <div class="ranking-position">
+              #${index+1}
+            </div>
 
-          <h3>
-            ${escapeHTML(title)}
-          </h3>
-
-          <p>
-            ${escapeHTML(description)}
-          </p>
-
-          <div class="ranking-footer">
-
-            <span class="ranking-votes">
-              ↑ ${votes}
-              ${votes===1?"upvote":"upvotes"}
+            <span class="ranking-category">
+              ${escapeHTML(category)}
             </span>
 
-            <button
-              class="visit-link details-button"
-              data-id="${escapeHTML(id)}">
-              View Details →
-            </button>
+            <h3>
+              ${escapeHTML(title)}
+            </h3>
 
-          </div>
+            <p>
+              ${escapeHTML(description)}
+            </p>
 
-        </article>
+            <div class="ranking-footer">
 
-      `;
+              <span class="ranking-votes">
+                ↑ ${votes}
+                ${votes===1?"upvote":"upvotes"}
+              </span>
 
-    }).join("");
+              <button
+                class="visit-link details-button"
+                data-id="${escapeHTML(id)}">
+                View Details →
+              </button>
+
+            </div>
+
+          </article>
+
+        `;
+
+      }
+    ).join("");
+
 
   document
-    .querySelectorAll(".details-button")
+    .querySelectorAll(
+      ".details-button"
+    )
     .forEach(btn=>{
 
       btn.addEventListener(
@@ -2477,6 +2569,7 @@ function renderMiniRanking(){
 
   if(!container) return;
 
+
   const ranked=
     [...listings]
       .sort(
@@ -2485,6 +2578,7 @@ function renderMiniRanking(){
           rankingScore(a)
       )
       .slice(0,3);
+
 
   if(!ranked.length){
 
@@ -2497,44 +2591,48 @@ function renderMiniRanking(){
 
   }
 
+
   container.innerHTML=
-    ranked.map((item,index)=>{
+    ranked.map(
+      (item,index)=>{
 
-      const votes=
-        Number(
-          voteCounts[
-            String(item.id)
-          ] || 0
-        );
+        const votes=
+          Number(
+            voteCounts[
+              String(item.id)
+            ] || 0
+          );
 
-      return `
 
-        <div class="mini-ranking">
+        return `
 
-          <div class="mini-number">
-            #${index+1}
+          <div class="mini-ranking">
+
+            <div class="mini-number">
+              #${index+1}
+            </div>
+
+            <div class="mini-info">
+
+              <strong>
+                ${escapeHTML(
+                  item.Title ||
+                  "Untitled"
+                )}
+              </strong>
+
+              <span>
+                ${votes} votes
+              </span>
+
+            </div>
+
           </div>
 
-          <div class="mini-info">
+        `;
 
-            <strong>
-              ${escapeHTML(
-                item.Title ||
-                "Untitled"
-              )}
-            </strong>
-
-            <span>
-              ${votes} votes
-            </span>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
+      }
+    ).join("");
 
 }
 
@@ -2550,14 +2648,19 @@ function renderListings(){
 
   if(!container) return;
 
+
   const search=
     $("searchInput")
-    ?.value
-    .trim()
-    .toLowerCase() || "";
+      ?.value
+      .trim()
+      .toLowerCase() || "";
+
 
   let filtered=
     [...listings];
+
+
+  /* CATEGORY FILTER */
 
   if(currentFilter!=="All"){
 
@@ -2573,31 +2676,38 @@ function renderListings(){
 
   }
 
+
+  /* SEARCH FILTER */
+
   if(search){
 
     filtered=
-      filtered.filter(item=>{
+      filtered.filter(
+        item=>{
 
-        const text=
-          (
-            item.Title || ""
-          )+
-          " "+
-          (
-            item.Discription || ""
-          )+
-          " "+
-          (
-            item.Category || ""
-          );
+          const text=
+            String(
+              item.Title || ""
+            )+
+            " "+
+            String(
+              item.Discription || ""
+            )+
+            " "+
+            String(
+              item.Category || ""
+            );
 
-        return text
-          .toLowerCase()
-          .includes(search);
 
-      });
+          return text
+            .toLowerCase()
+            .includes(search);
+
+        }
+      );
 
   }
+
 
   if(!filtered.length){
 
@@ -2610,78 +2720,87 @@ function renderListings(){
 
   }
 
+
   container.innerHTML=
-    filtered.map(item=>{
+    filtered.map(
+      item=>{
 
-      const id=
-        String(item.id);
+        const id=
+          String(item.id);
 
-      const votes=
-        Number(
-          voteCounts[id] || 0
-        );
+        const votes=
+          Number(
+            voteCounts[id] || 0
+          );
 
-      const voted=
-        myVotes.has(id);
+        const voted=
+          myVotes.has(id);
 
-      return `
 
-        <article class="website-card">
+        return `
 
-          <div class="website-top">
+          <article class="website-card">
 
-            <span class="website-category">
+            <div class="website-top">
+
+              <span class="website-category">
+                ${escapeHTML(
+                  item.Category ||
+                  "Other"
+                )}
+              </span>
+
+            </div>
+
+            <h3>
               ${escapeHTML(
-                item.Category || "Other"
+                item.Title ||
+                "Untitled"
               )}
-            </span>
+            </h3>
 
-          </div>
+            <div class="website-description">
+              ${escapeHTML(
+                item.Discription ||
+                "No description available."
+              )}
+            </div>
 
-          <h3>
-            ${escapeHTML(
-              item.Title ||
-              "Untitled"
-            )}
-          </h3>
+            <div class="website-footer">
 
-          <div class="website-description">
-            ${escapeHTML(
-              item.Discription ||
-              "No description available."
-            )}
-          </div>
+              <button
+                class="vote-btn ${voted?"voted":""}"
+                data-vote-id="${escapeHTML(id)}">
 
-          <div class="website-footer">
+                ${voted?"↑ Voted":"↑ Upvote"}
+                · ${votes}
 
-            <button
-              class="vote-btn ${voted?"voted":""}"
-              data-vote-id="${escapeHTML(id)}">
+              </button>
 
-              ${voted?"↑ Voted":"↑ Upvote"}
-              · ${votes}
+              <button
+                class="visit-link details-list-button"
+                data-id="${escapeHTML(id)}">
 
-            </button>
+                View Details →
 
-            <button
-              class="visit-link details-list-button"
-              data-id="${escapeHTML(id)}">
+              </button>
 
-              View Details →
+            </div>
 
-            </button>
+          </article>
 
-          </div>
+        `;
 
-        </article>
+      }
+    ).join("");
 
-      `;
 
-    }).join("");
-
+  /* VOTE BUTTONS */
 
   document
-    .querySelectorAll("[data-vote-id]")
+    .querySelectorAll(
+      "[data-vote-id]"
+    )
     .forEach(btn=>{
 
       btn.addEventListener(
@@ -2696,8 +2815,12 @@ function renderListings(){
     });
 
 
+  /* DETAILS BUTTONS */
+
   document
-    .querySelectorAll(".details-list-button")
+    .querySelectorAll(
+      ".details-list-button"
+    )
     .forEach(btn=>{
 
       btn.addEventListener(
@@ -2720,24 +2843,22 @@ function renderListings(){
 
 function updateStats(){
 
-  const realListings=
-    listings.filter(
-      x=>!String(x.id)
-        .startsWith("demo-")
-    );
-
   $("statWebsites").textContent=
     listings.length;
+
 
   const totalVotes=
     Object.values(voteCounts)
       .reduce(
-        (a,b)=>a+Number(b||0),
+        (a,b)=>
+          a+Number(b||0),
         0
       );
 
+
   $("statVotes").textContent=
     totalVotes;
+
 
   const categories=
     new Set(
@@ -2745,6 +2866,7 @@ function updateStats(){
         x=>x.Category
       )
     );
+
 
   $("statCategories").textContent=
     categories.size;
@@ -2760,12 +2882,20 @@ async function voteListing(id){
 
   const item=
     listings.find(
-      x=>String(x.id)===String(id)
+      x=>
+        String(x.id)===
+        String(id)
     );
+
 
   if(!item) return;
 
-  if(myVotes.has(String(id))){
+
+  if(
+    myVotes.has(
+      String(id)
+    )
+  ){
 
     alert(
       "You have already voted for this website on this browser."
@@ -2779,7 +2909,8 @@ async function voteListing(id){
   /* DEMO LISTING */
 
   if(
-    String(id).startsWith("demo-")
+    String(id)
+      .startsWith("demo-")
   ){
 
     const local=
@@ -2789,22 +2920,36 @@ async function voteListing(id){
         ) || "{}"
       );
 
+
     local[id]=
-      Number(local[id]||0)+1;
+      Number(
+        local[id] || 0
+      )+1;
+
 
     localStorage.setItem(
       "rankboard_light_votes_v1",
       JSON.stringify(local)
     );
 
-    voteCounts[id]=
-      Number(voteCounts[id]||0)+1;
 
-    myVotes.add(String(id));
+    voteCounts[id]=
+      Number(
+        voteCounts[id] || 0
+      )+1;
+
+
+    myVotes.add(
+      String(id)
+    );
+
 
     renderTopRanked();
+
     renderMiniRanking();
+
     renderListings();
+
     updateStats();
 
     return;
@@ -2812,9 +2957,13 @@ async function voteListing(id){
   }
 
 
+  /* REAL LISTING */
+
   try{
 
-    const {error}=
+    const {
+      error
+    }=
       await supabaseClient
       .from("votes")
       .insert([{
@@ -2827,6 +2976,7 @@ async function voteListing(id){
 
       }]);
 
+
     if(error){
 
       if(
@@ -2837,7 +2987,9 @@ async function voteListing(id){
           "You have already voted for this website."
         );
 
-        myVotes.add(String(id));
+        myVotes.add(
+          String(id)
+        );
 
         renderListings();
 
@@ -2849,15 +3001,26 @@ async function voteListing(id){
 
     }
 
-    voteCounts[id]=
-      Number(voteCounts[id]||0)+1;
 
-    myVotes.add(String(id));
+    voteCounts[id]=
+      Number(
+        voteCounts[id] || 0
+      )+1;
+
+
+    myVotes.add(
+      String(id)
+    );
+
 
     renderTopRanked();
+
     renderMiniRanking();
+
     renderListings();
+
     updateStats();
+
 
   }catch(error){
 
@@ -2881,14 +3044,22 @@ async function openWebsiteDetails(id){
   currentDetailsId=
     String(id);
 
+
   const item=
     listings.find(
-      x=>String(x.id)===String(id)
+      x=>
+        String(x.id)===
+        String(id)
     );
+
 
   if(!item) return;
 
-  openModal("detailsModal");
+
+  openModal(
+    "detailsModal"
+  );
+
 
   $("detailsContent").innerHTML=
     `<div class="loading">
@@ -2904,14 +3075,20 @@ async function openWebsiteDetails(id){
           rankingScore(a)
       );
 
+
   const rank=
     ranked.findIndex(
-      x=>String(x.id)===String(id)
+      x=>
+        String(x.id)===
+        String(id)
     )+1;
+
 
   const votes=
     Number(
-      voteCounts[String(id)]||0
+      voteCounts[
+        String(id)
+      ] || 0
     );
 
 
@@ -2947,22 +3124,33 @@ async function openWebsiteDetails(id){
 
   if(
     item.owner_id &&
-    !String(id).startsWith("demo-")
+    !String(id)
+      .startsWith("demo-")
   ){
 
     try{
 
-      const {data}=await supabaseClient
+      const {
+        data
+      }=
+        await supabaseClient
         .from("profiles")
-        .select("username,bio")
-        .eq("id",item.owner_id)
+        .select(
+          "username,bio"
+        )
+        .eq(
+          "id",
+          item.owner_id
+        )
         .maybeSingle();
+
 
       if(data){
 
         const name=
           data.username ||
           "RankBoard Member";
+
 
         ownerHTML=
           `<div class="owner-box">
@@ -2975,7 +3163,8 @@ async function openWebsiteDetails(id){
 
               <div class="owner-avatar">
                 ${escapeHTML(
-                  name.charAt(0)
+                  name
+                    .charAt(0)
                     .toUpperCase()
                 )}
               </div>
@@ -3131,12 +3320,34 @@ async function openWebsiteDetails(id){
    REVIEWS
 ========================================= */
 
-async function loadReviews(listingId){
+async function loadReviews(
+  listingId
+){
 
   const area=
     $("reviewArea");
 
+
   if(!area) return;
+
+
+  /* Demo listings do not have
+     database reviews */
+
+  if(
+    String(listingId)
+      .startsWith("demo-")
+  ){
+
+    area.innerHTML=
+      `<div class="login-review-note">
+        Reviews are available for community-submitted websites.
+      </div>`;
+
+    return;
+
+  }
+
 
   const {
     data,
@@ -3153,8 +3364,11 @@ async function loadReviews(listingId){
     )
     .order(
       "created_at",
-      {ascending:false}
+      {
+        ascending:false
+      }
     );
+
 
   if(error){
 
@@ -3171,6 +3385,7 @@ async function loadReviews(listingId){
 
 
   let reviewForm="";
+
 
   if(currentUser){
 
@@ -3231,7 +3446,11 @@ async function loadReviews(listingId){
 
   let reviewsHTML="";
 
-  if(!data || !data.length){
+
+  if(
+    !data ||
+    !data.length
+  ){
 
     reviewsHTML=
       `<div class="login-review-note">
@@ -3248,99 +3467,119 @@ async function loadReviews(listingId){
       )
     ];
 
+
     let profiles={};
+
 
     if(userIds.length){
 
-      const {data:profileData}=
+      const {
+        data:profileData
+      }=
         await supabaseClient
         .from("profiles")
-        .select("id,username")
-        .in("id",userIds);
+        .select(
+          "id,username"
+        )
+        .in(
+          "id",
+          userIds
+        );
 
-      (profileData||[])
+
+      (profileData || [])
         .forEach(p=>{
-          profiles[p.id]=p.username;
+
+          profiles[p.id]=
+            p.username;
+
         });
 
     }
 
 
     reviewsHTML=
-      data.map(review=>{
+      data.map(
+        review=>{
 
-        const username=
-          profiles[review.user_id] ||
-          "RankBoard Member";
+          const username=
+            profiles[
+              review.user_id
+            ] ||
+            "RankBoard Member";
 
-        const date=
-          new Date(
-            review.created_at
-          ).toLocaleDateString(
-            undefined,
-            {
-              year:"numeric",
-              month:"short",
-              day:"numeric"
-            }
-          );
 
-        const own=
-          currentUser &&
-          currentUser.id===
-          review.user_id;
+          const date=
+            new Date(
+              review.created_at
+            ).toLocaleDateString(
+              undefined,
+              {
+                year:"numeric",
+                month:"short",
+                day:"numeric"
+              }
+            );
 
-        return `
 
-          <div class="review-item">
+          const own=
+            currentUser &&
+            currentUser.id===
+            review.user_id;
 
-            <div class="review-user">
 
-              <div class="review-avatar">
+          return `
+
+            <div class="review-item">
+
+              <div class="review-user">
+
+                <div class="review-avatar">
+                  ${escapeHTML(
+                    username
+                      .charAt(0)
+                      .toUpperCase()
+                  )}
+                </div>
+
+                <div>
+
+                  <strong>
+                    ${escapeHTML(username)}
+                  </strong>
+
+                  <span class="review-date">
+                    ${escapeHTML(date)}
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div class="review-text">
                 ${escapeHTML(
-                  username
-                    .charAt(0)
-                    .toUpperCase()
+                  review.review
                 )}
               </div>
 
-              <div>
-
-                <strong>
-                  ${escapeHTML(username)}
-                </strong>
-
-                <span class="review-date">
-                  ${escapeHTML(date)}
-                </span>
-
-              </div>
+              ${
+                own
+                ?
+                `<button
+                  class="review-delete"
+                  data-delete-review="${review.id}">
+                  Delete Review
+                </button>`
+                :
+                ""
+              }
 
             </div>
 
-            <div class="review-text">
-              ${escapeHTML(
-                review.review
-              )}
-            </div>
+          `;
 
-            ${
-              own
-              ?
-              `<button
-                class="review-delete"
-                data-delete-review="${review.id}">
-                Delete Review
-              </button>`
-              :
-              ""
-            }
-
-          </div>
-
-        `;
-
-      }).join("");
+        }
+      ).join("");
 
   }
 
@@ -3365,8 +3604,13 @@ async function loadReviews(listingId){
     ?.addEventListener(
       "click",
       ()=>{
-        closeModal("detailsModal");
-        openModal("accountModal");
+        closeModal(
+          "detailsModal"
+        );
+
+        openModal(
+          "accountModal"
+        );
       }
     );
 
@@ -3396,21 +3640,28 @@ async function loadReviews(listingId){
    POST REVIEW
 ========================================= */
 
-async function postReview(listingId){
+async function postReview(
+  listingId
+){
 
   if(!currentUser){
 
-    openModal("accountModal");
+    openModal(
+      "accountModal"
+    );
 
     return;
 
   }
 
+
   const input=
     $("reviewInput");
 
+
   const text=
     input?.value.trim();
+
 
   if(!text){
 
@@ -3423,6 +3674,7 @@ async function postReview(listingId){
     return;
 
   }
+
 
   if(text.length>1000){
 
@@ -3437,7 +3689,9 @@ async function postReview(listingId){
   }
 
 
-  const {error}=
+  const {
+    error
+  }=
     await supabaseClient
     .from("reviews")
     .insert([{
@@ -3486,7 +3740,10 @@ async function deleteReview(
 
   if(!currentUser) return;
 
-  const {error}=
+
+  const {
+    error
+  }=
     await supabaseClient
     .from("reviews")
     .delete()
@@ -3498,6 +3755,7 @@ async function deleteReview(
       "user_id",
       currentUser.id
     );
+
 
   if(error){
 
@@ -3511,6 +3769,7 @@ async function deleteReview(
 
   }
 
+
   await loadReviews(
     listingId
   );
@@ -3522,15 +3781,27 @@ async function deleteReview(
    PROFILE
 ========================================= */
 
-async function ensureProfile(user){
+async function ensureProfile(
+  user
+){
 
   if(!user) return;
 
-  const {data}=await supabaseClient
+
+  const {
+    data
+  }=
+    await supabaseClient
     .from("profiles")
-    .select("id,username,bio")
-    .eq("id",user.id)
+    .select(
+      "id,username,bio"
+    )
+    .eq(
+      "id",
+      user.id
+    )
     .maybeSingle();
+
 
   if(!data){
 
@@ -3538,6 +3809,7 @@ async function ensureProfile(user){
       user.email
         ? user.email.split("@")[0]
         : "RankBoard User";
+
 
     await supabaseClient
       .from("profiles")
@@ -3561,11 +3833,16 @@ async function loadProfile(){
 
   if(!currentUser) return;
 
+
   await ensureProfile(
     currentUser
   );
 
-  const {data,error}=
+
+  const {
+    data,
+    error
+  }=
     await supabaseClient
     .from("profiles")
     .select(
@@ -3577,6 +3854,7 @@ async function loadProfile(){
     )
     .maybeSingle();
 
+
   if(error){
 
     console.error(error);
@@ -3585,14 +3863,21 @@ async function loadProfile(){
 
   }
 
+
   $("profileEmail").textContent=
-    currentUser.email || "User";
+    currentUser.email ||
+    "User";
+
 
   $("profileUsername").value=
-    data?.username || "";
+    data?.username ||
+    "";
+
 
   $("profileBio").value=
-    data?.bio || "";
+    data?.bio ||
+    "";
+
 
   const first=
     (
@@ -3602,6 +3887,7 @@ async function loadProfile(){
     )
     .charAt(0)
     .toUpperCase();
+
 
   $("profileAvatar").textContent=
     first;
@@ -3614,7 +3900,9 @@ function updateAccountButton(){
   const btn=
     $("accountBtn");
 
+
   if(!btn) return;
+
 
   if(currentUser){
 
@@ -3640,35 +3928,51 @@ function updateAccountButton(){
    AUTH
 ========================================= */
 
-function setAuthMode(mode){
+function setAuthMode(
+  mode
+){
 
   authMode=mode;
+
 
   if(mode==="login"){
 
     $("loginTab")
-      .classList.add("active");
+      .classList.add(
+        "active"
+      );
 
     $("signupTab")
-      .classList.remove("active");
+      .classList.remove(
+        "active"
+      );
 
     $("authSubmitBtn")
-      .textContent="Login";
+      .textContent=
+      "Login";
 
   }else{
 
     $("signupTab")
-      .classList.add("active");
+      .classList.add(
+        "active"
+      );
 
     $("loginTab")
-      .classList.remove("active");
+      .classList.remove(
+        "active"
+      );
 
     $("authSubmitBtn")
-      .textContent="Create Account";
+      .textContent=
+      "Create Account";
 
   }
 
-  hideMessage("authMessage");
+
+  hideMessage(
+    "authMessage"
+  );
 
 }
 
@@ -3677,12 +3981,14 @@ async function handleAuth(){
 
   const email=
     $("authEmail")
-    .value
-    .trim();
+      .value
+      .trim();
+
 
   const password=
     $("authPassword")
-    .value;
+      .value;
+
 
   if(!email || !password){
 
@@ -3705,42 +4011,57 @@ async function handleAuth(){
 
     if(authMode==="login"){
 
-      const {data,error}=
+      const {
+        data,
+        error
+      }=
         await supabaseClient
         .auth
         .signInWithPassword({
 
           email,
+
           password
 
         });
 
+
       if(error)
         throw error;
 
+
       currentUser=
         data.user;
+
 
       await ensureProfile(
         currentUser
       );
 
+
       updateAccountButton();
+
       await loadProfile();
 
       showProfileView();
 
+
     }else{
 
-      const {data,error}=
+      const {
+        data,
+        error
+      }=
         await supabaseClient
         .auth
         .signUp({
 
           email,
+
           password
 
         });
+
 
       if(error)
         throw error;
@@ -3751,18 +4072,23 @@ async function handleAuth(){
         currentUser=
           data.user;
 
+
         await ensureProfile(
           currentUser
         );
 
+
         updateAccountButton();
+
         await loadProfile();
+
 
         showMessage(
           "authMessage",
           "Account created successfully.",
           "success"
         );
+
 
         showProfileView();
 
@@ -3778,6 +4104,7 @@ async function handleAuth(){
 
     }
 
+
   }catch(error){
 
     console.error(error);
@@ -3788,6 +4115,7 @@ async function handleAuth(){
       "Authentication failed.",
       "error"
     );
+
 
   }finally{
 
@@ -3827,13 +4155,17 @@ async function logout(){
     .auth
     .signOut();
 
+
   currentUser=null;
+
 
   updateAccountButton();
 
   showAuthView();
 
-  closeModal("accountModal");
+  closeModal(
+    "accountModal"
+  );
 
 }
 
@@ -3846,15 +4178,18 @@ async function saveProfile(){
 
   if(!currentUser) return;
 
+
   const username=
     $("profileUsername")
-    .value
-    .trim();
+      .value
+      .trim();
+
 
   const bio=
     $("profileBio")
-    .value
-    .trim();
+      .value
+      .trim();
+
 
   if(!username){
 
@@ -3869,7 +4204,9 @@ async function saveProfile(){
   }
 
 
-  const {error}=
+  const {
+    error
+  }=
     await supabaseClient
     .from("profiles")
     .upsert({
@@ -3890,7 +4227,10 @@ async function saveProfile(){
 
     console.error(error);
 
-    if(error.code==="23505"){
+
+    if(
+      error.code==="23505"
+    ){
 
       showMessage(
         "profileMessage",
@@ -3930,27 +4270,32 @@ async function submitWebsite(){
 
   const title=
     $("submitTitle")
-    .value
-    .trim();
+      .value
+      .trim();
+
 
   const description=
     $("submitDescription")
-    .value
-    .trim();
+      .value
+      .trim();
+
 
   const category=
     $("submitCategory")
-    .value;
+      .value;
+
 
   const url=
     $("submitUrl")
-    .value
-    .trim();
+      .value
+      .trim();
 
 
-  if(!title ||
-     !description ||
-     !url){
+  if(
+    !title ||
+    !description ||
+    !url
+  ){
 
     showMessage(
       "submitMessage",
@@ -3984,7 +4329,9 @@ async function submitWebsite(){
     .disabled=true;
 
 
-  const {error}=
+  const {
+    error
+  }=
     await supabaseClient
     .from("Listings")
     .insert([{
@@ -4022,8 +4369,10 @@ async function submitWebsite(){
       "error"
     );
 
+
     $("submitWebsiteBtn")
       .disabled=false;
+
 
     return;
 
@@ -4038,8 +4387,11 @@ async function submitWebsite(){
 
 
   $("submitTitle").value="";
+
   $("submitDescription").value="";
+
   $("submitUrl").value="";
+
 
   $("submitWebsiteBtn")
     .disabled=false;
@@ -4051,19 +4403,28 @@ async function submitWebsite(){
    ADMIN
 ========================================= */
 
-async function isAdmin(user){
+async function isAdmin(
+  user
+){
 
   if(!user) return false;
 
-  const {data,error}=
+
+  const {
+    data,
+    error
+  }=
     await supabaseClient
     .from("rankboard_admins")
-    .select("user_id")
+    .select(
+      "user_id"
+    )
     .eq(
       "user_id",
       user.id
     )
     .maybeSingle();
+
 
   if(error){
 
@@ -4072,6 +4433,7 @@ async function isAdmin(user){
     return false;
 
   }
+
 
   return !!data;
 
@@ -4082,12 +4444,13 @@ async function adminLogin(){
 
   const email=
     $("adminEmail")
-    .value
-    .trim();
+      .value
+      .trim();
+
 
   const password=
     $("adminPassword")
-    .value;
+      .value;
 
 
   if(!email || !password){
@@ -4103,12 +4466,16 @@ async function adminLogin(){
   }
 
 
-  const {data,error}=
+  const {
+    data,
+    error
+  }=
     await supabaseClient
     .auth
     .signInWithPassword({
 
       email,
+
       password
 
     });
@@ -4132,11 +4499,13 @@ async function adminLogin(){
       data.user
     );
 
+
   if(!admin){
 
     await supabaseClient
       .auth
       .signOut();
+
 
     showMessage(
       "adminLoginMessage",
@@ -4152,13 +4521,16 @@ async function adminLogin(){
   currentUser=
     data.user;
 
+
   closeModal(
     "adminLoginModal"
   );
 
+
   openModal(
     "adminPanelModal"
   );
+
 
   loadAdminPanel();
 
@@ -4170,20 +4542,29 @@ async function loadAdminPanel(){
   const container=
     $("adminPanelContent");
 
+
   container.innerHTML=
     `<div class="loading">
       Loading pending websites...
     </div>`;
 
 
-  const {data,error}=
+  const {
+    data,
+    error
+  }=
     await supabaseClient
     .from("Listings")
     .select("*")
-    .eq("Status","pending")
+    .eq(
+      "Status",
+      "pending"
+    )
     .order(
       "created_at",
-      {ascending:false}
+      {
+        ascending:false
+      }
     );
 
 
@@ -4201,7 +4582,10 @@ async function loadAdminPanel(){
   }
 
 
-  if(!data || !data.length){
+  if(
+    !data ||
+    !data.length
+  ){
 
     container.innerHTML=
       `<div class="empty">
@@ -4217,58 +4601,60 @@ async function loadAdminPanel(){
     `<div class="admin-list">
 
       ${
-        data.map(item=>`
+        data.map(
+          item=>`
 
-          <div class="admin-item">
+            <div class="admin-item">
 
-            <h3>
-              ${escapeHTML(
-                item.Title
-              )}
-            </h3>
-
-            <p>
-              ${escapeHTML(
-                item.Discription
-              )}
-            </p>
-
-            <div class="admin-meta">
-
-              <span class="ranking-category">
+              <h3>
                 ${escapeHTML(
-                  item.Category ||
-                  "Other"
+                  item.Title
                 )}
-              </span>
+              </h3>
+
+              <p>
+                ${escapeHTML(
+                  item.Discription
+                )}
+              </p>
+
+              <div class="admin-meta">
+
+                <span class="ranking-category">
+                  ${escapeHTML(
+                    item.Category ||
+                    "Other"
+                  )}
+                </span>
+
+              </div>
+
+              <p>
+                ${escapeHTML(
+                  item.Website_url
+                )}
+              </p>
+
+              <div class="admin-actions">
+
+                <button
+                  class="btn btn-success"
+                  data-approve="${item.id}">
+                  Approve
+                </button>
+
+                <button
+                  class="btn btn-danger"
+                  data-reject="${item.id}">
+                  Reject
+                </button>
+
+              </div>
 
             </div>
 
-            <p>
-              ${escapeHTML(
-                item.Website_url
-              )}
-            </p>
-
-            <div class="admin-actions">
-
-              <button
-                class="btn btn-success"
-                data-approve="${item.id}">
-                Approve
-              </button>
-
-              <button
-                class="btn btn-danger"
-                data-reject="${item.id}">
-                Reject
-              </button>
-
-            </div>
-
-          </div>
-
-        `).join("")
+          `
+        ).join("")
       }
 
     </div>`;
@@ -4319,7 +4705,9 @@ async function updateListingStatus(
   status
 ){
 
-  const {error}=
+  const {
+    error
+  }=
     await supabaseClient
     .from("Listings")
     .update({
@@ -4329,6 +4717,7 @@ async function updateListingStatus(
       "id",
       Number(id)
     );
+
 
   if(error){
 
@@ -4345,7 +4734,10 @@ async function updateListingStatus(
 
   await loadAdminPanel();
 
-  if(status==="approved"){
+
+  if(
+    status==="approved"
+  ){
 
     await loadListings();
 
@@ -4362,8 +4754,9 @@ async function sendResetLink(){
 
   const email=
     $("forgotEmail")
-    .value
-    .trim();
+      .value
+      .trim();
+
 
   if(!email){
 
@@ -4378,7 +4771,9 @@ async function sendResetLink(){
   }
 
 
-  const {error}=
+  const {
+    error
+  }=
     await supabaseClient
     .auth
     .resetPasswordForEmail(
@@ -4416,14 +4811,18 @@ async function updatePassword(){
 
   const password=
     $("newPassword")
-    .value;
+      .value;
+
 
   const confirm=
     $("confirmPassword")
-    .value;
+      .value;
 
 
-  if(!password || !confirm){
+  if(
+    !password ||
+    !confirm
+  ){
 
     showMessage(
       "resetMessage",
@@ -4436,7 +4835,9 @@ async function updatePassword(){
   }
 
 
-  if(password!==confirm){
+  if(
+    password!==confirm
+  ){
 
     showMessage(
       "resetMessage",
@@ -4449,7 +4850,9 @@ async function updatePassword(){
   }
 
 
-  const {error}=
+  const {
+    error
+  }=
     await supabaseClient
     .auth
     .updateUser({
@@ -4479,8 +4882,13 @@ async function updatePassword(){
 
   setTimeout(
     ()=>{
-      closeModal("resetModal");
-      openModal("accountModal");
+      closeModal(
+        "resetModal"
+      );
+
+      openModal(
+        "accountModal"
+      );
     },
     1200
   );
@@ -4492,27 +4900,38 @@ async function updatePassword(){
    EVENTS
 ========================================= */
 
+
+/* SUBMIT */
+
 $("submitOpenBtn")
   .addEventListener(
     "click",
     ()=>{
-      openModal("submitModal");
+      openModal(
+        "submitModal"
+      );
     }
   );
+
 
 $("heroSubmitBtn")
   .addEventListener(
     "click",
     ()=>{
-      openModal("submitModal");
+      openModal(
+        "submitModal"
+      );
     }
   );
+
 
 $("ctaSubmitBtn")
   .addEventListener(
     "click",
     ()=>{
-      openModal("submitModal");
+      openModal(
+        "submitModal"
+      );
     }
   );
 
@@ -4521,17 +4940,23 @@ $("submitClose")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("submitModal");
+      closeModal(
+        "submitModal"
+      );
     }
   );
+
 
 $("submitCancel")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("submitModal");
+      closeModal(
+        "submitModal"
+      );
     }
   );
+
 
 $("submitWebsiteBtn")
   .addEventListener(
@@ -4540,16 +4965,22 @@ $("submitWebsiteBtn")
   );
 
 
+/* ACCOUNT */
+
 $("accountBtn")
   .addEventListener(
     "click",
     async ()=>{
 
-      openModal("accountModal");
+      openModal(
+        "accountModal"
+      );
+
 
       if(currentUser){
 
         await loadProfile();
+
         showProfileView();
 
       }else{
@@ -4569,7 +5000,9 @@ $("footerAccount")
 
       event.preventDefault();
 
-      openModal("accountModal");
+      openModal(
+        "accountModal"
+      );
 
     }
   );
@@ -4579,16 +5012,22 @@ $("accountClose")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("accountModal");
+      closeModal(
+        "accountModal"
+      );
     }
   );
 
+
+/* AUTH */
 
 $("loginTab")
   .addEventListener(
     "click",
     ()=>{
-      setAuthMode("login");
+      setAuthMode(
+        "login"
+      );
     }
   );
 
@@ -4597,7 +5036,9 @@ $("signupTab")
   .addEventListener(
     "click",
     ()=>{
-      setAuthMode("signup");
+      setAuthMode(
+        "signup"
+      );
     }
   );
 
@@ -4623,14 +5064,20 @@ $("saveProfileBtn")
   );
 
 
+/* FORGOT PASSWORD */
+
 $("forgotPasswordBtn")
   .addEventListener(
     "click",
     ()=>{
 
-      closeModal("accountModal");
+      closeModal(
+        "accountModal"
+      );
 
-      openModal("forgotModal");
+      openModal(
+        "forgotModal"
+      );
 
     }
   );
@@ -4640,7 +5087,9 @@ $("forgotClose")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("forgotModal");
+      closeModal(
+        "forgotModal"
+      );
     }
   );
 
@@ -4649,7 +5098,9 @@ $("forgotCancel")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("forgotModal");
+      closeModal(
+        "forgotModal"
+      );
     }
   );
 
@@ -4668,20 +5119,28 @@ $("updatePasswordBtn")
   );
 
 
+/* DETAILS */
+
 $("detailsClose")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("detailsModal");
+      closeModal(
+        "detailsModal"
+      );
     }
   );
 
+
+/* ADMIN */
 
 $("adminLoginBtn")
   .addEventListener(
     "click",
     ()=>{
-      openModal("adminLoginModal");
+      openModal(
+        "adminLoginModal"
+      );
     }
   );
 
@@ -4690,7 +5149,9 @@ $("adminLoginClose")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("adminLoginModal");
+      closeModal(
+        "adminLoginModal"
+      );
     }
   );
 
@@ -4706,10 +5167,19 @@ $("adminPanelClose")
   .addEventListener(
     "click",
     ()=>{
-      closeModal("adminPanelModal");
+      closeModal(
+        "adminPanelModal"
+      );
     }
   );
 
+
+/* =========================================
+   SEARCH
+========================================= */
+
+
+/* Search while typing */
 
 $("searchInput")
   .addEventListener(
@@ -4718,17 +5188,56 @@ $("searchInput")
   );
 
 
+/* Search button */
+
 $("searchBtn")
   .addEventListener(
     "click",
-    renderListings
+    ()=>{
+      renderListings();
+
+      $("explore")
+        .scrollIntoView({
+          behavior:"smooth"
+        });
+    }
   );
 
 
-/* FILTERS */
+/* Search with Enter */
+
+$("searchInput")
+  .addEventListener(
+    "keydown",
+    event=>{
+
+      if(
+        event.key==="Enter"
+      ){
+
+        event.preventDefault();
+
+        renderListings();
+
+        $("explore")
+          .scrollIntoView({
+            behavior:"smooth"
+          });
+
+      }
+
+    }
+  );
+
+
+/* =========================================
+   FILTERS
+========================================= */
 
 document
-  .querySelectorAll(".filter-btn")
+  .querySelectorAll(
+    ".filter-btn"
+  )
   .forEach(btn=>{
 
     btn.addEventListener(
@@ -4745,10 +5254,15 @@ document
             )
           );
 
-        btn.classList.add("active");
+
+        btn.classList.add(
+          "active"
+        );
+
 
         currentFilter=
           btn.dataset.filter;
+
 
         renderListings();
 
@@ -4758,7 +5272,9 @@ document
   });
 
 
-/* CATEGORIES */
+/* =========================================
+   CATEGORIES
+========================================= */
 
 document
   .querySelectorAll(
@@ -4772,6 +5288,7 @@ document
 
         currentFilter=
           card.dataset.category;
+
 
         document
           .querySelectorAll(
@@ -4787,8 +5304,12 @@ document
 
           });
 
+
         $("explore")
-          .scrollIntoView();
+          .scrollIntoView({
+            behavior:"smooth"
+          });
+
 
         renderListings();
 
@@ -4798,10 +5319,14 @@ document
   });
 
 
-/* MODAL BACKDROP */
+/* =========================================
+   MODAL BACKDROP
+========================================= */
 
 document
-  .querySelectorAll(".modal")
+  .querySelectorAll(
+    ".modal"
+  )
   .forEach(modal=>{
 
     modal.addEventListener(
@@ -4809,7 +5334,8 @@ document
       event=>{
 
         if(
-          event.target===modal
+          event.target===
+          modal
         ){
 
           modal.classList.remove(
@@ -4831,12 +5357,18 @@ document
 supabaseClient
   .auth
   .onAuthStateChange(
-    async (event,session)=>{
+    async (
+      event,
+      session
+    )=>{
 
       currentUser=
-        session?.user || null;
+        session?.user ||
+        null;
+
 
       updateAccountButton();
+
 
       if(currentUser){
 
@@ -4863,11 +5395,14 @@ async function initialize(){
     .auth
     .getSession();
 
+
   currentUser=
     data?.session?.user ||
     null;
 
+
   updateAccountButton();
+
 
   if(currentUser){
 
@@ -4877,6 +5412,7 @@ async function initialize(){
 
   }
 
+
   await loadListings();
 
 
@@ -4884,6 +5420,7 @@ async function initialize(){
 
   const hash=
     window.location.hash;
+
 
   if(
     hash.includes(
@@ -4898,6 +5435,7 @@ async function initialize(){
   }
 
 }
+
 
 initialize();
 
