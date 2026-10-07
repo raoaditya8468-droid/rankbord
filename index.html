@@ -2565,52 +2565,41 @@ function getVoterId(){
 async function loadVotes(){
 
   voteCounts={};
-
   myVotes=new Set();
 
-  const localVotes=
-    JSON.parse(
-      localStorage.getItem(
-        "rankboard_light_votes_v1"
-      ) || "{}"
-    );
-
-
-  Object.keys(localVotes)
-    .forEach(id=>{
-
-      voteCounts[id]=
-        Number(localVotes[id] || 0);
-
-    });
-
+  /* LOAD REAL VOTES FROM SUPABASE */
 
   const {
     data,
     error
-  }=
+  } =
     await supabaseClient
-    .from("votes")
-    .select(
-      "listing_id,voter_id"
+      .from("votes")
+      .select(
+        "listing_id,voter_id"
+      );
+
+  if(error){
+
+    console.error(
+      "Vote loading error:",
+      error
     );
 
+  }else{
 
-  if(!error && data){
+    (data || []).forEach(v=>{
 
-    data.forEach(v=>{
-
-      const id=
+      const id =
         String(v.listing_id);
 
-      voteCounts[id]=
+      voteCounts[id] =
         Number(
           voteCounts[id] || 0
-        )+1;
-
+        ) + 1;
 
       if(
-        v.voter_id===
+        v.voter_id ===
         getVoterId()
       ){
 
@@ -2621,6 +2610,34 @@ async function loadVotes(){
     });
 
   }
+
+
+  /* LOAD LOCAL VOTES ONLY FOR DEMO WEBSITES */
+
+  const localVotes =
+    JSON.parse(
+      localStorage.getItem(
+        "rankboard_light_votes_v1"
+      ) || "{}"
+    );
+
+
+  Object.keys(
+    localVotes
+  ).forEach(id=>{
+
+    if(
+      String(id).startsWith("demo-")
+    ){
+
+      voteCounts[id] =
+        Number(
+          localVotes[id] || 0
+        );
+
+    }
+
+  });
 
 }
 
