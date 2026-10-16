@@ -2625,9 +2625,10 @@ async function loadVotes() {
 
   if (error) {
     console.error("Vote loading error:", error);
+    alert("Vote loading failed: " + error.message);
     return;
   }
-
+console.log("Votes loaded successfully:", data);
   (data || []).forEach((vote) => {
     const id = String(vote.listing_id);
 
