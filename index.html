@@ -2622,7 +2622,7 @@ async function loadVotes() {
   const { data, error } = await supabaseClient
     .from("votes")
     .select("listing_id, voter_id");
-
+console.log("Vote query result:", { data, error });
   if (error) {
     console.error("Vote loading error:", error);
     return;
