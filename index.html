@@ -2615,85 +2615,39 @@ function getVoterId(){
    LOAD VOTES
 ========================================= */
 
-async function loadVotes(){
+async function loadVotes() {
+  voteCounts = {};
+  myVotes = new Set();
 
-  voteCounts={};
-  myVotes=new Set();
+  const { data, error } = await supabaseClient
+    .from("votes")
+    .select("listing_id, voter_id");
 
-  /* LOAD REAL VOTES FROM SUPABASE */
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("votes")
-      .select(
-        "listing_id,voter_id"
-      );
-
-  if(error){
-
-    console.error(
-      "Vote loading error:",
-      error
-    );
-
-  }else{
-
-    (data || []).forEach(v=>{
-
-      const id =
-        String(v.listing_id);
-
-      voteCounts[id] =
-        Number(
-          voteCounts[id] || 0
-        ) + 1;
-
-      if(
-        v.voter_id ===
-        getVoterId()
-      ){
-
-        myVotes.add(id);
-
-      }
-
-    });
-
+  if (error) {
+    console.error("Vote loading error:", error);
+    return;
   }
 
+  (data || []).forEach((vote) => {
+    const id = String(vote.listing_id);
 
-  /* LOAD LOCAL VOTES ONLY FOR DEMO WEBSITES */
+    voteCounts[id] = (voteCounts[id] || 0) + 1;
 
-  const localVotes =
-    JSON.parse(
-      localStorage.getItem(
-        "rankboard_light_votes_v1"
-      ) || "{}"
-    );
-
-
-  Object.keys(
-    localVotes
-  ).forEach(id=>{
-
-    if(
-      String(id).startsWith("demo-")
-    ){
-
-      voteCounts[id] =
-        Number(
-          localVotes[id] || 0
-        );
-
+    if (vote.voter_id === getVoterId()) {
+      myVotes.add(id);
     }
-
   });
 
-}
+  const localVotes = JSON.parse(
+    localStorage.getItem("rankboard_light_votes_v1") || "{}"
+  );
 
+  Object.keys(localVotes).forEach((id) => {
+    if (id.startsWith("demo-")) {
+      voteCounts[id] = Number(localVotes[id] || 0);
+    }
+  });
+}
 
 /* =========================================
    LOAD LISTINGS
