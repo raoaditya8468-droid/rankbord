@@ -2625,10 +2625,15 @@ async function loadVotes() {
 
   if (error) {
     console.error("Vote loading error:", error);
-    alert("Vote loading failed: " + error.message);
     return;
   }
-console.log("Votes loaded successfully:", data);
+console.log("Vote loading status:", {
+  user: (await supabaseClient.auth.getSession()).data.session
+    ? "authenticated"
+    : "anonymous",
+  count: (data || []).length,
+  votes: data
+});
   (data || []).forEach((vote) => {
     const id = String(vote.listing_id);
 
