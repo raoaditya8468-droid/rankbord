@@ -2681,21 +2681,13 @@ async function loadListings(){
 
 
     if(error){
-
-      console.error(error);
-
-      listings=[
-        ...DEMO_LISTINGS
-      ];
-
-    }else{
-
-      listings=[
-        ...DEMO_LISTINGS,
-        ...(data || [])
-      ];
-
-    }
+  console.error("Listings loading error:", error);
+  alert("Listings error: " + error.message);
+  listings=[...DEMO_LISTINGS];
+}else{
+  console.log("Listings loaded:", data);
+  listings=[...DEMO_LISTINGS,...(data||[])];
+}
 
 
     await loadVotes();
